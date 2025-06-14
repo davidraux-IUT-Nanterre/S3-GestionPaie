@@ -72,7 +72,7 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#explorer" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Décortiqueur de Paie</a>
                         <a href="#framework" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Cadre Légal</a>
-                        <a href="#stakes" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse & Correction</a>
+                        <a href="#stakes" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse & Concepts Clés</a>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@
 
         <!-- Section 3: Strategic Stakes -->
         <section id="stakes" class="my-16 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Points Clés (Correction)</h3>
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Concepts Clés</h3>
             <div id="accordion-container" class="space-y-4 max-w-4xl mx-auto">
                  <!-- Accordion items will be injected here -->
             </div>
@@ -156,52 +156,52 @@
                     urssaf: { id: 'urssaf', label: 'URSSAF', value: 'Paris (75)', explanation: 'Organisme de recouvrement des cotisations sociales.' },
                     employee: { id: 'employee', label: 'Salarié(e)', value: 'M. Jean Dupont', explanation: 'Nom et prénom du salarié.' },
                     ssn: { id: 'ssn', label: 'N° Sécurité Sociale', value: '1 85 01 75 123 456', explanation: 'Numéro d\'inscription au répertoire des personnes physiques (NIR), clé d\'identification pour la protection sociale.' },
-                    job: { id: 'job', label: 'Emploi', value: 'Développeur Web', explanation: 'Intitulé du poste occupé par le salarié.' },
-                    classification: { id: 'classification', label: 'Classification', value: 'Cadre, Pos. 2.2, Coeff. 130', explanation: 'Positionnement du salarié dans la grille de la convention collective, déterminant souvent le salaire minimum.' },
+                    job: { id: 'job', label: 'Emploi', value: 'Assistant RH', explanation: 'Intitulé du poste occupé par le salarié.' },
+                    classification: { id: 'classification', label: 'Classification', value: 'Employé, Niv. III, Coeff. 240', explanation: 'Positionnement du salarié dans la grille de la convention collective, déterminant souvent le salaire minimum.' },
                     period: { id: 'period', label: 'Période', value: '01/05/2025 au 31/05/2025', explanation: 'Période de travail correspondant à la rémunération.' }
                 },
                 rows: [
                     { id: 'brut_header', type: 'subheader', label: 'Salaire Brut'},
-                    { id: 'base_salary', label: 'Salaire de base', base: '151,67', rate: '19,779', gain: 3000.00, explanation: 'Rémunération fixe pour le nombre d\'heures contractuelles (151,67h pour 35h/semaine). C\'est le produit du nombre d\'heures par le taux horaire.' },
-                    { id: 'brut', type: 'header', label: 'Total Brut', gain: 3000.00, explanation: 'Somme de toutes les rémunérations avant déduction des cotisations salariales. C\'est la base de calcul principale.'},
+                    { id: 'base_salary', label: 'Salaire de base', base: '151,67', rate: '14,504', gain: 2200.00, explanation: 'Rémunération fixe pour le nombre d\'heures contractuelles (151,67h pour 35h/semaine). C\'est le produit du nombre d\'heures par le taux horaire.' },
+                    { id: 'brut', type: 'header', label: 'Total Brut', gain: 2200.00, explanation: 'Somme de toutes les rémunérations avant déduction des cotisations salariales. C\'est la base de calcul principale.'},
                     
                     { id: 'sante_header', type: 'subheader', label: 'Santé'},
-                    { id: 'secu_maladie', label: 'Sécurité sociale - Maladie Maternité Invalidité Décès', base: '3000,00', rate_s: '0,00%', rate_p: '13,00%', gain: null, deduction_s: 0, deduction_p: 390.00, explanation: 'Cotisation finançant les prestations de l\'Assurance Maladie. Pour les salaires inférieurs à 2,5 SMIC, la part salariale est supprimée, mais la part patronale reste due.' },
-                    { id: 'comp_sante', label: 'Complémentaire santé (Mutuelle)', base: '3000,00', rate_s: '1,00%', rate_p: '1,00%', gain: null, deduction_s: 30.00, deduction_p: 30.00, explanation: 'Finance le remboursement complémentaire des frais de santé. La participation de l\'employeur est un avantage pour le salarié.' },
+                    { id: 'secu_maladie', label: 'Sécurité sociale - Maladie Maternité Invalidité Décès', base: '2200,00', rate_s: '0,00%', rate_p: '7,00%', gain: null, deduction_s: 0.00, deduction_p: 154.00, explanation: 'Cotisation finançant les prestations de l\'Assurance Maladie. Pour les salaires inférieurs à 2,5 SMIC, la part salariale est supprimée et le taux patronal est réduit à 7% (au lieu de 13%).' },
+                    { id: 'comp_sante', label: 'Complémentaire santé (Mutuelle)', base: '2200,00', rate_s: '1,00%', rate_p: '1,00%', gain: null, deduction_s: 22.00, deduction_p: 22.00, explanation: 'Finance le remboursement complémentaire des frais de santé. La participation de l\'employeur est un avantage pour le salarié.' },
                     
                     { id: 'retraite_header', type: 'subheader', label: 'Retraite'},
-                    { id: 'secu_plaf', label: 'Sécurité sociale plafonnée', base: '3000,00', rate_s: '6,90%', rate_p: '8,55%', gain: null, deduction_s: 207.00, deduction_p: 256.50, explanation: 'Cotisation pour la retraite de base, calculée sur la partie du salaire inférieure au Plafond de la Sécurité Sociale (PSS).' },
-                    { id: 'secu_deplaf', label: 'Sécurité sociale déplafonnée', base: '3000,00', rate_s: '0,40%', rate_p: '1,90%', gain: null, deduction_s: 12.00, deduction_p: 57.00, explanation: 'Cotisation pour la retraite de base, calculée sur la totalité du salaire brut.' },
-                    { id: 'ret_comp_t1', label: 'Complémentaire Tranche 1', base: '3000,00', rate_s: '3,15%', rate_p: '4,72%', gain: null, deduction_s: 94.50, deduction_p: 141.60, explanation: 'Cotisation pour la retraite complémentaire (Agirc-Arrco) sur la partie du salaire inférieure au PSS.' },
+                    { id: 'secu_plaf', label: 'Sécurité sociale plafonnée', base: '2200,00', rate_s: '6,90%', rate_p: '8,55%', gain: null, deduction_s: 151.80, deduction_p: 188.10, explanation: 'Cotisation pour la retraite de base, calculée sur la partie du salaire inférieure au Plafond de la Sécurité Sociale (PSS).' },
+                    { id: 'secu_deplaf', label: 'Sécurité sociale déplafonnée', base: '2200,00', rate_s: '0,40%', rate_p: '1,90%', gain: null, deduction_s: 8.80, deduction_p: 41.80, explanation: 'Cotisation pour la retraite de base, calculée sur la totalité du salaire brut.' },
+                    { id: 'ret_comp_t1', label: 'Complémentaire Tranche 1', base: '2200,00', rate_s: '3,15%', rate_p: '4,72%', gain: null, deduction_s: 69.30, deduction_p: 103.84, explanation: 'Cotisation pour la retraite complémentaire (Agirc-Arrco) sur la partie du salaire inférieure au PSS.' },
 
                     { id: 'chomage_header', type: 'subheader', label: 'Famille - Chômage (Contributions employeur)'},
-                    { id: 'chomage_cot', label: 'Assurance chômage', base: '3000,00', rate_p: '4,05%', deduction_p: 121.50, explanation: 'Contribution exclusivement patronale finançant le régime d\'assurance chômage.' },
-                     { id: 'famille_cot', label: 'Allocations familiales', base: '3000,00', rate_p: '3,45%', deduction_p: 103.50, explanation: 'Contribution patronale pour financer les prestations familiales. Le taux peut être réduit pour les bas salaires.' },
-
-                    { id: 'net_social', type: 'header', label: 'Montant net social', gain: 2656.50, explanation: 'Montant de référence à déclarer pour bénéficier de certaines prestations sociales (Prime d\'activité, RSA). Il est calculé à partir du salaire brut après déduction de certaines cotisations spécifiques.' },
+                    { id: 'chomage_cot', label: 'Assurance chômage', base: '2200,00', rate_p: '4,05%', deduction_p: 89.10, explanation: 'Contribution exclusivement patronale finançant le régime d\'assurance chômage.' },
+                    { id: 'famille_cot', label: 'Allocations familiales', base: '2200,00', rate_p: '3,45%', deduction_p: 75.90, explanation: 'Contribution patronale pour financer les prestations familiales. Le taux est réduit pour les salaires sous 2,5 SMIC.' },
+                    
+                    { id: 'net_social', type: 'header', label: 'Montant net social', gain: 1948.10, explanation: 'Montant de référence à déclarer pour bénéficier de certaines prestations sociales (Prime d\'activité, RSA). Il est calculé à partir du salaire brut après déduction de certaines cotisations spécifiques.' },
 
                     { id: 'csg_crds_header', type: 'subheader', label: 'CSG / CRDS'},
-                    { id: 'csg_deduct', label: 'CSG déductible de l\'impôt', base: '2955,00', rate_s: '6,80%', deduction_s: 200.94, explanation: 'Contribution Sociale Généralisée. Cette partie est déductible du revenu imposable, diminuant ainsi la base de calcul de l\'impôt.'},
-                    { id: 'csg_nondeduct', label: 'CSG/CRDS non déductible de l\'impôt', base: '2955,00', rate_s: '2,90%', deduction_s: 85.70, explanation: 'Cette partie de la CSG et la CRDS (Contribution au Remboursement de la Dette Sociale) ne sont pas déductibles du revenu imposable.'},
+                    { id: 'csg_deduct', label: 'CSG déductible de l\'impôt', base: '2164.80', rate_s: '6,80%', deduction_s: 147.21, explanation: 'Contribution Sociale Généralisée. Cette partie est déductible du revenu imposable, diminuant ainsi la base de calcul de l\'impôt.'},
+                    { id: 'csg_nondeduct', label: 'CSG/CRDS non déductible de l\'impôt', base: '2164.80', rate_s: '2,90%', deduction_s: 62.78, explanation: 'Cette partie de la CSG et la CRDS (Contribution au Remboursement de la Dette Sociale) ne sont pas déductibles du revenu imposable.'},
                     
-                    { id: 'net_imposable', type: 'header', label: 'Net imposable', gain: 2680.36, explanation: 'Base sur laquelle est calculé l\'impôt sur le revenu. Il correspond au salaire brut moins les cotisations salariales déductibles.' },
+                    { id: 'net_imposable', type: 'header', label: 'Net imposable', gain: 1729.91, explanation: 'Base sur laquelle est calculé l\'impôt sur le revenu. Il correspond au salaire brut moins les cotisations salariales déductibles.' },
 
                     { id: 'allegements_header', type: 'subheader', label: 'Allègements de cotisations employeur'},
-                    { id: 'reduction_gen', label: 'Réduction générale', gain: 178.10, explanation: 'Aussi appelée "Zéro cotisation Urssaf", c\'est une réduction des cotisations patronales pour les salaires inférieurs à 1,6 SMIC. Elle vise à diminuer le coût du travail.' }
+                    { id: 'reduction_gen', label: 'Réduction générale', gain: 217.56, explanation: 'Aussi appelée "Réduction Fillon", c\'est une réduction des cotisations patronales pour les salaires inférieurs à 1,6 SMIC. Elle vise à diminuer le coût du travail sur les bas et moyens salaires. Son montant est dégressif et s\'annule à 1,6 SMIC.' }
                 ],
                 footer: {
-                    total_salarial: {id: 'total_salarial', value: 620.14},
-                    total_patronal: {id: 'total_patronal', value: 818.50},
-                    net_avant_impot: {id: 'net_avant_impot', value: 2379.86, explanation: 'Le salaire net avant impôt est le résultat du salaire brut moins le total des cotisations salariales. C\'est ce que le salarié toucherait si l\'impôt n\'était pas prélevé à la source.' },
-                    pas: {id: 'pas', taux: '9,00 %', base: '2 680,36 €', montant: 241.23, explanation: 'Prélèvement à la Source de l\'impôt sur le revenu. Le montant est calculé en appliquant le taux personnalisé (communiqué par l\'administration fiscale) à la base du net imposable.'},
-                    net_a_payer: {id: 'net_a_payer', value: 2138.63, explanation: 'Le net à payer est le montant final qui sera versé sur le compte bancaire du salarié. C\'est le net avant impôt moins le prélèvement à la source.'},
-                    cout_total: {id: 'cout_total', value: 3640.40, explanation: 'Le coût total pour l\'employeur est la somme du salaire brut et des cotisations patronales, après déduction des allègements de charges. C\'est le coût réel du salarié pour l\'entreprise.'},
+                    total_salarial: {id: 'total_salarial', value: 461.89},
+                    total_patronal: {id: 'total_patronal', value: 674.74},
+                    net_avant_impot: {id: 'net_avant_impot', value: 1738.11, explanation: 'Le salaire net avant impôt est le résultat du salaire brut moins le total des cotisations salariales. C\'est ce que le salarié toucherait si l\'impôt n\'était pas prélevé à la source.' },
+                    pas: {id: 'pas', taux: '2,50 %', base: '1729.91', montant: 43.25, explanation: 'Prélèvement à la Source de l\'impôt sur le revenu. Le montant est calculé en appliquant le taux personnalisé (communiqué par l\'administration fiscale) à la base du net imposable.'},
+                    net_a_payer: {id: 'net_a_payer', value: 1694.86, explanation: 'Le net à payer est le montant final qui sera versé sur le compte bancaire du salarié. C\'est le net avant impôt moins le prélèvement à la source.'},
+                    cout_total: {id: 'cout_total', value: 2657.18, explanation: 'Le coût total pour l\'employeur est la somme du salaire brut et des cotisations patronales, après déduction des allègements de charges. C\'est le coût réel du salarié pour l\'entreprise.'},
                     conges: {id: 'conges', acquis: '2.08', pris: '0', solde: '15.00', explanation: 'Suivi des droits à congés payés du salarié, en jours ouvrés ou ouvrables.'},
                 }
             };
             
             const pyramidLevels = [
-                { id: 'const', label: 'Bloc de constitutionnalité', color: 'bg-gray-800', text: 'Niveau suprême. Il inclut la Constitution et les principes fondamentaux. <strong>Exemple concret :</strong> Le principe "à travail égal, salaire égal" entre les femmes et les hommes, qui interdit toute discrimination salariale.'},
+                { id: 'const', label: 'Bloc de constitutionnalité', color: 'bg-gray-800', text: 'Niveau suprême. Il inclut la Constitution de 1958, la Déclaration des Droits de l\'Homme et du Citoyen de 1789 et le préambule de la Constitution de 1946. Aucune loi ne peut y être contraire. <strong>Exemple concret :</strong> Le principe "à travail égal, salaire égal", qui interdit la discrimination salariale.'},
                 { id: 'conv', label: 'Bloc de conventionalité', color: 'bg-gray-700', text: 'Sources internationales et européennes. <strong>Exemple concret :</strong> Une directive européenne imposant un temps de repos minimal de 11 heures consécutives par jour s\'applique à toutes les entreprises françaises.'},
                 { id: 'loi', label: 'Loi (Sources étatiques)', color: 'bg-gray-600', text: 'Le Code du Travail, les lois et les décrets. <strong>Exemple concret :</strong> La loi qui fixe le montant du SMIC (Salaire Minimum Interprofessionnel de Croissance) que personne ne peut gagner en dessous pour un temps plein.'},
                 { id: 'coll', label: 'Sources professionnelles négociées', color: 'bg-slate-500', text: 'Conventions collectives et accords de branche, de groupe ou d\'entreprise. <strong>Exemple concret :</strong> La convention collective de la Métallurgie qui prévoit une prime d\'ancienneté calculée en pourcentage du salaire minimum conventionnel.'},
@@ -209,9 +209,9 @@
             ];
 
             const accordionData = [
-                { title: "Point Clé 1 : Rôle Managérial & Contrat Psychologique", content: "La paie n'est pas qu'une transaction, c'est un acte de management. Une communication claire sur le bulletin renforce la confiance et le sentiment d'équité, piliers du 'contrat psychologique' (attentes implicites entre salarié et employeur). Un manager qui explique la paie démontre sa compétence et son respect, ce qui désamorce les tensions et valorise la rétribution globale (salaire + avantages + protection sociale)." },
-                { title: "Point Clé 2 : La Structure du Bulletin & ses Objectifs", content: "Le bulletin de paie clarifié vise à être plus lisible en regroupant les cotisations par risque (Santé, Retraite, etc.). Malgré cela, sa complexité demeure un défi. Son objectif est de détailler le passage du 'Salaire Brut' (la référence) au 'Net Payé' (ce qui est versé), en passant par le 'Net Social' (pour les aides) et le 'Net Fiscal' (base de l'impôt). Il doit aussi informer sur le coût total pour l'employeur." },
-                { title: "Point Clé 3 : Cadre Légal & Externalisation", content: "La paie est régie par une hiérarchie de normes (loi, convention collective, contrat...). La règle la plus favorable au salarié s'applique. L'externalisation de la paie peut sembler simple, mais elle présente des risques stratégiques : perte de contrôle des données RH, perte de compétences internes, et dépendance envers le prestataire, ce qui peut freiner le pilotage social de l'entreprise." }
+                { title: "Synthèse : Rôle Managérial & Contrat Psychologique", content: "La paie est un acte de management qui va au-delà de la simple transaction financière. Elle est au cœur du <strong>contrat psychologique</strong> (Rousseau, 1989), qui représente l’ensemble des croyances et des attentes réciproques et implicites entre un salarié et son employeur. Une communication claire et transparente sur le bulletin de paie par le manager renforce la <strong>confiance</strong> et le <strong>sentiment d’équité</strong>, deux piliers de l’implication. En expliquant la paie, le manager exerce une forme de <strong>reconnaissance au travail</strong>, valorise la rétribution globale (salaire direct et indirect via la protection sociale) et prévient les conflits liés à l'incompréhension." },
+                { title: "Synthèse : Structure du Bulletin et Objectifs", content: "Le bulletin de paie clarifié a pour objectif de rendre lisible le passage du <strong>salaire brut</strong> (la référence contractuelle) au <strong>net à payer</strong> (le montant versé). Il met en évidence le financement de la protection sociale via les <strong>cotisations sociales</strong> (salariales et patronales) organisées par risques (Santé, Retraite...). Il introduit des concepts clés : le <strong>Net Social</strong> (base pour les aides), le <strong>Net Fiscal</strong> (base de l'impôt) et le <strong>coût total employeur</strong>, qui inclut le salaire brut et les charges patronales, diminué des éventuels allègements." },
+                { title: "Synthèse : Cadre Légal et Enjeux Stratégiques", content: "La paie est encadrée par une <strong>hiérarchie des normes</strong>, où une règle ne peut être moins favorable que la règle supérieure (principe de faveur). Cette complexité pousse certaines entreprises à l'<strong>externalisation</strong> (outsourcing). Cependant, cette décision présente des risques stratégiques, comme l'a théorisé J-M. Peretti : perte de <strong>compétences clés</strong> internes, dépendance envers le prestataire, et surtout, perte de contrôle sur les <strong>données sociales</strong>. Sans un accès fluide à ces données, le service RH perd sa capacité de pilotage et d'aide à la décision stratégique pour la direction." }
             ];
 
             // --- UI INJECTION ---
@@ -331,13 +331,15 @@
 
             // --- CHART ---
             const ctx = document.getElementById('payslipChart').getContext('2d');
-            const { net_a_payer, total_salarial, total_patronal } = payslipData.footer;
+            const { net_a_payer, total_salarial } = payslipData.footer;
+            const total_patronal_net = payslipData.footer.total_patronal - payslipData.rows.find(r => r.id === 'reduction_gen').gain;
+            
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Net Payé au Salarié', 'Cotisations Salariales', 'Cotisations Patronales'],
+                    labels: ['Net Payé au Salarié', 'Cotisations Salariales', 'Cotisations Patronales (nettes)'],
                     datasets: [{
-                        data: [net_a_payer.value, total_salarial.value, total_patronal.value],
+                        data: [net_a_payer.value, total_salarial.value, total_patronal_net],
                         backgroundColor: ['#60a5fa', '#fb923c', '#f87171'],
                         borderColor: '#ffffff',
                         borderWidth: 3
