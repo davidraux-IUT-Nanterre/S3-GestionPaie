@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD 2 : La Constitution du Salaire Brut : Heures et Primes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            border-bottom-color: #4a5568;
+            color: #2d3748;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .calc-step {
+            cursor: pointer;
+        }
+        .accordion-header {
+            cursor: pointer;
+        }
+
+        /* --- CSS Corrigé pour l'accordéon --- */
+        .accordion-content, .calc-explanation {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-content.open, .calc-explanation.open {
+            max-height: 500px; /* Hauteur suffisante pour n'importe quel contenu */
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                 <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-4">
+                        <img class="h-12 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Logo_Universit%C3%A9_Paris-Nanterre.svg" alt="Logo Université Paris Nanterre" onerror="this.onerror=null;this.src='https://placehold.co/200x50/FFFFFF/000000?text=Logo+Nanterre';">
+                        <h1 class="text-lg font-bold text-gray-800 hidden sm:block">Pratique de la Paie</h1>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#calculator" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Calcul du Brut</a>
+                        <a href="#concepts" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Concepts Clés</a>
+                        <a href="#synthesis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <div class="text-center mb-12">
+            <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 2 : La Constitution du Salaire Brut : Heures et Primes</h2>
+            </div>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez le calcul des éléments variables qui composent le haut du bulletin de paie à travers une étude de cas interactive.</p>
+        </div>
+
+        <section id="calculator" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-2 text-gray-800">Étude de Cas : Le Salaire Brut de M. Martin</h3>
+            <p class="text-center text-gray-600 mb-8">Cliquez sur chaque étape pour voir le détail du calcul et les explications.</p>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="card p-6 md:p-8">
+                    <div class="calc-step border-b pb-4 mb-4" data-target="expl-1">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">1. Calcul du Taux Horaire pour les HS</span>
+                            <span class="font-bold text-lg text-blue-600" id="res-1">19,45 €</span>
+                        </div>
+                        <div id="expl-1" class="calc-explanation">
+                             <div class="bg-blue-50 p-4 mt-2 rounded-lg">
+                                <p class="font-semibold">Formule :</p>
+                                <p class="text-sm font-mono">(Salaire de base + Primes de travail) / 151,67h</p>
+                                <p class="font-semibold mt-2">Application :</p>
+                                <p class="text-sm font-mono">(2 800 € + 150 €) / 151,67 = 19,4501 €</p>
+                                <p class="text-xs mt-2 text-gray-500">Conformément à la jurisprudence, la prime d'expertise, contrepartie directe du travail, est incluse dans la base de calcul.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="calc-step border-b pb-4 mb-4" data-target="expl-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">2. Valorisation des 8 premières HS (majoration 25%)</span>
+                            <span class="font-bold text-lg text-green-600" id="res-2">+ 194,50 €</span>
+                        </div>
+                        <div id="expl-2" class="calc-explanation">
+                             <div class="bg-green-50 p-4 mt-2 rounded-lg">
+                                <p class="font-semibold">Formule :</p>
+                                <p class="text-sm font-mono">Nb Heures × Taux Horaire pour HS × 1,25</p>
+                                <p class="font-semibold mt-2">Application :</p>
+                                <p class="text-sm font-mono">8 × 19,4501 € × 1,25 = 194,50 €</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calc-step border-b pb-4 mb-4" data-target="expl-3">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-700">3. Valorisation des 2 HS suivantes (majoration 50%)</span>
+                            <span class="font-bold text-lg text-green-600" id="res-3">+ 58,35 €</span>
+                        </div>
+                        <div id="expl-3" class="calc-explanation">
+                            <div class="bg-green-50 p-4 mt-2 rounded-lg">
+                                <p class="font-semibold">Formule :</p>
+                                <p class="text-sm font-mono">Nb Heures × Taux Horaire pour HS × 1,50</p>
+                                <p class="font-semibold mt-2">Application :</p>
+                                <p class="text-sm font-mono">2 × 19,4501 € × 1,50 = 58,35 €</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <p class="text-lg font-semibold text-gray-800">Constitution du Salaire Brut Total :</p>
+                        <div class="mt-4 space-y-2 text-gray-700">
+                            <div class="flex justify-between"><span>Salaire de base</span> <span>2 800,00 €</span></div>
+                            <div class="flex justify-between"><span>Prime d'expertise</span> <span>150,00 €</span></div>
+                            <div class="flex justify-between"><span>Total Heures Supplémentaires (194,50 + 58,35)</span> <span>252,85 €</span></div>
+                            <div class="flex justify-between font-bold text-xl border-t pt-2 mt-2 text-gray-900">
+                                <span>SALAIRE BRUT TOTAL</span>
+                                <span>3 202,85 €</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="concepts" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Concepts Clés à Maîtriser</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl text-center mb-4">HS vs Heures Complémentaires</h4>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                            <p class="font-semibold text-lg border-b pb-2">Heures Supplémentaires</p>
+                            <p class="mt-2 text-sm text-gray-600">Pour les <strong>temps pleins</strong></p>
+                            <p class="mt-2 text-sm text-gray-600">Au-delà de <strong>35h/semaine</strong></p>
+                            <p class="mt-2 text-sm text-gray-600">Majoration : <strong>+25%</strong> puis <strong>+50%</strong> (légal)</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-lg border-b pb-2">Heures Complémentaires</p>
+                            <p class="mt-2 text-sm text-gray-600">Pour les <strong>temps partiels</strong></p>
+                            <p class="mt-2 text-sm text-gray-600">Dans la limite de <strong>1/10 ou 1/3</strong> de la durée contractuelle</p>
+                            <p class="mt-2 text-sm text-gray-600">Majoration : <strong>+10%</strong> puis <strong>+25%</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-6">
+                     <h4 class="font-bold text-xl text-center mb-4">Analyse de la Prime SYNTEC</h4>
+                     <p class="text-sm text-gray-600 mb-2"><strong>Extrait de la convention :</strong> "L'ensemble des salariés bénéficie d'une prime de vacances d'un montant au moins égal à 10 % de la masse globale des indemnités de congés payés [...] une partie soit versée pendant la période située entre le 1er mai et le 31 octobre."</p>
+                     <p class="font-semibold mt-4">Analyse (Réponse à la question 2) :</p>
+                     <p class="text-gray-700">Oui, M. Martin est éligible à cette prime de vacances car il fait partie de "l'ensemble des salariés". Cependant, son versement n'est pas obligatoirement en mai. L'employeur a jusqu'au 31 octobre pour la verser. Cette prime ne rentre donc pas systématiquement dans le brut du mois de mai, cela dépend de la politique de l'entreprise.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="synthesis" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Concepts Clés</h3>
+            <div id="accordion-container" class="space-y-4 max-w-4xl mx-auto">
+                 </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p><a href="index.html" class="hover:underline">Retour à l'accueil</a></p>
+            <p class="text-sm mt-2">&copy; 2024-2025 - Université Paris Nanterre - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- DATA ---
+            const accordionData = [
+                { title: "Synthèse : La construction du salaire brut", content: "Le salaire brut est le point de départ de la rémunération. Il se compose d'un <strong>salaire de base</strong>, qui rémunère la durée contractuelle (généralement 151,67h pour un temps plein), et d'<strong>éléments variables</strong>. Ces variables, comme les heures supplémentaires ou les primes, doivent être calculées avec précision pour garantir l'équité et le respect des obligations légales et conventionnelles." },
+                { title: "Synthèse : Le calcul des Heures Supplémentaires (HS)", content: "Les HS sont décomptées par semaine et majorées. Un point technique essentiel est la <strong>base de calcul</strong>. Comme l'établit la jurisprudence, cette base doit inclure non seulement le salaire de base mais aussi toute prime qui est la <strong>contrepartie directe du travail</strong> (ex: prime d'expertise, de rendement). Cela exclut les primes à caractère général comme le 13ème mois ou la prime de vacances." },
+                { title: "Synthèse : HS, HC et hiérarchie des normes", content: "Il est crucial de distinguer les <strong>Heures Supplémentaires</strong> (temps plein) des <strong>Heures Complémentaires</strong> (temps partiel), car leur régime (limites, majorations) est différent. Concernant les HS, le droit de la paie illustre une dérogation à la <strong>hiérarchie des normes</strong> : un accord d'entreprise peut fixer un taux de majoration inférieur à celui de la loi (25%/50%), avec un plancher absolu de 10%. C'est une exception notable au principe de faveur." }
+            ];
+
+            const accordionContainer = document.getElementById('accordion-container');
+            const calculatorSteps = document.querySelectorAll('.calc-step');
+            
+            // --- UI INJECTION ---
+            if (accordionContainer) {
+                accordionData.forEach((item) => {
+                    // --- HTML Corrigé pour l'accordéon ---
+                    accordionContainer.innerHTML += `
+                        <div class="card overflow-hidden">
+                            <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
+                                <span>${item.title}</span>
+                                <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 pt-0 text-gray-600">
+                                    ${item.content}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // --- INTERACTIONS ---
+            
+            // Pour le calculateur (Étude de cas)
+            calculatorSteps.forEach(step => {
+                step.addEventListener('click', () => {
+                    const targetId = step.dataset.target;
+                    const explanation = document.getElementById(targetId);
+                    if (explanation) {
+                        explanation.classList.toggle('open');
+                        // On s'assure que le contenu intérieur a bien le padding
+                        const innerContent = explanation.firstElementChild;
+                        if(innerContent && !innerContent.classList.contains('p-4')){
+                           explanation.innerHTML = `<div class="bg-gray-100 p-4 mt-2 rounded-lg">${explanation.innerHTML}</div>`;
+                        }
+                    }
+                });
+            });
+            
+            // Pour l'accordéon de la synthèse (méthode avec délégation d'événements)
+            if (accordionContainer) {
+                accordionContainer.addEventListener('click', function(event) {
+                    const header = event.target.closest('.accordion-header');
+                    if (header) {
+                        const content = header.nextElementSibling;
+                        const svgIcon = header.querySelector('svg');
+                        
+                        if (content && content.classList.contains('accordion-content')) {
+                            content.classList.toggle('open');
+                        }
+                        if (svgIcon) {
+                           svgIcon.classList.toggle('rotate-180');
+                        }
+                    }
+                });
+            }
+
+            // Pour la navigation fluide
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Pour le suivi de la section active dans la barre de navigation
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
