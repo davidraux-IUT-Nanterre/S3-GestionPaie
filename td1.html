@@ -115,12 +115,12 @@
         <!-- Section 2: Legal Framework -->
         <section id="framework" class="my-16 scroll-mt-20">
             <h3 class="text-2xl font-bold text-center mb-12 text-gray-800">Le Cadre Légal : La Hiérarchie des Normes</h3>
-            <div class="flex flex-col md:flex-row gap-8 items-center">
+            <div class="flex flex-col md:flex-row gap-8 items-stretch">
                 <div id="pyramid-container" class="w-full md:w-1/2 flex flex-col items-center">
                     <!-- Pyramid will be injected here -->
                 </div>
                 <div class="w-full md:w-1/2">
-                    <div class="card p-6 min-h-[300px]">
+                    <div class="card p-6 flex flex-col justify-center h-full">
                         <h4 class="font-bold text-lg mb-2 text-gray-700">Détail du niveau</h4>
                         <p id="pyramid-explanation" class="text-gray-600">Survolez un niveau de la pyramide pour en savoir plus.</p>
                     </div>
@@ -201,7 +201,7 @@
             };
             
             const pyramidLevels = [
-                { id: 'const', label: 'Bloc de constitutionnalité', color: 'bg-gray-800', text: 'Niveau suprême. Il inclut la Constitution de 1958, la Déclaration des Droits de l\'Homme et du Citoyen de 1789 et le préambule de la Constitution de 1946. Aucune loi ne peut y être contraire. <strong>Exemple concret :</strong> Le principe "à travail égal, salaire égal", qui interdit la discrimination salariale.'},
+                { id: 'const', label: 'Bloc de constitutionnalité', color: 'bg-gray-800', text: 'Niveau suprême. Il inclut la Constitution de 1958, la Déclaration des Droits de l\'Homme et du Citoyen de 1789 et le préambule de la Constitution de 1946. Aucune loi ne peut y être contraire. <strong>Exemple concret :</strong> Le principe \'à travail égal, salaire égal\', qui interdit la discrimination salariale.'},
                 { id: 'conv', label: 'Bloc de conventionalité', color: 'bg-gray-700', text: 'Sources internationales et européennes. <strong>Exemple concret :</strong> Une directive européenne imposant un temps de repos minimal de 11 heures consécutives par jour s\'applique à toutes les entreprises françaises.'},
                 { id: 'loi', label: 'Loi (Sources étatiques)', color: 'bg-gray-600', text: 'Le Code du Travail, les lois et les décrets. <strong>Exemple concret :</strong> La loi qui fixe le montant du SMIC (Salaire Minimum Interprofessionnel de Croissance) que personne ne peut gagner en dessous pour un temps plein.'},
                 { id: 'coll', label: 'Sources professionnelles négociées', color: 'bg-slate-500', text: 'Conventions collectives et accords de branche, de groupe ou d\'entreprise. <strong>Exemple concret :</strong> La convention collective de la Métallurgie qui prévoit une prime d\'ancienneté calculée en pourcentage du salaire minimum conventionnel.'},
@@ -261,7 +261,7 @@
                         <td class="p-1 px-2 text-right">${row.base || ''}</td>
                         <td class="p-1 px-2 text-right">${row.rate_s || ''}</td>
                         <td class="p-1 px-2 text-right text-green-600">${row.gain ? formatCurrency(row.gain) : ''}</td>
-                        <td class="p-1 px-2 text-right text-red-600">${row.deduction_s ? formatCurrency(row.deduction_s) : ''}</td>
+                        <td class="p-1 px-2 text-right text-red-600">${row.deduction_s != null ? formatCurrency(row.deduction_s) : ''}</td>
                      </tr>`;
                 }
             });
@@ -272,7 +272,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <div class="payslip-row p-2" data-id="total_patronal">
-                            <div class="flex justify-between"><span>Total cotisations patronales</span><span>${formatCurrency(payslipData.footer.total_patronal)}</span></div>
+                            <div class="flex justify-between"><span>Total cotisations patronales</span><span>${formatCurrency(payslipData.footer.total_patronal.value)}</span></div>
                         </div>
                          <div class="payslip-row p-2" data-id="reduction_gen">
                             <div class="flex justify-between"><span>Dont allègements de cotisations</span><span>- ${formatCurrency(payslipData.rows.find(r=>r.id==='reduction_gen').gain)}</span></div>
@@ -331,16 +331,17 @@
 
             // --- CHART ---
             const ctx = document.getElementById('payslipChart').getContext('2d');
-            const { net_a_payer, total_salarial } = payslipData.footer;
-            const total_patronal_net = payslipData.footer.total_patronal - payslipData.rows.find(r => r.id === 'reduction_gen').gain;
+            const { net_a_payer, total_salarial, pas, total_patronal } = payslipData.footer;
+            const reduction_gen = payslipData.rows.find(r => r.id === 'reduction_gen').gain;
+            const total_patronal_net = total_patronal.value - reduction_gen;
             
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Net Payé au Salarié', 'Cotisations Salariales', 'Cotisations Patronales (nettes)'],
+                    labels: ['Net Payé au Salarié', 'Cotisations Salariales', 'Cotisations Patronales (nettes)', 'Impôt sur le Revenu (PAS)'],
                     datasets: [{
-                        data: [net_a_payer.value, total_salarial.value, total_patronal_net],
-                        backgroundColor: ['#60a5fa', '#fb923c', '#f87171'],
+                        data: [net_a_payer.value, total_salarial.value, total_patronal_net, pas.montant],
+                        backgroundColor: ['#60a5fa', '#fb923c', '#f87171', '#a78bfa'],
                         borderColor: '#ffffff',
                         borderWidth: 3
                     }]
@@ -364,7 +365,7 @@
                  const rowData = payslipData.rows.find(r => r.id === id);
                  const headerData = payslipData.header[id];
                  const footerData = payslipData.footer[id];
-                 explanationBox.textContent = (rowData?.explanation || headerData?.explanation || footerData?.explanation || "Cliquez sur une autre ligne pour voir son explication.");
+                 explanationBox.innerHTML = (rowData?.explanation || headerData?.explanation || footerData?.explanation || "Cliquez sur une autre ligne pour voir son explication.");
             }
             
             document.querySelectorAll('.payslip-row').forEach(row => {
