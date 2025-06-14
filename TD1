@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD 1 Interactif : La Paie, Acte Managérial et Outil Stratégique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Slate Blue -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard with three core thematic sections: 1) An "Interactive Payslip Explorer" to dissect the payslip visually (Annexe 7 & Q3). 2) A "Legal Framework" section with an interactive pyramid for the hierarchy of norms (Annexe 3 & Q4). 3) A "Strategic Stakes" section using interactive cards to explore concepts like managerial roles, outsourcing risks, and the psychological contract (Annexes 1, 4, 5, 6 & Q1, Q5, Q6). This structure is chosen to deconstruct the linear TD into a more engaging, non-linear learning experience, allowing students to explore concepts based on interest and see connections between them, which is more effective for synthesis and understanding than a static document. -->
+    <!-- Visualization & Content Choices: 
+        - Payslip (Annexe 7): Goal: Explain structure. Method: Interactive HTML table + Donut Chart (Chart.js). Interaction: Clicking on a row displays its explanation. Justification: Transforms a static example into a dynamic learning tool.
+        - Hierarchy of Norms (Annexe 3): Goal: Clarify legal sources. Method: HTML/CSS pyramid diagram. Interaction: Hovering over a layer highlights it and reveals its description. Justification: More memorable and engaging than a simple list.
+        - Strategic Texts (Annexes 1, 2, 4, 5, 6): Goal: Present key concepts. Method: Interactive accordion/cards. Interaction: Clicking a header reveals the text content. Justification: Organizes dense text into digestible, thematic chunks.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            border-bottom-color: #4a5568;
+            color: #2d3748;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .pyramid-level {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+            margin-bottom: -1px;
+        }
+        .pyramid-level:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .payslip-row {
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .payslip-row:hover, .payslip-row.selected {
+            background-color: #e2e8f0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-800">TD 1 Interactif</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#explorer" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Décortiqueur de Paie</a>
+                        <a href="#framework" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Cadre Légal</a>
+                        <a href="#stakes" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Enjeux Stratégiques</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <div class="text-center mb-12">
+            <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 1 : La Paie, Acte Managérial et Outil Stratégique</h2>
+            </div>
+            <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Une exploration interactive pour transformer un document complexe en un puissant outil de management.</p>
+        </div>
+
+        <!-- Section 1: Payslip Explorer -->
+        <section id="explorer" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Le Décortiqueur de Bulletin de Paie</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div class="card p-6">
+                    <div id="payslip-container">
+                        <!-- Interactive Payslip Table will be injected here -->
+                    </div>
+                </div>
+                <div class="lg:sticky top-24">
+                    <div class="card p-6 mb-6">
+                         <h4 class="font-bold text-lg mb-2 text-gray-700">Explication de la ligne</h4>
+                         <p id="explanation-box" class="text-gray-600 min-h-[100px]">Cliquez sur une ligne du bulletin de paie pour afficher son explication ici.</p>
+                    </div>
+                    <div class="card p-6">
+                        <h4 class="font-bold text-lg mb-4 text-center text-gray-700">Du Brut au Net : Visualisation</h4>
+                        <div class="chart-container" style="position: relative; height:300px; width:100%; max-width: 400px; margin: auto;">
+                            <canvas id="payslipChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Legal Framework -->
+        <section id="framework" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-12 text-gray-800">Le Cadre Légal : La Hiérarchie des Normes</h3>
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div id="pyramid-container" class="w-full md:w-1/2 flex flex-col items-center">
+                    <!-- Pyramid will be injected here -->
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div class="card p-6 min-h-[300px]">
+                        <h4 class="font-bold text-lg mb-2 text-gray-700">Détail du niveau</h4>
+                        <p id="pyramid-explanation" class="text-gray-600">Survolez un niveau de la pyramide pour en savoir plus.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Strategic Stakes -->
+        <section id="stakes" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Les Enjeux Stratégiques de la Paie</h3>
+            <div id="accordion-container" class="space-y-4 max-w-4xl mx-auto">
+                 <!-- Accordion items will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>Application interactive basée sur le TD 1 "Pratique de la Paie".</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- DATA ---
+            const payslipData = {
+                rows: [
+                    { id: 'brut', label: 'Salaire Brut', value: 2000.00, type: 'header' },
+                    { id: 'sante', label: 'SANTÉ', type: 'subheader' },
+                    { id: 'maladie', label: 'Sécurité sociale - Maladie', value_s: 0, value_p: 260.00 },
+                    { id: 'comp', label: 'Complémentaire Incapacité Invalidité Décès', value_s: 10.00, value_p: 20.00 },
+                    { id: 'at', label: 'ACCIDENTS DU TRAVAIL', type: 'subheader' },
+                    { id: 'at_mp', label: 'Accidents du travail', value_s: 0, value_p: 44.40 },
+                    { id: 'retraite', label: 'RETRAITE', type: 'subheader' },
+                    { id: 'secu_plaf', label: 'Sécurité sociale plafonnée', value_s: 138.00, value_p: 138.00 },
+                    { id: 'ret_comp', label: 'Retraite complémentaire Tranche 1', value_s: 80.20, value_p: 120.30 },
+                    { id: 'famille', label: 'FAMILLE', type: 'subheader' },
+                    { id: 'alloc_fam', label: 'Allocations familiales', value_s: 0, value_p: 105.00 },
+                    { id: 'chomage', label: 'CHÔMAGE', type: 'subheader' },
+                    { id: 'ass_cho', label: 'Assurance chômage', value_s: 0, value_p: 81.00 },
+                    { id: 'autres', label: 'AUTRES CONTRIBUTIONS', type: 'subheader' },
+                    { id: 'csg_d', label: 'CSG déductible de l\'impôt sur le revenu', value_s: 132.60, value_p: 0 },
+                    { id: 'csg_nd', label: 'CSG/CRDS non déductible', value_s: 56.55, value_p: 0 },
+                    { id: 'net_avant', label: 'Net à payer avant impôt', value: 1582.65, type: 'header' },
+                    { id: 'pas', label: 'Prélèvement à la source', value: -79.13, type: 'calc'},
+                    { id: 'net_paye', label: 'Net à payer', value: 1503.52, type: 'header' },
+                    { id: 'total', label: 'Coût total employeur', value: 2668.70, type: 'header' },
+                ],
+                explanations: {
+                    brut: 'Le Salaire Brut est la rémunération totale convenue avant toute déduction de cotisations sociales ou d\'impôts. Il sert de base de calcul pour la plupart des cotisations.',
+                    maladie: 'Les cotisations maladie, maternité, invalidité, décès financent les prestations en espèces (indemnités journalières) et en nature (remboursements de soins) de la Sécurité Sociale.',
+                    comp: 'Cette cotisation finance un régime de prévoyance complémentaire qui verse des indemnités en plus de celles de la Sécurité Sociale en cas d\'arrêt de travail long, d\'invalidité ou de décès.',
+                    at_mp: 'La cotisation Accidents du Travail et Maladies Professionnelles est une assurance qui couvre les risques liés à l\'activité professionnelle. Son taux varie selon le secteur d\'activité et la taille de l\'entreprise. Elle est exclusivement à la charge de l\'employeur.',
+                    secu_plaf: 'Cette cotisation alimente le régime de retraite de base de la Sécurité Sociale. Elle est calculée uniquement sur la partie du salaire inférieure au Plafond de la Sécurité Sociale (PSS).',
+                    ret_comp: 'La retraite complémentaire (Agirc-Arrco) est obligatoire et vient s\'ajouter à la retraite de base. Elle est financée par des cotisations salariales et patronales.',
+                    alloc_fam: 'Cette contribution, à la charge exclusive de l\'employeur, participe au financement des prestations familiales versées par les Caisses d\'Allocations Familiales (CAF).',
+                    ass_cho: 'Cette contribution, payée par l\'employeur, finance le régime d\'assurance chômage qui verse des allocations aux salariés privés d\'emploi.',
+                    csg_d: 'La Contribution Sociale Généralisée (CSG) est un impôt destiné à financer la protection sociale. Une partie de cette contribution est déductible du revenu imposable.',
+                    csg_nd: 'Cette partie de la CSG, ainsi que la Contribution au Remboursement de la Dette Sociale (CRDS), ne sont pas déductibles du revenu imposable.',
+                    net_avant: 'Le "Net à payer avant impôt" est le salaire que recevrait le salarié après déduction de toutes les cotisations sociales, mais avant le prélèvement de l\'impôt sur le revenu.',
+                    pas: 'Le Prélèvement à la Source (PAS) est le montant de l\'impôt sur le revenu directement prélevé sur le salaire. Le taux est communiqué par l\'administration fiscale.',
+                    net_paye: 'Le "Net à payer" est la somme finale effectivement versée sur le compte bancaire du salarié.',
+                    total: 'Le coût total pour l\'employeur (parfois appelé "super-brut") représente le salaire brut additionné de toutes les cotisations patronales. C\'est ce que le salarié "coûte" réellement à l\'entreprise.'
+                }
+            };
+            
+            const pyramidLevels = [
+                { id: 'const', label: 'Bloc de constitutionnalité', color: 'bg-gray-800', text: 'Niveau suprême. Il inclut la Constitution, la Déclaration des Droits de l\'Homme et du Citoyen, et les principes fondamentaux. Toutes les autres normes doivent être conformes à ce bloc.'},
+                { id: 'conv', label: 'Bloc de conventionalité', color: 'bg-gray-700', text: 'Sources internationales et européennes (traités, règlements et directives). Une directive européenne sur le temps de travail, par exemple, s\'impose au droit français.'},
+                { id: 'loi', label: 'Loi (Sources étatiques)', color: 'bg-gray-600', text: 'Le Code du Travail, les lois et les décrets. La loi fixe les grandes règles générales comme le SMIC, la durée légale du travail à 35h, ou les règles du licenciement.'},
+                { id: 'coll', label: 'Sources professionnelles négociées', color: 'bg-slate-500', text: 'Conventions collectives et accords de branche, de groupe ou d\'entreprise. Une convention collective peut par exemple définir des salaires minima supérieurs au SMIC ou des jours de congés supplémentaires pour un secteur (ex: bâtiment, métallurgie).'},
+                { id: 'autres_prof', label: 'Autres sources', color: 'bg-slate-400', text: 'Le contrat de travail, les usages, les engagements unilatéraux de l\'employeur et le règlement intérieur. Ces sources précisent la relation de travail au niveau individuel et local.'}
+            ];
+
+            const accordionData = [
+                { title: "Annexe 1 : La rémunération, enjeu stratégique et managérial", content: "Attirer, fidéliser et motiver ses collaborateurs sont les trois objectifs principaux des politiques de rémunération. [...] La rémunération est l’un des seuls outils managériaux ayant un impact aussi fort sur les collaborateurs et leur environnement de travail. Elle agit sur la motivation, la performance, la satisfaction, la reconnaissance, la fidélisation, l’engagement, le développement des compétences, le climat social, la marque employeur [...]. La gestion des rémunérations est donc un enjeu de premier ordre pour une organisation. C’est un outil de management qui doit être utilisé de manière efficace, équitable et transparente afin d’éviter les effets contre-productifs, comme la démotivation, la frustration, le départ des talents ou encore la dégradation du climat social." },
+                { title: "Annexe 2 : La feuille de paie, entre simplification et complexité persistante", content: "Pour près de trois quarts des salariés, la lecture de la feuille de paie est un véritable casse-tête. C'est pour simplifier ce document et le rendre plus compréhensible que le gouvernement a décidé d'alléger sa présentation. Depuis le 1er janvier 2018, un nouveau modèle de bulletin de paie est obligatoire pour toutes les entreprises. [...] L’objectif affiché par le gouvernement est double : simplifier la vie des salariés et des entreprises. D’un côté, il s’agit de permettre aux salariés de mieux comprendre le détail de leur rémunération et le montant des cotisations sociales qui en sont déduites. De l’autre, de faciliter la gestion administrative de la paie pour les employeurs. Malgré tout, près de la moitié des Français estiment que leur bulletin de paie n’est toujours pas plus simple à déchiffrer." },
+                { title: "Annexes 4 & 5 : Les risques de l'externalisation", content: "L’externalisation peut s’avérer décevante. [...] La perte de contrôle sur les activités, une perte de la vision globale de la fonction RH, ainsi qu’une perte de proximité avec les salariés peuvent en résulter. La perte de compétences dans l’entreprise peut rendre tout retour en arrière difficile et coûteux. S'ajoutent des risques liés à la sécurité et la confidentialité des données sensibles, et un risque de dépendance technologique envers le prestataire, qui peut rendre toute migration complexe et coûteuse." },
+                { title: "Annexe 6 : Souffrance en milieu engagé", content: "Face à la toute-puissance du marché, l'économie sociale et solidaire jouit d'une aura précieuse. Or, ce secteur est à son tour affecté par une précarité croissante. La fonction d'employeur est souvent un impensé de ces structures qui se vivent avant tout comme militantes. Très investis, les salariés peuvent avoir du mal à distinguer vie professionnelle et vie personnelle et se retrouvent, malgré eux, dans une situation de 'servitude volontaire'. Un paradoxe et un non-dit." }
+            ];
+
+            // --- UI INJECTION ---
+
+            // Payslip
+            const payslipContainer = document.getElementById('payslip-container');
+            let payslipHTML = `<div class="bg-white p-4 rounded-lg border border-gray-200">
+                <div class="text-center mb-4">
+                    <h5 class="font-bold">BULLETIN DE PAIE</h5>
+                    <p class="text-sm text-gray-500">Période du 01/05/2025 au 31/05/2025</p>
+                </div>
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="text-left font-semibold py-2">Libellé</th>
+                            <th class="text-right font-semibold py-2">Gain (€)</th>
+                            <th class="text-right font-semibold py-2">Retenue Sal. (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+            payslipData.rows.forEach(row => {
+                if(row.type === 'subheader') {
+                    payslipHTML += `<tr class="payslip-row" data-id="${row.id}"><td colspan="3" class="font-semibold pt-3 pb-1">${row.label}</td></tr>`;
+                } else if (row.type !== 'header' && row.type !== 'calc') {
+                    payslipHTML += `<tr class="payslip-row" data-id="${row.id}">
+                        <td class="py-1 pl-2">${row.label}</td>
+                        <td class="text-right py-1">${row.value > 0 ? row.value.toFixed(2) : ''}</td>
+                        <td class="text-right py-1">${row.value_s > 0 ? row.value_s.toFixed(2) : ''}</td>
+                    </tr>`;
+                }
+            });
+            payslipHTML += `</tbody></table><div class="border-t mt-4 pt-4 space-y-2">`;
+            payslipHTML += `<div class="flex justify-between font-bold payslip-row" data-id="brut"><span>Salaire Brut</span><span>2 000,00 €</span></div>`;
+            payslipHTML += `<div class="flex justify-between font-bold text-blue-600 payslip-row" data-id="net_avant"><span>Net à payer avant impôt</span><span>1 582,65 €</span></div>`;
+            payslipHTML += `<div class="flex justify-between text-sm payslip-row" data-id="pas"><span>dont Prélèvement à la source</span><span>- 79,13 €</span></div>`;
+            payslipHTML += `<div class="flex justify-between font-bold text-xl bg-gray-100 p-2 rounded-md mt-2 payslip-row" data-id="net_paye"><span>Net à payer</span><span>1 503,52 €</span></div>`;
+            payslipHTML += `<div class="flex justify-between text-sm text-gray-500 mt-4 pt-2 border-t payslip-row" data-id="total"><span>Coût total employeur</span><span>2 668,70 €</span></div>`;
+            
+            payslipHTML += `</div></div>`;
+            payslipContainer.innerHTML = payslipHTML;
+
+            // Pyramid
+            const pyramidContainer = document.getElementById('pyramid-container');
+            let pyramidHTML = '';
+            pyramidLevels.forEach((level, index) => {
+                const width = 100 - index * 10;
+                pyramidHTML += `<div class="pyramid-level relative text-white text-center font-semibold p-3 ${level.color}" style="width: ${width}%;" data-text="${level.text}">
+                    ${level.label}
+                </div>`;
+            });
+            pyramidContainer.innerHTML = pyramidHTML;
+
+            // Accordion
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionData.forEach((item, index) => {
+                accordionContainer.innerHTML += `
+                    <div class="card overflow-hidden">
+                        <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
+                            <span>${item.title}</span>
+                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content hidden p-4 pt-0">
+                            <p class="text-gray-600">${item.content}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+
+            // --- CHART ---
+            const ctx = document.getElementById('payslipChart').getContext('2d');
+            const totalCotisationsSalariales = 417.35;
+            const totalCotisationsPatronales = 668.70;
+            const netAPayer = 1582.65;
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Net à payer avant impôt', 'Cotisations Salariales', 'Cotisations Patronales'],
+                    datasets: [{
+                        label: 'Répartition du Coût Total Employeur',
+                        data: [netAPayer, totalCotisationsSalariales, totalCotisationsPatronales],
+                        backgroundColor: [
+                            '#60a5fa', // blue-400
+                            '#fb923c', // orange-400
+                            '#f87171', // red-400
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // --- INTERACTIONS ---
+
+            // Payslip interaction
+            const explanationBox = document.getElementById('explanation-box');
+            const payslipRows = document.querySelectorAll('.payslip-row');
+            payslipRows.forEach(row => {
+                row.addEventListener('click', () => {
+                    payslipRows.forEach(r => r.classList.remove('selected'));
+                    row.classList.add('selected');
+                    const id = row.dataset.id;
+                    explanationBox.textContent = payslipData.explanations[id] || "Cliquez sur une autre ligne pour voir son explication.";
+                });
+            });
+
+            // Pyramid interaction
+            const pyramidExplanation = document.getElementById('pyramid-explanation');
+            document.querySelectorAll('.pyramid-level').forEach(level => {
+                level.addEventListener('mouseenter', () => {
+                    pyramidExplanation.textContent = level.dataset.text;
+                });
+                 level.addEventListener('mouseleave', () => {
+                    pyramidExplanation.textContent = 'Survolez un niveau de la pyramide pour en savoir plus.';
+                });
+            });
+
+            // Accordion interaction
+            document.querySelectorAll('.accordion-header').forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('svg');
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+
+             // Smooth scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Nav link active state on scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
