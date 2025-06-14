@@ -4,17 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TD 1 Interactif : La Paie, Acte Managérial et Outil Stratégique</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- REMARQUE : Le script Tailwind dynamique a été retiré. Le CSS nécessaire a été pré-généré et inclus ci-dessous pour une meilleure compatibilité avec GitHub Pages. -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals & Slate Blue -->
-    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard with three core thematic sections: 1) An "Interactive Payslip Explorer" to dissect the payslip visually (Annexe 7 & Q3). 2) A "Legal Framework" section with an interactive pyramid for the hierarchy of norms (Annexe 3 & Q4). 3) A "Strategic Stakes" section using interactive cards to explore concepts like managerial roles, outsourcing risks, and the psychological contract (Annexes 1, 4, 5, 6 & Q1, Q5, Q6). This structure is chosen to deconstruct the linear TD into a more engaging, non-linear learning experience, allowing students to explore concepts based on interest and see connections between them, which is more effective for synthesis and understanding than a static document. -->
-    <!-- Visualization & Content Choices: 
-        - Payslip (Annexe 7): Goal: Explain structure. Method: Interactive HTML table + Donut Chart (Chart.js). Interaction: Clicking on a row displays its explanation. Justification: Transforms a static example into a dynamic learning tool.
-        - Hierarchy of Norms (Annexe 3): Goal: Clarify legal sources. Method: HTML/CSS pyramid diagram. Interaction: Hovering over a layer highlights it and reveals its description. Justification: More memorable and engaging than a simple list.
-        - Strategic Texts (Annexes 1, 2, 4, 5, 6): Goal: Present key concepts. Method: Interactive accordion/cards. Interaction: Clicking a header reveals the text content. Justification: Organizes dense text into digestible, thematic chunks.
-        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
+        /* CSS personnalisé de l'application originale */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8f7f4;
@@ -62,6 +56,140 @@
             background-color: #fafafa;
             font-weight: 600;
         }
+
+        /* CSS généré à partir des classes Tailwind (pour la robustesse) */
+        *,::before,::after { box-sizing: border-box; border-width: 0; border-style: solid; border-color: #e5e7eb }
+        html { line-height: 1.5; -webkit-text-size-adjust: 100%; -moz-tab-size: 4; tab-size: 4; font-family: 'Inter', sans-serif; }
+        body { margin: 0; line-height: inherit }
+        h1,h2,h3,h4,p,a,button,table,th,td,span,div { margin: 0; padding: 0 }
+        button { background-color: transparent; background-image: none; }
+        .container { width: 100%; margin-right: auto; margin-left: auto; padding-right: 1rem; padding-left: 1rem; }
+        @media (min-width: 640px) { .container { max-width: 640px; padding-right: 1.5rem; padding-left: 1.5rem; } }
+        @media (min-width: 768px) { .container { max-width: 768px; } }
+        @media (min-width: 1024px) { .container { max-width: 1024px; padding-right: 2rem; padding-left: 2rem; } }
+        @media (min-width: 1280px) { .container { max-width: 1280px; } }
+        .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .sticky { position: sticky; }
+        .top-0 { top: 0px; }
+        .z-30 { z-index: 30; }
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .h-16 { height: 4rem; }
+        .flex-shrink-0 { flex-shrink: 0; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .font-bold { font-weight: 700; }
+        .text-gray-800 { color: rgb(31 41 55); }
+        .hidden { display: none; }
+        .ml-10 { margin-left: 2.5rem; }
+        .items-baseline { align-items: baseline; }
+        .space-x-4 > :not([hidden]) ~ :not([hidden]) { margin-right: 0; margin-left: 1rem; }
+        .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .rounded-md { border-radius: 0.375rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .font-medium { font-weight: 500; }
+        .text-gray-600 { color: rgb(75 85 99); }
+        .text-center { text-align: center; }
+        .mb-12 { margin-bottom: 3rem; }
+        .inline-block { display: inline-block; }
+        .border-2 { border-width: 2px; }
+        .border-gray-800 { border-color: rgb(31 41 55); }
+        .p-4 { padding: 1rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .font-bold { font-weight: 700; }
+        .tracking-tight { letter-spacing: -0.025em; }
+        .text-gray-900 { color: rgb(17 24 39); }
+        .mt-4 { margin-top: 1rem; }
+        .max-w-2xl { max-width: 42rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .my-16 { margin-top: 4rem; margin-bottom: 4rem; }
+        .scroll-mt-20 { scroll-margin-top: 5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .grid { display: grid; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .gap-8 { gap: 2rem; }
+        .items-start { align-items: start; }
+        .p-6 { padding: 1.5rem; }
+        .lg\:col-span-3 { grid-column: span 3 / span 3; }
+        .lg\:col-span-2 { grid-column: span 2 / span 2; }
+        .lg\:sticky { position: sticky; }
+        .top-24 { top: 6rem; }
+        .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; margin-bottom: 0; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .text-gray-700 { color: rgb(55 65 81); }
+        .min-h-\[120px\] { min-height: 120px; }
+        .relative { position: relative; }
+        .h-300px { height: 300px; }
+        .w-full { width: 100%; }
+        .max-w-400px { max-width: 400px; }
+        .m-auto { margin: auto; }
+        .flex-col { flex-direction: column; }
+        .w-full { width: 100%; }
+        .min-h-\[300px\] { min-height: 300px; }
+        .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; margin-bottom: 0; }
+        .max-w-4xl { max-width: 56rem; }
+        .border-t { border-top-width: 1px; }
+        .border-gray-200 { border-color: rgb(229 231 235); }
+        .mt-16 { margin-top: 4rem; }
+        .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .text-gray-500 { color: rgb(107 114 128); }
+        .bg-white\/80 { background-color: rgb(255 255 255 / 0.8); }
+        .backdrop-blur-md { --tw-backdrop-blur: blur(12px); backdrop-filter: var(--tw-backdrop-filter); }
+        .bg-white { background-color: #fff; }
+        .bg-gray-800 { background-color: rgb(31 41 55); }
+        .bg-gray-700 { background-color: rgb(55 65 81); }
+        .bg-gray-600 { background-color: rgb(75 85 99); }
+        .bg-slate-500 { background-color: rgb(100 116 139); }
+        .bg-slate-400 { background-color: rgb(148 163 184); }
+        .text-white { color: #fff; }
+        .overflow-hidden { overflow: hidden; }
+        .w-5 { width: 1.25rem; }
+        .h-5 { height: 1.25rem; }
+        .transform { transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); }
+        .transition-transform { transition-property: transform; transition-timing-function: cubic-bezier(.4,0,.2,1); transition-duration: .15s; }
+        .hidden { display: none; }
+        .rotate-180 { --tw-rotate: 180deg; transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); }
+        .text-xs { font-size: .75rem; line-height: 1rem; }
+        .p-2 { padding: .5rem; }
+        .rounded-lg { border-radius: .5rem; }
+        .border { border-width: 1px; }
+        .grid-cols-2 { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        .gap-x-4 { column-gap: 1rem; }
+        .gap-y-1 { row-gap: .25rem; }
+        .border-b { border-bottom-width: 1px; }
+        .font-semibold { font-weight: 600; }
+        .mt-2 { margin-top: .5rem; }
+        .text-left { text-align: left; }
+        .py-1 { padding-top: .25rem; padding-bottom: .25rem; }
+        .px-2 { padding-left: .5rem; padding-right: .5rem; }
+        .text-right { text-align: right; }
+        .p-1 { padding: .25rem; }
+        .text-green-600 { color: rgb(22 163 74); }
+        .text-red-600 { color: rgb(220 38 38); }
+        .mt-4 { margin-top: 1rem; }
+        .pt-2 { padding-top: .5rem; }
+        .md\:grid-cols-2 { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        .gap-4 { gap: 1rem; }
+        .bg-gray-100 { background-color: rgb(243 244 246); }
+        @media (min-width: 640px) {
+            .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .sm\:p-6 { padding: 1.5rem; }
+            .sm\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+            .sm\:text-sm { font-size: .875rem; line-height: 1.25rem; }
+        }
+        @media (min-width: 768px) {
+            .md\:block { display: block; }
+            .md\:flex-row { flex-direction: row; }
+            .md\:w-1\/2 { width: 50%; }
+        }
+         @media (min-width: 1024px) {
+            .lg\:px-8 { padding-left: 2rem; padding-right: 2rem; }
+            .lg\:grid-cols-5 { grid-template-columns: repeat(5,minmax(0,1fr)); }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -108,7 +236,7 @@
                     </div>
                     <div class="card p-6">
                         <h4 class="font-bold text-lg mb-4 text-center text-gray-700">Du Coût Total au Net Payé : Visualisation</h4>
-                        <div class="chart-container" style="position: relative; height:300px; width:100%; max-width: 400px; margin: auto;">
+                        <div class="chart-container relative" style="height:300px; width:100%; max-width: 400px; margin: auto;">
                             <canvas id="payslipChart"></canvas>
                         </div>
                     </div>
@@ -214,203 +342,4 @@
                 { title: "Annexe 1 : La rémunération, enjeu stratégique et managérial", content: "Attirer, fidéliser et motiver ses collaborateurs sont les trois objectifs principaux des politiques de rémunération. [...] La rémunération est l’un des seuls outils managériaux ayant un impact aussi fort sur les collaborateurs et leur environnement de travail. Elle agit sur la motivation, la performance, la satisfaction, la reconnaissance, la fidélisation, l’engagement, le développement des compétences, le climat social, la marque employeur [...]. La gestion des rémunérations est donc un enjeu de premier ordre pour une organisation. C’est un outil de management qui doit être utilisé de manière efficace, équitable et transparente afin d’éviter les effets contre-productifs, comme la démotivation, la frustration, le départ des talents ou encore la dégradation du climat social." },
                 { title: "Annexe 2 : La feuille de paie, entre simplification et complexité persistante", content: "Pour près de trois quarts des salariés, la lecture de la feuille de paie est un véritable casse-tête. C'est pour simplifier ce document et le rendre plus compréhensible que le gouvernement a décidé d'alléger sa présentation. Depuis le 1er janvier 2018, un nouveau modèle de bulletin de paie est obligatoire pour toutes les entreprises. [...] L’objectif affiché par le gouvernement est double : simplifier la vie des salariés et des entreprises. D’un côté, il s’agit de permettre aux salariés de mieux comprendre le détail de leur rémunération et le montant des cotisations sociales qui en sont déduites. De l’autre, de faciliter la gestion administrative de la paie pour les employeurs. Malgré tout, près de la moitié des Français estiment que leur bulletin de paie n’est toujours pas plus simple à déchiffrer." },
                 { title: "Annexes 4 & 5 : Les risques de l'externalisation", content: "L’externalisation peut s’avérer décevante. [...] La perte de contrôle sur les activités, une perte de la vision globale de la fonction RH, ainsi qu’une perte de proximité avec les salariés peuvent en résulter. La perte de compétences dans l’entreprise peut rendre tout retour en arrière difficile et coûteux. S'ajoutent des risques liés à la sécurité et la confidentialité des données sensibles, et un risque de dépendance technologique envers le prestataire, qui peut rendre toute migration complexe et coûteuse." },
-                { title: "Annexe 6 : Souffrance en milieu engagé", content: "Face à la toute-puissance du marché, l'économie sociale et solidaire jouit d'une aura précieuse. Or, ce secteur est à son tour affecté par une précarité croissante. La fonction d'employeur est souvent un impensé de ces structures qui se vivent avant tout comme militantes. Très investis, les salariés peuvent avoir du mal à distinguer vie professionnelle et vie personnelle et se retrouvent, malgré eux, dans une situation de 'servitude volontaire'. Un paradoxe et un non-dit." }
-            ];
-
-            // --- UI INJECTION ---
-
-            function formatCurrency(value) {
-                return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value || 0);
-            }
-
-            // Payslip
-            const payslipContainer = document.getElementById('payslip-container');
-            let payslipHTML = `<div class="bg-white p-2 rounded-lg border border-gray-200">`;
-
-            // Header part
-            payslipHTML += `<div class="grid grid-cols-2 gap-x-4 gap-y-1 p-2 border-b">`;
-            Object.values(payslipData.header).forEach(item => {
-                payslipHTML += `<div class="payslip-row" data-id="${item.id}">
-                    <span class="font-semibold">${item.label} :</span>
-                    <span class="text-gray-700">${item.value}</span>
-                </div>`;
-            });
-            payslipHTML += `</div>`;
-
-            // Body part
-            payslipHTML += `<table class="w-full mt-2">
-                            <thead>
-                                <tr class="payslip-header text-left">
-                                    <th class="py-1 px-2 font-semibold">Libellé</th>
-                                    <th class="py-1 px-2 font-semibold text-right">Base</th>
-                                    <th class="py-1 px-2 font-semibold text-right">Taux Sal.</th>
-                                    <th class="py-1 px-2 font-semibold text-right">Gain</th>
-                                    <th class="py-1 px-2 font-semibold text-right">Retenue Sal.</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-            
-            payslipData.rows.forEach(row => {
-                if(row.type === 'subheader'){
-                    payslipHTML += `<tr><td colspan="5" class="payslip-subheader p-1 font-semibold">${row.label}</td></tr>`;
-                } else if(row.type === 'header') {
-                     payslipHTML += `<tr class="payslip-row payslip-header font-bold" data-id="${row.id}">
-                        <td class="p-2" colspan="3">${row.label}</td>
-                        <td class="p-2 text-right" colspan="2">${formatCurrency(row.gain)}</td>
-                    </tr>`;
-                } else {
-                     payslipHTML += `<tr class="payslip-row" data-id="${row.id}">
-                        <td class="p-1 px-2">${row.label}</td>
-                        <td class="p-1 px-2 text-right">${row.base || ''}</td>
-                        <td class="p-1 px-2 text-right">${row.rate_s || ''}</td>
-                        <td class="p-1 px-2 text-right text-green-600">${row.gain ? formatCurrency(row.gain) : ''}</td>
-                        <td class="p-1 px-2 text-right text-red-600">${row.deduction_s ? formatCurrency(row.deduction_s) : ''}</td>
-                     </tr>`;
-                }
-            });
-            payslipHTML += `</tbody></table>`;
-            
-            // Footer Part
-            payslipHTML += `<div class="mt-4 pt-2 border-t">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <div class="payslip-row p-2" data-id="total_patronal">
-                            <div class="flex justify-between"><span>Total cotisations patronales</span><span>${formatCurrency(payslipData.footer.total_patronal)}</span></div>
-                        </div>
-                         <div class="payslip-row p-2" data-id="reduction_gen">
-                            <div class="flex justify-between"><span>Dont allègements de cotisations</span><span>- ${formatCurrency(payslipData.rows.find(r=>r.id==='reduction_gen').gain)}</span></div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                         <div class="payslip-row p-1" data-id="net_avant_impot">
-                            <div class="flex justify-between font-bold"><span>Net à payer avant impôt</span><span>${formatCurrency(payslipData.footer.net_avant_impot.value)}</span></div>
-                        </div>
-                        <div class="payslip-row p-1" data-id="pas">
-                            <div class="flex justify-between"><span>Impôt sur le revenu prélevé à la source</span><span>- ${formatCurrency(payslipData.footer.pas.montant)}</span></div>
-                        </div>
-                         <div class="payslip-row p-2 mt-2 bg-gray-100 rounded-md" data-id="net_a_payer">
-                            <div class="flex justify-between font-bold text-lg"><span>Net à payer</span><span>${formatCurrency(payslipData.footer.net_a_payer.value)}</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="payslip-row text-sm text-gray-600 mt-4 pt-2 border-t p-2" data-id="cout_total">
-                    <div class="flex justify-between font-bold"><span>Coût total de l'employeur pour ce salarié</span><span>${formatCurrency(payslipData.footer.cout_total.value)}</span></div>
-                </div>
-                 <div class="payslip-row text-sm text-gray-600 mt-2 p-2" data-id="conges">
-                    <div class="flex justify-between"><span>Congés payés</span><span>Solde: ${payslipData.footer.conges.solde} jrs</span></div>
-                </div>
-            </div></div>`;
-
-            payslipContainer.innerHTML = payslipHTML;
-
-
-            // Pyramid
-            const pyramidContainer = document.getElementById('pyramid-container');
-            let pyramidHTML = '';
-            pyramidLevels.forEach((level, index) => {
-                const width = 100 - index * 10;
-                pyramidHTML += `<div class="pyramid-level relative text-white text-center font-semibold p-3 ${level.color}" style="width: ${width}%;" data-text="${level.text}">
-                    ${level.label}
-                </div>`;
-            });
-            pyramidContainer.innerHTML = pyramidHTML;
-
-            // Accordion
-            const accordionContainer = document.getElementById('accordion-container');
-            accordionData.forEach((item) => {
-                accordionContainer.innerHTML += `
-                    <div class="card overflow-hidden">
-                        <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
-                            <span>${item.title}</span>
-                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <div class="accordion-content hidden p-4 pt-0">
-                            <p class="text-gray-600">${item.content}</p>
-                        </div>
-                    </div>
-                `;
-            });
-
-
-            // --- CHART ---
-            const ctx = document.getElementById('payslipChart').getContext('2d');
-            const { net_a_payer, total_salarial, total_patronal } = payslipData.footer;
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Net Payé au Salarié', 'Cotisations Salariales', 'Cotisations Patronales'],
-                    datasets: [{
-                        data: [net_a_payer.value, total_salarial.value, total_patronal.value],
-                        backgroundColor: ['#60a5fa', '#fb923c', '#f87171'],
-                        borderColor: '#ffffff',
-                        borderWidth: 3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom' },
-                        tooltip: {
-                            callbacks: {
-                                label: (context) => `${context.label}: ${formatCurrency(context.parsed)}`
-                            }
-                        }
-                    }
-                }
-            });
-
-            // --- INTERACTIONS ---
-            const explanationBox = document.getElementById('explanation-box');
-            function updateExplanation(id) {
-                 const rowData = payslipData.rows.find(r => r.id === id);
-                 const headerData = payslipData.header[id];
-                 const footerData = payslipData.footer[id];
-                 explanationBox.textContent = (rowData?.explanation || headerData?.explanation || footerData?.explanation || "Cliquez sur une autre ligne pour voir son explication.");
-            }
-            
-            document.querySelectorAll('.payslip-row').forEach(row => {
-                row.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    document.querySelectorAll('.payslip-row').forEach(r => r.classList.remove('selected'));
-                    row.classList.add('selected');
-                    updateExplanation(row.dataset.id);
-                });
-            });
-
-            const pyramidExplanation = document.getElementById('pyramid-explanation');
-            document.querySelectorAll('.pyramid-level').forEach(level => {
-                level.addEventListener('mouseenter', () => { pyramidExplanation.textContent = level.dataset.text; });
-                level.addEventListener('mouseleave', () => { pyramidExplanation.textContent = 'Survolez un niveau de la pyramide pour en savoir plus.'; });
-            });
-
-            document.querySelectorAll('.accordion-header').forEach(button => {
-                button.addEventListener('click', () => {
-                    button.nextElementSibling.classList.toggle('hidden');
-                    button.querySelector('svg').classList.toggle('rotate-180');
-                });
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-                });
-            });
-
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
-                        });
-                    }
-                });
-            }, { rootMargin: "-50% 0px -50% 0px" });
-
-            sections.forEach(section => observer.observe(section));
-        });
-    </script>
-</body>
-</html>
+                { title: "Annexe 6 : Souffrance en milieu engagé", content: "Face à la toute-puissance du marché, l'économie sociale et solidaire jouit d'une aura précieuse. Or, ce secteur est à son tour affecté par une précarité croissante. La fonction d'employeur est souvent un impensé de ces structures qui se vivent avant tout comme militantes. Très invest
