@@ -3,37 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TD 1 Interactif : La Paie, Acte Managérial et Outil Stratégique</title>
-    <!-- Chargement des librairies externes via CDN -->
+    <title>TD 1 : La Paie, Acte Managérial et Outil Stratégique</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!--
-    Plan de la structure de l'application :
-    L'application est conçue comme un tableau de bord interactif avec trois sections thématiques :
-    1) Un "Décortiqueur de Paie" pour disséquer visuellement le bulletin de paie.
-    2) Un "Cadre Légal" avec une pyramide interactive pour la hiérarchie des normes.
-    3) Une section "Enjeux Stratégiques" utilisant des cartes interactives pour explorer des concepts clés.
-    Cette structure a été choisie pour transformer un TD linéaire en une expérience d'apprentissage non linéaire et plus engageante.
-    -->
     <style>
-        /* Styles personnalisés pour améliorer l'esthétique et l'interactivité */
-        html {
-            scroll-behavior: smooth;
-        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* gray-50 */
-            color: #1f2937; /* gray-800 */
+            background-color: #f8f7f4;
+            color: #333;
         }
         .nav-link {
             transition: all 0.3s ease;
             border-bottom: 2px solid transparent;
         }
         .nav-link.active, .nav-link:hover {
-            border-bottom-color: #3b82f6; /* blue-500 */
-            color: #1d4ed8; /* blue-700 */
+            border-bottom-color: #4a5568;
+            color: #2d3748;
         }
         .card {
             background-color: #ffffff;
@@ -49,7 +35,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
-            margin-bottom: -1px; /* Pour superposer légèrement les niveaux */
+            margin-bottom: -1px;
         }
         .pyramid-level:hover {
             transform: scale(1.05);
@@ -58,40 +44,35 @@
         .payslip-row {
             cursor: pointer;
             transition: background-color 0.2s ease-in-out;
-            border-radius: 0.25rem;
         }
         .payslip-row:hover, .payslip-row.selected {
             background-color: #eef2ff; /* indigo-100 */
         }
         .payslip-header {
             background-color: #f3f4f6; /* gray-100 */
-            font-weight: 600;
         }
         .payslip-subheader {
             background-color: #fafafa;
             font-weight: 600;
         }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- En-tête de navigation -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold text-gray-800">TD 1 Interactif</h1>
+                 <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-4">
+                        <img class="h-12 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Logo_Universit%C3%A9_Paris-Nanterre.svg" alt="Logo Université Paris Nanterre" onerror="this.onerror=null;this.src='https://placehold.co/200x50/FFFFFF/000000?text=Logo+Nanterre';">
+                        <h1 class="text-lg font-bold text-gray-800 hidden sm:block">Pratique de la Paie</h1>
+                    </a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#explorer" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Décortiqueur de Paie</a>
                         <a href="#framework" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Cadre Légal</a>
-                        <a href="#stakes" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Enjeux Stratégiques</a>
+                        <a href="#stakes" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse & Correction</a>
                     </div>
                 </div>
             </div>
@@ -100,18 +81,20 @@
 
     <main class="container mx-auto p-4 sm:p-6 lg:p-8">
         
-        <div class="text-center mb-16">
-             <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">La Paie : Acte Managérial et Outil Stratégique</h2>
-            <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Une exploration interactive pour transformer un document complexe en un puissant outil de management.</p>
+        <div class="text-center mb-12">
+            <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 1 : La Paie, Acte Managérial et Outil Stratégique</h2>
+            </div>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Cette application interactive vous permet d'explorer les concepts clés du premier TD. Cliquez sur les éléments pour révéler les explications et naviguez entre les sections pour une compréhension complète.</p>
         </div>
 
-        <!-- Section 1: Décortiqueur de Bulletin de Paie -->
-        <section id="explorer" class="my-20 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-center mb-10 text-gray-800">Le Décortiqueur de Bulletin de Paie</h3>
+        <!-- Section 1: Payslip Explorer -->
+        <section id="explorer" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Le Décortiqueur de Bulletin de Paie</h3>
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
                 <div class="card p-4 sm:p-6 lg:col-span-3">
                     <div id="payslip-container" class="text-xs sm:text-sm overflow-x-auto">
-                        <!-- Le tableau interactif du bulletin de paie sera injecté ici par JavaScript -->
+                        <!-- Interactive Payslip Table will be injected here -->
                     </div>
                 </div>
                 <div class="lg:col-span-2 lg:sticky top-24 space-y-6">
@@ -120,8 +103,8 @@
                          <p id="explanation-box" class="text-gray-600 min-h-[120px]">Cliquez sur une ligne du bulletin de paie pour afficher son explication ici.</p>
                     </div>
                     <div class="card p-6">
-                        <h4 class="font-bold text-lg mb-4 text-center text-gray-700">Du Coût Total au Net Payé</h4>
-                        <div class="chart-container" style="position: relative; height:300px; width:100%;">
+                        <h4 class="font-bold text-lg mb-4 text-center text-gray-700">Du Coût Total au Net Payé : Visualisation</h4>
+                        <div class="chart-container" style="position: relative; height:300px; width:100%; max-width: 400px; margin: auto;">
                             <canvas id="payslipChart"></canvas>
                         </div>
                     </div>
@@ -129,15 +112,15 @@
             </div>
         </section>
 
-        <!-- Section 2: Cadre Légal -->
-        <section id="framework" class="my-20 scroll-mt-20">
+        <!-- Section 2: Legal Framework -->
+        <section id="framework" class="my-16 scroll-mt-20">
             <h3 class="text-2xl font-bold text-center mb-12 text-gray-800">Le Cadre Légal : La Hiérarchie des Normes</h3>
             <div class="flex flex-col md:flex-row gap-8 items-center">
                 <div id="pyramid-container" class="w-full md:w-1/2 flex flex-col items-center">
-                    <!-- La pyramide des normes sera injectée ici par JavaScript -->
+                    <!-- Pyramid will be injected here -->
                 </div>
                 <div class="w-full md:w-1/2">
-                    <div class="card p-6 min-h-[300px] flex flex-col justify-center">
+                    <div class="card p-6 min-h-[300px]">
                         <h4 class="font-bold text-lg mb-2 text-gray-700">Détail du niveau</h4>
                         <p id="pyramid-explanation" class="text-gray-600">Survolez un niveau de la pyramide pour en savoir plus.</p>
                     </div>
@@ -145,26 +128,26 @@
             </div>
         </section>
 
-        <!-- Section 3: Enjeux Stratégiques -->
-        <section id="stakes" class="my-20 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-center mb-10 text-gray-800">Les Enjeux Stratégiques de la Paie</h3>
+        <!-- Section 3: Strategic Stakes -->
+        <section id="stakes" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Points Clés (Correction)</h3>
             <div id="accordion-container" class="space-y-4 max-w-4xl mx-auto">
-                 <!-- L'accordéon interactif sera injecté ici par JavaScript -->
+                 <!-- Accordion items will be injected here -->
             </div>
         </section>
     </main>
 
     <footer class="bg-white border-t border-gray-200 mt-16">
         <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
-            <p>Application interactive basée sur le TD 1 "Pratique de la Paie".</p>
+            <p><a href="index.html" class="hover:underline">Retour à l'accueil</a></p>
+            <p class="text-sm mt-2">&copy; 2024-2025 - Université Paris Nanterre - Tous droits réservés.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            // --- 1. DÉFINITION DES DONNÉES ---
-            // Toutes les données textuelles et chiffrées sont centralisées ici pour une maintenance facile.
+            // --- DATA ---
             const payslipData = {
                 header: {
                     employer: { id: 'employer', label: 'Employeur', value: 'ENTREPRISE ABC - 12 rue de la Paix, 75001 Paris', explanation: 'Identification légale de l\'employeur, incluant son nom et son adresse.' },
@@ -191,8 +174,9 @@
                     { id: 'secu_deplaf', label: 'Sécurité sociale déplafonnée', base: '3000,00', rate_s: '0,40%', rate_p: '1,90%', gain: null, deduction_s: 12.00, deduction_p: 57.00, explanation: 'Cotisation pour la retraite de base, calculée sur la totalité du salaire brut.' },
                     { id: 'ret_comp_t1', label: 'Complémentaire Tranche 1', base: '3000,00', rate_s: '3,15%', rate_p: '4,72%', gain: null, deduction_s: 94.50, deduction_p: 141.60, explanation: 'Cotisation pour la retraite complémentaire (Agirc-Arrco) sur la partie du salaire inférieure au PSS.' },
 
-                    { id: 'chomage_header', type: 'subheader', label: 'Autres contributions dues par l\'employeur'},
+                    { id: 'chomage_header', type: 'subheader', label: 'Famille - Chômage (Contributions employeur)'},
                     { id: 'chomage_cot', label: 'Assurance chômage', base: '3000,00', rate_p: '4,05%', deduction_p: 121.50, explanation: 'Contribution exclusivement patronale finançant le régime d\'assurance chômage.' },
+                     { id: 'famille_cot', label: 'Allocations familiales', base: '3000,00', rate_p: '3,45%', deduction_p: 103.50, explanation: 'Contribution patronale pour financer les prestations familiales. Le taux peut être réduit pour les bas salaires.' },
 
                     { id: 'net_social', type: 'header', label: 'Montant net social', gain: 2656.50, explanation: 'Montant de référence à déclarer pour bénéficier de certaines prestations sociales (Prime d\'activité, RSA). Il est calculé à partir du salaire brut après déduction de certaines cotisations spécifiques.' },
 
@@ -225,241 +209,204 @@
             ];
 
             const accordionData = [
-                { title: "Annexe 1 : La rémunération, enjeu stratégique et managérial", content: "Attirer, fidéliser et motiver ses collaborateurs sont les trois objectifs principaux des politiques de rémunération. [...] La rémunération est l’un des seuls outils managériaux ayant un impact aussi fort sur les collaborateurs et leur environnement de travail. Elle agit sur la motivation, la performance, la satisfaction, la reconnaissance, la fidélisation, l’engagement, le développement des compétences, le climat social, la marque employeur [...]. La gestion des rémunérations est donc un enjeu de premier ordre pour une organisation." },
-                { title: "Annexe 2 : La feuille de paie, entre simplification et complexité persistante", content: "Pour près de trois quarts des salariés, la lecture de la feuille de paie est un véritable casse-tête. C'est pour simplifier ce document et le rendre plus compréhensible que le gouvernement a décidé d'alléger sa présentation. [...] Malgré tout, près de la moitié des Français estiment que leur bulletin de paie n’est toujours pas plus simple à déchiffrer." },
-                { title: "Annexes 4 & 5 : Les risques de l'externalisation", content: "L’externalisation peut s’avérer décevante. [...] La perte de contrôle sur les activités, une perte de la vision globale de la fonction RH, ainsi qu’une perte de proximité avec les salariés peuvent en résulter. La perte de compétences dans l’entreprise peut rendre tout retour en arrière difficile et coûteux. S'ajoutent des risques liés à la sécurité et la confidentialité des données sensibles." },
-                { title: "Annexe 6 : Souffrance en milieu engagé", content: "Face à la toute-puissance du marché, l'économie sociale et solidaire jouit d'une aura précieuse. Or, ce secteur est à son tour affecté par une précarité croissante. La fonction d'employeur est souvent un impensé de ces structures qui se vivent avant tout comme militantes. Très investis, les salariés peuvent avoir du mal à distinguer vie professionnelle et vie personnelle et se retrouvent, malgré eux, dans une situation de 'servitude volontaire'." }
+                { title: "Point Clé 1 : Rôle Managérial & Contrat Psychologique", content: "La paie n'est pas qu'une transaction, c'est un acte de management. Une communication claire sur le bulletin renforce la confiance et le sentiment d'équité, piliers du 'contrat psychologique' (attentes implicites entre salarié et employeur). Un manager qui explique la paie démontre sa compétence et son respect, ce qui désamorce les tensions et valorise la rétribution globale (salaire + avantages + protection sociale)." },
+                { title: "Point Clé 2 : La Structure du Bulletin & ses Objectifs", content: "Le bulletin de paie clarifié vise à être plus lisible en regroupant les cotisations par risque (Santé, Retraite, etc.). Malgré cela, sa complexité demeure un défi. Son objectif est de détailler le passage du 'Salaire Brut' (la référence) au 'Net Payé' (ce qui est versé), en passant par le 'Net Social' (pour les aides) et le 'Net Fiscal' (base de l'impôt). Il doit aussi informer sur le coût total pour l'employeur." },
+                { title: "Point Clé 3 : Cadre Légal & Externalisation", content: "La paie est régie par une hiérarchie de normes (loi, convention collective, contrat...). La règle la plus favorable au salarié s'applique. L'externalisation de la paie peut sembler simple, mais elle présente des risques stratégiques : perte de contrôle des données RH, perte de compétences internes, et dépendance envers le prestataire, ce qui peut freiner le pilotage social de l'entreprise." }
             ];
 
-            // --- 2. INJECTION DYNAMIQUE DU CONTENU DANS LE HTML ---
-            
-            // Fonction utilitaire pour formater les nombres en euros
+            // --- UI INJECTION ---
+
             function formatCurrency(value) {
-                if (typeof value !== 'number') return '';
-                return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value);
+                return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value || 0);
             }
 
-            function buildPayslip() {
-                const container = document.getElementById('payslip-container');
-                if (!container) return;
-                
-                let html = `<div class="bg-white p-2 rounded-lg border border-gray-200">`;
+            // Payslip
+            const payslipContainer = document.getElementById('payslip-container');
+            let payslipHTML = `<div class="bg-white p-2 rounded-lg border border-gray-200">`;
 
-                // En-tête du bulletin
-                html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 p-2 border-b">`;
-                Object.values(payslipData.header).forEach(item => {
-                    html += `<div class="payslip-row p-1" data-id="${item.id}">
-                        <span class="font-semibold">${item.label} :</span>
-                        <span class="text-gray-700">${item.value}</span>
-                    </div>`;
-                });
-                html += `</div>`;
+            // Header part
+            payslipHTML += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 p-2 border-b">`;
+            Object.values(payslipData.header).forEach(item => {
+                payslipHTML += `<div class="payslip-row" data-id="${item.id}">
+                    <span class="font-semibold">${item.label} :</span>
+                    <span class="text-gray-700">${item.value}</span>
+                </div>`;
+            });
+            payslipHTML += `</div>`;
 
-                // Corps du bulletin (tableau des cotisations)
-                html += `<div class="overflow-x-auto"><table class="w-full mt-2" style="min-width: 600px;">
-                                <thead>
-                                    <tr class="text-left text-gray-600">
-                                        <th class="py-1 px-2 font-semibold">Libellé</th>
-                                        <th class="py-1 px-2 font-semibold text-right">Base</th>
-                                        <th class="py-1 px-2 font-semibold text-right">Taux Sal.</th>
-                                        <th class="py-1 px-2 font-semibold text-right">Gain</th>
-                                        <th class="py-1 px-2 font-semibold text-right">Retenue Sal.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>`;
-                
-                payslipData.rows.forEach(row => {
-                    if (row.type === 'subheader') {
-                        html += `<tr><td colspan="5" class="payslip-subheader p-1">${row.label}</td></tr>`;
-                    } else if (row.type === 'header') {
-                         html += `<tr class="payslip-row payslip-header" data-id="${row.id}">
-                            <td class="p-2" colspan="3">${row.label}</td>
-                            <td class="p-2 text-right" colspan="2">${formatCurrency(row.gain)}</td>
-                        </tr>`;
-                    } else {
-                         html += `<tr class="payslip-row" data-id="${row.id}">
-                            <td class="p-1 px-2">${row.label}</td>
-                            <td class="p-1 px-2 text-right">${row.base || ''}</td>
-                            <td class="p-1 px-2 text-right">${row.rate_s || ''}</td>
-                            <td class="p-1 px-2 text-right text-green-600">${formatCurrency(row.gain)}</td>
-                            <td class="p-1 px-2 text-right text-red-600">${formatCurrency(row.deduction_s)}</td>
-                         </tr>`;
-                    }
-                });
-                html += `</tbody></table></div>`;
-                
-                // Pied de page du bulletin (totaux)
-                const reductionGen = payslipData.rows.find(r => r.id === 'reduction_gen')?.gain || 0;
-                html += `<div class="mt-4 pt-2 border-t">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="space-y-1 text-sm">
-                            <div class="payslip-row p-2" data-id="total_patronal">
-                                <!-- CORRECTION ICI: Utilisation de .value pour accéder à la valeur numérique -->
-                                <div class="flex justify-between"><span>Total cotisations patronales</span><span>${formatCurrency(payslipData.footer.total_patronal.value)}</span></div>
-                            </div>
-                             <div class="payslip-row p-2" data-id="reduction_gen">
-                                <div class="flex justify-between"><span>Dont allègements de cotisations</span><span>- ${formatCurrency(reductionGen)}</span></div>
-                            </div>
+            // Body part
+            payslipHTML += `<div class="overflow-x-auto"><table class="w-full mt-2" style="min-width: 600px;">
+                            <thead>
+                                <tr class="payslip-header text-left">
+                                    <th class="py-1 px-2 font-semibold">Libellé</th>
+                                    <th class="py-1 px-2 font-semibold text-right">Base</th>
+                                    <th class="py-1 px-2 font-semibold text-right">Taux Sal.</th>
+                                    <th class="py-1 px-2 font-semibold text-right">Gain</th>
+                                    <th class="py-1 px-2 font-semibold text-right">Retenue Sal.</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+            
+            payslipData.rows.forEach(row => {
+                if(row.type === 'subheader'){
+                    payslipHTML += `<tr><td colspan="5" class="payslip-subheader p-1 font-semibold">${row.label}</td></tr>`;
+                } else if(row.type === 'header') {
+                     payslipHTML += `<tr class="payslip-row payslip-header font-bold" data-id="${row.id}">
+                        <td class="p-2" colspan="3">${row.label}</td>
+                        <td class="p-2 text-right" colspan="2">${formatCurrency(row.gain)}</td>
+                    </tr>`;
+                } else {
+                     payslipHTML += `<tr class="payslip-row" data-id="${row.id}">
+                        <td class="p-1 px-2">${row.label}</td>
+                        <td class="p-1 px-2 text-right">${row.base || ''}</td>
+                        <td class="p-1 px-2 text-right">${row.rate_s || ''}</td>
+                        <td class="p-1 px-2 text-right text-green-600">${row.gain ? formatCurrency(row.gain) : ''}</td>
+                        <td class="p-1 px-2 text-right text-red-600">${row.deduction_s ? formatCurrency(row.deduction_s) : ''}</td>
+                     </tr>`;
+                }
+            });
+            payslipHTML += `</tbody></table></div>`;
+            
+            // Footer Part
+            payslipHTML += `<div class="mt-4 pt-2 border-t">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <div class="payslip-row p-2" data-id="total_patronal">
+                            <div class="flex justify-between"><span>Total cotisations patronales</span><span>${formatCurrency(payslipData.footer.total_patronal)}</span></div>
                         </div>
-                        <div class="text-right">
-                             <div class="payslip-row p-1" data-id="net_avant_impot">
-                                <div class="flex justify-between font-bold"><span>Net à payer avant impôt</span><span>${formatCurrency(payslipData.footer.net_avant_impot.value)}</span></div>
-                            </div>
-                            <div class="payslip-row p-1" data-id="pas">
-                                <div class="flex justify-between"><span>Impôt sur le revenu (PAS)</span><span>- ${formatCurrency(payslipData.footer.pas.montant)}</span></div>
-                            </div>
-                             <div class="payslip-row p-2 mt-2 bg-blue-50 rounded-md" data-id="net_a_payer">
-                                <div class="flex justify-between font-bold text-lg text-blue-800"><span>NET À PAYER</span><span>${formatCurrency(payslipData.footer.net_a_payer.value)}</span></div>
-                            </div>
+                         <div class="payslip-row p-2" data-id="reduction_gen">
+                            <div class="flex justify-between"><span>Dont allègements de cotisations</span><span>- ${formatCurrency(payslipData.rows.find(r=>r.id==='reduction_gen').gain)}</span></div>
                         </div>
                     </div>
-                    <div class="payslip-row text-sm text-gray-600 mt-4 pt-2 border-t p-2" data-id="cout_total">
-                        <div class="flex justify-between font-bold"><span>Coût total employeur</span><span>${formatCurrency(payslipData.footer.cout_total.value)}</span></div>
-                    </div>
-                     <div class="payslip-row text-sm text-gray-600 mt-2 p-2" data-id="conges">
-                        <div class="flex justify-between"><span>Congés payés</span><span>Solde: ${payslipData.footer.conges.solde} jrs</span></div>
-                    </div>
-                </div></div>`;
-
-                container.innerHTML = html;
-            }
-
-            function buildPyramid() {
-                const container = document.getElementById('pyramid-container');
-                if (!container) return;
-                let html = '';
-                pyramidLevels.forEach((level, index) => {
-                    const width = 100 - index * 12;
-                    html += `<div class="pyramid-level relative text-white text-center font-semibold p-3 ${level.color}" style="width: ${width}%;" data-text="${level.text}">
-                        ${level.label}
-                    </div>`;
-                });
-                container.innerHTML = html;
-            }
-
-            function buildAccordion() {
-                const container = document.getElementById('accordion-container');
-                if (!container) return;
-                accordionData.forEach((item) => {
-                    container.innerHTML += `
-                        <div class="card overflow-hidden">
-                            <h2>
-                                <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center hover:bg-gray-50">
-                                    <span>${item.title}</span>
-                                    <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </button>
-                            </h2>
-                            <div class="accordion-content">
-                                <div class="p-4 pt-0">
-                                     <p class="text-gray-600">${item.content}</p>
-                                </div>
-                            </div>
+                    <div class="text-right">
+                         <div class="payslip-row p-1" data-id="net_avant_impot">
+                            <div class="flex justify-between font-bold"><span>Net à payer avant impôt</span><span>${formatCurrency(payslipData.footer.net_avant_impot.value)}</span></div>
                         </div>
-                    `;
-                });
-            }
+                        <div class="payslip-row p-1" data-id="pas">
+                            <div class="flex justify-between"><span>Impôt sur le revenu prélevé à la source</span><span>- ${formatCurrency(payslipData.footer.pas.montant)}</span></div>
+                        </div>
+                         <div class="payslip-row p-2 mt-2 bg-gray-100 rounded-md" data-id="net_a_payer">
+                            <div class="flex justify-between font-bold text-lg"><span>Net à payer</span><span>${formatCurrency(payslipData.footer.net_a_payer.value)}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="payslip-row text-sm text-gray-600 mt-4 pt-2 border-t p-2" data-id="cout_total">
+                    <div class="flex justify-between font-bold"><span>Coût total de l'employeur pour ce salarié</span><span>${formatCurrency(payslipData.footer.cout_total.value)}</span></div>
+                </div>
+                 <div class="payslip-row text-sm text-gray-600 mt-2 p-2" data-id="conges">
+                    <div class="flex justify-between"><span>Congés payés</span><span>Solde: ${payslipData.footer.conges.solde} jrs</span></div>
+                </div>
+            </div></div>`;
 
-            // --- 3. INITIALISATION DU GRAPHIQUE (CHART.JS) ---
-            function initChart() {
-                const ctx = document.getElementById('payslipChart');
-                if (!ctx) return;
-                const { net_a_payer, total_salarial, total_patronal } = payslipData.footer;
-                new Chart(ctx.getContext('2d'), {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Net Payé au Salarié', 'Cotisations Salariales', 'Cotisations Patronales'],
-                        datasets: [{
-                            data: [net_a_payer.value, total_salarial.value, total_patronal.value],
-                            backgroundColor: ['#3b82f6', '#f97316', '#ef4444'], // blue, orange, red
-                            borderColor: '#ffffff',
-                            borderWidth: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { 
-                            legend: { position: 'bottom', labels: { padding: 20 } },
-                            tooltip: {
-                                callbacks: { label: (context) => `${context.label}: ${formatCurrency(context.parsed)}` }
+            payslipContainer.innerHTML = payslipHTML;
+
+
+            // Pyramid
+            const pyramidContainer = document.getElementById('pyramid-container');
+            let pyramidHTML = '';
+            pyramidLevels.forEach((level, index) => {
+                const width = 100 - index * 10;
+                pyramidHTML += `<div class="pyramid-level relative text-white text-center font-semibold p-3 ${level.color}" style="width: ${width}%;" data-text="${level.text}">
+                    ${level.label}
+                </div>`;
+            });
+            pyramidContainer.innerHTML = pyramidHTML;
+
+            // Accordion
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionData.forEach((item) => {
+                accordionContainer.innerHTML += `
+                    <div class="card overflow-hidden">
+                        <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
+                            <span>${item.title}</span>
+                            <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content hidden p-4 pt-0">
+                            <p class="text-gray-600">${item.content}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+
+            // --- CHART ---
+            const ctx = document.getElementById('payslipChart').getContext('2d');
+            const { net_a_payer, total_salarial, total_patronal } = payslipData.footer;
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Net Payé au Salarié', 'Cotisations Salariales', 'Cotisations Patronales'],
+                    datasets: [{
+                        data: [net_a_payer.value, total_salarial.value, total_patronal.value],
+                        backgroundColor: ['#60a5fa', '#fb923c', '#f87171'],
+                        borderColor: '#ffffff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.label}: ${formatCurrency(context.parsed)}`
                             }
                         }
                     }
-                });
-            }
+                }
+            });
 
-            // --- 4. GESTION DES INTERACTIONS UTILISATEUR ---
-            function setupEventListeners() {
-                const explanationBox = document.getElementById('explanation-box');
-                document.body.addEventListener('click', function(e) {
-                    const payslipRow = e.target.closest('.payslip-row');
-                    if (payslipRow) {
-                         document.querySelectorAll('.payslip-row').forEach(r => r.classList.remove('selected'));
-                         payslipRow.classList.add('selected');
-                         
-                         const id = payslipRow.dataset.id;
-                         const rowData = payslipData.rows.find(r => r.id === id);
-                         const headerData = payslipData.header[id];
-                         const footerData = payslipData.footer[id];
-                         explanationBox.innerHTML = (rowData?.explanation || headerData?.explanation || footerData?.explanation || "Cliquez sur une autre ligne pour voir son explication.");
-                    }
-
-                    const accordionHeader = e.target.closest('.accordion-header');
-                    if (accordionHeader) {
-                        const content = accordionHeader.parentElement.nextElementSibling;
-                        const svg = accordionHeader.querySelector('svg');
-                        
-                        if (content.style.maxHeight) {
-                            content.style.maxHeight = null;
-                            content.style.paddingTop = null;
-                            content.style.paddingBottom = null;
-                            svg.style.transform = 'rotate(0deg)';
-                        } else {
-                            content.style.maxHeight = content.scrollHeight + "px";
-                            content.style.paddingTop = '0';
-                            content.style.paddingBottom = '1rem';
-                            svg.style.transform = 'rotate(180deg)';
-                        }
-                    }
-                });
-                
-                const pyramidExplanation = document.getElementById('pyramid-explanation');
-                document.getElementById('pyramid-container').addEventListener('mouseover', function(e) {
-                     const pyramidLevel = e.target.closest('.pyramid-level');
-                     if(pyramidLevel) {
-                         pyramidExplanation.innerHTML = pyramidLevel.dataset.text;
-                     }
-                });
-                 document.getElementById('pyramid-container').addEventListener('mouseout', function() {
-                     pyramidExplanation.innerHTML = 'Survolez un niveau de la pyramide pour en savoir plus.';
-                 });
-
+            // --- INTERACTIONS ---
+            const explanationBox = document.getElementById('explanation-box');
+            function updateExplanation(id) {
+                 const rowData = payslipData.rows.find(r => r.id === id);
+                 const headerData = payslipData.header[id];
+                 const footerData = payslipData.footer[id];
+                 explanationBox.textContent = (rowData?.explanation || headerData?.explanation || footerData?.explanation || "Cliquez sur une autre ligne pour voir son explication.");
             }
             
-            // --- 5. OBSERVATEUR POUR LA NAVIGATION ACTIVE ---
-            function setupNavObserver() {
-                const sections = document.querySelectorAll('section');
-                const navLinks = document.querySelectorAll('.nav-link');
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            navLinks.forEach(link => {
-                                link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
-                            });
-                        }
-                    });
-                }, { rootMargin: "-40% 0px -60% 0px" }); // Ajustement pour une meilleure détection
-                sections.forEach(section => observer.observe(section));
-            }
+            document.querySelectorAll('.payslip-row').forEach(row => {
+                row.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.querySelectorAll('.payslip-row').forEach(r => r.classList.remove('selected'));
+                    row.classList.add('selected');
+                    updateExplanation(row.dataset.id);
+                });
+            });
 
+            const pyramidExplanation = document.getElementById('pyramid-explanation');
+            document.querySelectorAll('.pyramid-level').forEach(level => {
+                level.addEventListener('mouseenter', () => { pyramidExplanation.innerHTML = level.dataset.text; });
+                level.addEventListener('mouseleave', () => { pyramidExplanation.textContent = 'Survolez un niveau de la pyramide pour en savoir plus.'; });
+            });
 
-            // --- Lancement de l'application ---
-            buildPayslip();
-            buildPyramid();
-            buildAccordion();
-            initChart();
-            setupEventListeners();
-            setupNavObserver();
+            document.querySelectorAll('.accordion-header').forEach(button => {
+                button.addEventListener('click', () => {
+                    button.nextElementSibling.classList.toggle('hidden');
+                    button.querySelector('svg').classList.toggle('rotate-180');
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => observer.observe(section));
         });
     </script>
 </body>
