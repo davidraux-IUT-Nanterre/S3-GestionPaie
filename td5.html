@@ -31,7 +31,7 @@
         .rotate-180 {
             transform: rotate(180deg);
         }
-        
+
         /* --- CSS Corrigé --- */
         .accordion-content, .calc-explanation {
             max-height: 0;
@@ -56,7 +56,7 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#calculator" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Calcul du Net</a>
+                        <a href="#calculators" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Calculs du Net</a>
                         <a href="#concepts" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Concepts Clés</a>
                         <a href="#synthesis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse</a>
                     </div>
@@ -69,18 +69,21 @@
         
         <div class="text-center mb-12">
             <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 5 : La Finalisation du Bulletin : CSG, CRDS et Net à Payer</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 5 : La Finalisation du Bulletin : CSG, CRDS et Éléments du Net</h2>
             </div>
-             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez les dernières étapes du calcul de la paie, du net avant impôt au net versé, à travers une étude de cas interactive.</p>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez les dernières étapes du calcul de la paie, du net avant impôt au net versé, à travers deux études de cas interactives.</p>
         </div>
 
-        <section id="calculator" class="my-16 scroll-mt-20">
-            <h3 class="text-2xl font-bold text-center mb-2 text-gray-800">Étude de Cas : Le Salaire Net de M. Chen</h3>
-            <p class="text-center text-gray-600 mb-8">Cliquez sur chaque étape pour voir le détail du calcul et les explications.</p>
-            
-            <div class="max-w-3xl mx-auto">
-                <div class="card p-6 md:p-8">
-                    <div id="calculator-container"></div>
+        <section id="calculators" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Calculateurs Interactifs des Études de Cas</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl text-center mb-4 text-indigo-600">Cas A : M. Chen (Non-Cadre)</h4>
+                    <div id="calculator-A" class="space-y-2"></div>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl text-center mb-4 text-teal-600">Cas B : Mme David (Cadre)</h4>
+                    <div id="calculator-B" class="space-y-2"></div>
                 </div>
             </div>
         </section>
@@ -129,17 +132,20 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // --- DATA & FUNCTIONS (INCHANGÉES) ---
-            const caseData = {
-                salaireBrut: 3200,
-                cotisationsSalariales: 510,
-                partPatronaleMutuelle: 40,
-                demandeVersement: 1000,
-                titresRestaurantPartSalariale: 22 * 4,
+            const PMSS = 3864;
+
+            const caseA_Data = {
+                salaireBrut: 3200, cotisationsSalariales: 510, partPatronaleMutuelle: 40,
+                partPatronalePrevoyance: 0, titresRestaurantPartSalariale: 22 * 4, demandeVersement: 1000,
+            };
+            const caseB_Data = {
+                salaireBrut: 4000, cotisationsSalariales: 890, partPatronaleMutuelle: 50,
+                partPatronalePrevoyance: PMSS * 0.015, titresRestaurantPartSalariale: 0, demandeVersement: 0,
             };
 
             const synthesisData = [
                 { title: "Synthèse : La CSG/CRDS, un Impôt à Finalité Sociale", content: "La CSG et la CRDS sont des <strong>impositions</strong> et non des cotisations sociales. Leur spécificité est double : leur <strong>assiette de calcul</strong> (98,25% du brut + part patronale prévoyance/mutuelle) est unique, et leur produit est directement affecté au financement de la protection sociale. La part non déductible de la CSG/CRDS (2,90%) est un point technique et politique important, car elle est réintégrée dans le revenu imposable, créant un effet de 'double imposition' pour le salarié." },
-                { title: "Synthèse : Du Net avant Impôt au Net Payé", content: "Il est crucial de distinguer le <strong>net avant impôt</strong> (résultat du brut moins toutes les cotisations salariales, y compris CSG/CRDS) du <strong>net à payer</strong> final. Plusieurs éléments, qui ne sont pas du salaire, viennent ajuster ce montant. On parle de 'flux de trésorerie'. Cela inclut les déductions pour les <strong>titres-restaurant</strong>, les <strong>acomptes</strong> versés, ou encore les <strong>saisies sur salaire</strong>. Le prélèvement de l'impôt à la source vient également en déduction pour déterminer le net réellement versé." },
+                { title: "Synthèse : Du Net avant Impôt au Net à Payer", content: "Il est crucial de distinguer le <strong>net avant impôt</strong> (résultat du brut moins toutes les cotisations salariales, y compris CSG/CRDS) du <strong>net à payer</strong> final. Plusieurs éléments, qui ne sont pas du salaire, viennent ajuster ce montant. On parle de 'flux de trésorerie'. Cela inclut les déductions pour les <strong>titres-restaurant</strong>, les <strong>acomptes</strong> versés, ou encore les <strong>saisies sur salaire</strong>. Le prélèvement de l'impôt à la source vient également en déduction pour déterminer le net réellement versé." },
                 { title: "Synthèse : Acompte vs Avance - Une distinction juridique clé", content: "Face à une demande de versement anticipé, le gestionnaire doit qualifier la demande. L'<strong>acompte</strong> rémunère un travail déjà effectué ; son versement est une <strong>obligation</strong> pour l'employeur dans la limite des droits acquis. L'<strong>avance</strong> est un prêt sur un travail futur ; son octroi est <strong>facultatif</strong> et relève de la seule décision de l'employeur. Pour la demande de M. Chen (1000€ le 6 du mois), elle dépasse le travail déjà effectué, il s'agit donc d'une demande d'avance que l'employeur peut refuser." }
             ];
 
@@ -149,23 +155,45 @@
             
             function createCalculator(containerId, data) {
                 const container = document.getElementById(containerId);
-
-                const baseCSG = data.salaireBrut * 0.9825 + data.partPatronaleMutuelle;
+                const baseCSG = data.salaireBrut * 0.9825 + data.partPatronaleMutuelle + data.partPatronalePrevoyance;
                 const montantCSG_CRDS = baseCSG * 0.097;
                 const netAvantImpot = data.salaireBrut - data.cotisationsSalariales - montantCSG_CRDS;
-                const netAPayer = netAvantImpot - data.titresRestaurantPartSalariale;
+                
+                const travailEffectue = (6 / 22) * netAvantImpot;
+                const acomptePossible = data.demandeVersement > 0 ? Math.min(data.demandeVersement, travailEffectue) : 0;
+                const netAPayer = netAvantImpot - data.titresRestaurantPartSalariale - acomptePossible;
                 
                 let html = '';
                 const steps = [
-                    { title: '1. Calcul de l\'assiette CSG/CRDS', result: formatCurrency(baseCSG), explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">(Salaire Brut × 98,25%) + Part Patronale Mutuelle</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">(${formatCurrency(data.salaireBrut)} × 0,9825) + ${formatCurrency(data.partPatronaleMutuelle)} = ${formatCurrency(baseCSG)}</p>` },
-                    { title: '2. Calcul du prélèvement CSG/CRDS', result: `- ${formatCurrency(montantCSG_CRDS)}`, explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Base CSG/CRDS × 9,70%</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(baseCSG)} × 0,097 = ${formatCurrency(montantCSG_CRDS)}</p>` },
-                    { title: '3. Calcul du Net à Payer Avant Impôt', result: formatCurrency(netAvantImpot), explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Brut - Cotisations Salariales - CSG/CRDS</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(data.salaireBrut)} - ${formatCurrency(data.cotisationsSalariales)} - ${formatCurrency(montantCSG_CRDS)} = ${formatCurrency(netAvantImpot)}</p>` },
-                    { title: '4. Analyse de la demande de 1000€', result: `Avance (refusable)`, explanation: `<p class="font-semibold">Qualification :</p><p class="text-sm">Le 6 du mois, M. Chen n'a pas encore effectué un travail justifiant une rémunération de 1000€. Sa demande est donc une <strong>avance</strong> sur salaire.</p><p class="font-semibold mt-2">Obligation de l'employeur :</p><p class="text-sm">L'employeur n'a <strong>aucune obligation</strong> d'accepter une demande d'avance. Il peut refuser ou accepter un montant inférieur.</p>` },
-                    { title: '5. Calcul du Net Versé (hors acompte)', result: formatCurrency(netAPayer), explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Net avant impôt - Retenue Titres-Restaurant</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(netAvantImpot)} - ${formatCurrency(data.titresRestaurantPartSalariale)} (22j × 4€) = ${formatCurrency(netAPayer)}</p><p class="text-xs mt-2 text-gray-500">Ce montant serait ensuite réduit par l'acompte/avance éventuellement versé et par le prélèvement à la source.</p>` }
+                    { 
+                        title: '1. Calcul de l\'assiette CSG/CRDS',
+                        result: formatCurrency(baseCSG),
+                        explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">(Brut × 98,25%) + Part Pat. Mutuelle + Part Pat. Prévoyance</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">(${formatCurrency(data.salaireBrut)} × 0,9825) + ${formatCurrency(data.partPatronaleMutuelle)} + ${formatCurrency(data.partPatronalePrevoyance)} = ${formatCurrency(baseCSG)}</p>`
+                    },
+                    { 
+                        title: '2. Calcul du prélèvement CSG/CRDS',
+                        result: `- ${formatCurrency(montantCSG_CRDS)}`,
+                        explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Base CSG/CRDS × 9,70%</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(baseCSG)} × 0,097 = ${formatCurrency(montantCSG_CRDS)}</p>`
+                    },
+                    { 
+                        title: '3. Calcul du Net à Payer Avant Impôt',
+                        result: formatCurrency(netAvantImpot),
+                        explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Brut - Cotisations Salariales - CSG/CRDS</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(data.salaireBrut)} - ${formatCurrency(data.cotisationsSalariales)} - ${formatCurrency(montantCSG_CRDS)} = ${formatCurrency(netAvantImpot)}</p>`
+                    },
+                    ...(data.demandeVersement > 0 ? [{
+                        title: '4. Analyse de la demande de versement',
+                        result: `Acompte de ${formatCurrency(acomptePossible)}`,
+                        explanation: `<p class="font-semibold">Qualification :</p><p class="text-sm">Le 6 du mois, M. Chen a effectué environ 6/22e de son travail. Sa demande de 1000€ est une <strong>avance</strong> pour la part dépassant le travail effectué. L'employeur peut refuser l'avance mais doit verser la part correspondant à un <strong>acompte</strong>, soit environ ${formatCurrency(travailEffectue)}.</p>`
+                    }] : []),
+                    {
+                        title: `5. Calcul du Net Versé en fin de mois`,
+                        result: formatCurrency(netAPayer),
+                        explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Net avant impôt - Retenues diverses - Acomptes</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(netAvantImpot)} ${data.titresRestaurantPartSalariale > 0 ? `- ${formatCurrency(data.titresRestaurantPartSalariale)} (TR)` : ''} ${acomptePossible > 0 ? `- ${formatCurrency(acomptePossible)} (Acompte)`: ''} = ${formatCurrency(netAPayer)}</p><p class="text-xs mt-2 text-gray-500">Ce montant serait ensuite réduit par le prélèvement à la source.</p>`
+                    }
                 ];
 
+                // ON UTILISE LES APOSTROPHES INVERSÉES (BACKTICKS) ``
                 steps.forEach((step, index) => {
-                    // --- HTML Corrigé ---
                     html += `
                         <div class="calc-step border-b pb-4 mb-4" data-target="expl-${containerId}-${index}">
                             <div class="flex justify-between items-center">
@@ -181,12 +209,13 @@
                 container.innerHTML = html;
             }
 
-            createCalculator('calculator-container', caseData);
+            createCalculator('calculator-A', caseA_Data);
+            createCalculator('calculator-B', caseB_Data);
             
             const synthesisAccordionContainer = document.getElementById('synthesis-accordion');
             if (synthesisAccordionContainer) {
                 synthesisData.forEach(item => {
-                    // --- HTML Corrigé (apostrophes inversées, structure et plus de "hidden") ---
+                    // ON UTILISE LES APOSTROPHES INVERSÉES (BACKTICKS) ``
                     synthesisAccordionContainer.innerHTML += `
                          <div class="card overflow-hidden">
                             <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
