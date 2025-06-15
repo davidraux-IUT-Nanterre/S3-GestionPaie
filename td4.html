@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TD 4 : Du Net au Super Brut - Le Coût Total Employeur</title>
+    <title>TD 5 : Du Net au Super Brut - Le Coût Total Employeur</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -37,15 +37,13 @@
          .payslip-row:hover, .payslip-row.selected {
             background-color: #eef2ff; /* indigo-100 */
         }
-        
-        /* --- CSS Corrigé et Simplifié --- */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.8s ease-in-out;
         }
         .accordion-content.open {
-            max-height: 2000px; /* Hauteur suffisante pour tout contenu, même les tableaux */
+            max-height: 2000px;
         }
     </style>
 </head>
@@ -74,7 +72,7 @@
         
         <div class="text-center mb-12">
             <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 4 : Du Net au Super Brut - Le Coût Total Employeur</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 5 : Du Net au Super Brut - Le Coût Total Employeur</h2>
             </div>
              <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez le détail du calcul des cotisations sociales et du coût global pour l'employeur à travers des fiches de paie interactives.</p>
         </div>
@@ -85,9 +83,9 @@
                 <p id="explanation-box" class="text-gray-600 min-h-[40px] p-2 bg-indigo-50 rounded-md max-w-4xl mx-auto transition-all duration-300">Cliquez sur une ligne des fiches de paie pour afficher son explication ici.</p>
             </div>
             <div class="space-y-8">
-                <div class="card overflow-hidden">
+                 <div class="card overflow-hidden">
                     <button class="accordion-header w-full text-left p-4 font-bold text-xl text-indigo-600 flex justify-between items-center">
-                        <span>Cas A : Mme Dubois (Salaire Brut : 1 859,00 €)</span>
+                        <span>Cas A : Mme Dubois</span>
                         <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content">
@@ -98,7 +96,7 @@
                 </div>
                 <div class="card overflow-hidden">
                      <button class="accordion-header w-full text-left p-4 font-bold text-xl text-teal-600 flex justify-between items-center">
-                        <span>Cas B : M. Lefevre (Salaire Brut : 4 581,00 €)</span>
+                        <span>Cas B : M. Lefevre</span>
                         <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                      <div class="accordion-content">
@@ -112,8 +110,7 @@
 
         <section id="synthesis" class="my-16 scroll-mt-20">
             <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Concepts Clés</h3>
-            <div id="synthesis-accordion" class="space-y-4 max-w-4xl mx-auto">
-                 </div>
+            <div id="synthesis-accordion" class="space-y-4 max-w-4xl mx-auto"></div>
         </section>
     </main>
 
@@ -131,153 +128,144 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- DATA (avec mutuelle à 82€ et tous les totaux recalculés) ---
+            // --- DATA (Données inchangées de votre version) ---
             const caseA_Data = {
-                brut: 1859,
+                brutDeBase: 1800, hs: 4, primeNonSoumiseHS: 100, primeTravail: 0, brutCalcule: 1859.34,
                 cotisations: [
-                    { libelle: 'Sécurité Sociale Maladie', base: 1859, taux_sal: '0%', montant_sal: 0, taux_pat: '7,00%', montant_pat: 130.13, expl: "Finance les prestations de l'Assurance Maladie. Le taux patronal est réduit car le salaire est inférieur à 2.5 SMIC." },
-                    { libelle: 'Complémentaire santé', base: 82, taux_sal: '50%', montant_sal: 41.00, taux_pat: '50%', montant_pat: 41.00, expl: "Finance la mutuelle obligatoire de 82€. La part patronale de 41€ est considérée comme un avantage et sera soumise à CSG/CRDS." },
-                    { libelle: 'Accidents du travail', base: 1859, taux_sal: '0%', montant_sal: 0, taux_pat: '2,23%', montant_pat: 41.46, expl: "Couvre le risque d'accident sur le lieu de travail. Taux exclusivement patronal." },
-                    { libelle: 'Vieillesse plafonnée', base: 1859, taux_sal: '6,90%', montant_sal: 128.27, taux_pat: '8,55%', montant_pat: 158.94, expl: "Cotisation pour la retraite de base, calculée sur la part du salaire sous le Plafond de la Sécurité Sociale (3864€)." },
-                    { libelle: 'Vieillesse déplafonnée', base: 1859, taux_sal: '0,40%', montant_sal: 7.44, taux_pat: '1,90%', montant_pat: 37.55, expl: "Cotisation de solidarité pour la retraite de base, calculée sur la totalité du salaire." },
-                    { libelle: 'Retraite complémentaire', base: 1859, taux_sal: '4,01%', montant_sal: 74.55, taux_pat: '6,01%', montant_pat: 111.73, expl: "Finance la retraite complémentaire Agirc-Arrco. Elle est gérée par les partenaires sociaux." },
-                    { libelle: 'Assurance chômage & AGS', base: 1859, taux_sal: '0%', montant_sal: 0, taux_pat: '4,25%', montant_pat: 79.01, expl: "Finance les allocations pour les demandeurs d'emploi et la garantie des salaires. Contribution exclusivement patronale." },
-                    { libelle: 'Autres charges patronales', base: 1859, taux_sal: '0%', montant_sal: 0, taux_pat: '1,65%', montant_pat: 30.60, expl: "Regroupe diverses contributions comme le FNAL, la contribution au dialogue social, la formation professionnelle..." },
-                    { libelle: 'CSG / CRDS', base: 1868, taux_sal: '9,70%', montant_sal: 181.20, taux_pat: '', montant_pat: 0, expl: "La CSG et la CRDS sont des impôts finançant la protection sociale. Leur base de calcul est de 98,25% du brut + la part patronale de la mutuelle (1859 * 0.9825 + 41)." },
-                    { libelle: 'Allègements de cotisations', base: 0, taux_sal: '', montant_sal: 0, taux_pat: '', montant_pat: -544.13, expl: "Réduction générale des cotisations patronales (ex-Fillon), applicable car le salaire est inférieur à 1.6 SMIC." }
+                    { id: 'a-sante-secu', libelle: 'Sécurité Sociale Maladie', base: 1859, taux_sal: '0%', montant_sal: 0, taux_pat: '7,00%', montant_pat: 130.13, expl: "Finance les prestations de l'Assurance Maladie. Le taux patronal est réduit car le salaire est inférieur à 2.5 SMIC." },
+                    { id: 'a-sante-comp', libelle: 'Complémentaire santé', base: 82, taux_sal: '50%', montant_sal: 41, taux_pat: '50%', montant_pat: 41, expl: "Finance la mutuelle obligatoire de 82€. La part patronale de 41€ est considérée comme un avantage et sera soumise à CSG/CRDS." },
+                    { id: 'a-at', libelle: 'Accidents du travail', base: 1859, taux_sal: '0%', montant_sal: 0, taux_pat: '2,23%', montant_pat: 41.46, expl: "Couvre le risque d'accident sur le lieu de travail. Taux exclusivement patronal." },
+                    { id: 'a-ret-base-plaf', libelle: 'Vieillesse plafonnée', base: 1859, taux_sal: '6,90%', montant_sal: 128.27, taux_pat: '8,55%', montant_pat: 158.94, expl: "Cotisation pour la retraite de base, calculée sur la part du salaire sous le Plafond de la Sécurité Sociale (3864€)." },
+                    { id: 'a-ret-base-deplaf', libelle: 'Vieillesse déplafonnée', base: 1859, taux_sal: '0,40%', montant_sal: 7.44, taux_pat: '1,90%', montant_pat: 37.55, expl: "Cotisation de solidarité pour la retraite de base, calculée sur la totalité du salaire." },
+                    { id: 'a-ret-comp', libelle: 'Retraite complémentaire', base: 1859, taux_sal: '4,01%', montant_sal: 74.55, taux_pat: '6,01%', montant_pat: 111.73, expl: "Finance la retraite complémentaire Agirc-Arrco. Elle est gérée par les partenaires sociaux." },
+                    { id: 'a-chomage', libelle: 'Assurance chômage & AGS', base: 1859, taux_sal: '0%', montant_sal: 0, taux_pat: '4,25%', montant_pat: 79.01, expl: "Finance les allocations pour les demandeurs d'emploi et la garantie des salaires. Contribution exclusivement patronale." },
+                    { id: 'a-autres-pat', libelle: 'Autres charges patronales', base: 1859, taux_sal: '0%', montant_sal: 0, taux_pat: '1,65%', montant_pat: 30.60, expl: "Regroupe diverses contributions comme le FNAL, la contribution au dialogue social, la formation professionnelle..." },
+                    { id: 'a-allegements', libelle: 'Allègements de cotisations', base: 0, taux_sal: '', montant_sal: 0, taux_pat: '', montant_pat: -544.13, expl: "Réduction générale des cotisations patronales (ex-Fillon), applicable car le salaire est inférieur à 1.6 SMIC." }
                 ],
-                totalSalarial: 432.46, 
-                totalPatronal: 86.29
+                totalSalarial: 250.26, totalPatronalNet: 59.29
             };
-
             const caseB_Data = {
-                brut: 4581,
+                 brutDeBase: 4200, hs: 5, primeTravail: 200, brutCalcule: 4581.04,
                 cotisations: [
-                     { libelle: 'Sécurité Sociale Maladie', base: 4581, taux_sal: '0%', montant_sal: 0, taux_pat: '13,00%', montant_pat: 595.53, expl: "Finance les prestations de l'Assurance Maladie. Le taux patronal est plein (13%) car le salaire est supérieur à 2.5 SMIC." },
-                    { libelle: 'Complémentaire santé', base: 82, taux_sal: '50%', montant_sal: 41.00, taux_pat: '50%', montant_pat: 41.00, expl: "Finance la mutuelle de 82€. La part patronale est soumise à CSG/CRDS." },
-                    { libelle: 'Accidents du travail', base: 4581, taux_sal: '0%', montant_sal: 0, taux_pat: '2,23%', montant_pat: 102.16, expl: "Couvre le risque d'accident sur le lieu de travail." },
-                    { libelle: 'Vieillesse plafonnée', base: 3864, taux_sal: '6,90%', montant_sal: 266.62, taux_pat: '8,55%', montant_pat: 330.37, expl: "Cotisation pour la retraite de base, calculée sur la Tranche 1 (limitée au PMSS de 3864€)." },
-                    { libelle: 'Vieillesse déplafonnée', base: 4581, taux_sal: '0,40%', montant_sal: 18.32, taux_pat: '2,02%', montant_pat: 92.54, expl: "Cotisation de solidarité pour la retraite de base, calculée sur la totalité du salaire (4581€)." },
-                    { libelle: 'Retraite complémentaire', base: 4581, taux_sal: '7,45%', montant_sal: 341.09, taux_pat: '11,41%', montant_pat: 522.66, expl: "Finance la retraite complémentaire Agirc-Arrco. Le calcul inclut les cotisations sur la Tranche 1 et la Tranche 2 du salaire." },
-                    { libelle: 'Assurance chômage & AGS', base: 4581, taux_sal: '0%', montant_sal: 0, taux_pat: '4,25%', montant_pat: 194.69, expl: "Finance les allocations pour les demandeurs d'emploi et la garantie des salaires." },
-                    { libelle: 'APEC', base: 3864, taux_sal: '0,024%', montant_sal: 0.93, taux_pat: '0,036%', montant_pat: 1.39, expl: "Cotisation spécifique aux cadres, finançant l'Association pour l'emploi des cadres." },
-                    { libelle: 'Autres charges patronales', base: 4581, taux_sal: '0%', montant_sal: 0, taux_pat: '3,45%', montant_pat: 158.04, expl: "Regroupe diverses contributions comme le FNAL (au taux plein car > 50 salariés), la formation, etc." },
-                    { libelle: 'CSG / CRDS', base: 4542, taux_sal: '9,70%', montant_sal: 440.57, taux_pat: '', montant_pat: 0, expl: "La CSG et la CRDS sont des impôts finançant la protection sociale. Leur base est de 98,25% du brut + part patronale mutuelle (4581 * 0.9825 + 41)." },
-                    { libelle: 'Allègements de cotisations', base: 0, taux_sal: '', montant_sal: 0, taux_pat: '', montant_pat: 0, expl: "Aucune réduction générale car le salaire est supérieur à 1.6 SMIC." }
+                     { id: 'b-sante-secu', libelle: 'Sécurité Sociale Maladie', base: 4581, taux_sal: '0%', montant_sal: 0, taux_pat: '13,00%', montant_pat: 595.53, expl: "Finance les prestations de l'Assurance Maladie. Le taux patronal est plein (13%) car le salaire est supérieur à 2.5 SMIC." },
+                    { id: 'b-sante-comp', libelle: 'Complémentaire santé', base: 82, taux_sal: '50%', montant_sal: 41, taux_pat: '50%', montant_pat: 41, expl: "Finance la mutuelle de 82€. La part patronale est soumise à CSG/CRDS." },
+                    { id: 'b-at', libelle: 'Accidents du travail', base: 4581, taux_sal: '0%', montant_sal: 0, taux_pat: '2,23%', montant_pat: 102.16, expl: "Couvre le risque d'accident sur le lieu de travail." },
+                    { id: 'b-ret-base-plaf', libelle: 'Vieillesse plafonnée', base: 3864, taux_sal: '6,90%', montant_sal: 266.62, taux_pat: '8,55%', montant_pat: 330.37, expl: "Cotisation pour la retraite de base, calculée sur la Tranche 1 (limitée au PMSS de 3864€)." },
+                    { id: 'b-ret-base-deplaf', libelle: 'Vieillesse déplafonnée', base: 4581, taux_sal: '0,40%', montant_sal: 18.32, taux_pat: '2,02%', montant_pat: 92.54, expl: "Cotisation de solidarité pour la retraite de base, calculée sur la totalité du salaire (4581€)." },
+                    { id: 'b-ret-comp', libelle: 'Retraite complémentaire', base: 4581, taux_sal: '7,45%', montant_sal: 341.09, taux_pat: '11,41%', montant_pat: 522.66, expl: "Finance la retraite complémentaire Agirc-Arrco. Le calcul inclut les cotisations sur la Tranche 1 et la Tranche 2 du salaire." },
+                    { id: 'b-chomage', libelle: 'Assurance chômage & AGS', base: 4581, taux_sal: '0%', montant_sal: 0, taux_pat: '4,25%', montant_pat: 194.69, expl: "Finance les allocations pour les demandeurs d'emploi et la garantie des salaires." },
+                    { id: 'b-apec', libelle: 'Apec', base: 3864, taux_sal: '0,024%', montant_sal: 0.93, taux_pat: '0,036%', montant_pat: 1.39, expl: "Cotisation spécifique aux cadres, finançant l'Association pour l'emploi des cadres." },
+                    { id: 'b-autres-pat', libelle: 'Autres charges patronales', base: 4581, taux_sal: '0%', montant_sal: 0, taux_pat: '3,45%', montant_pat: 158.04, expl: "Regroupe diverses contributions comme le FNAL (au taux plein car > 50 salariés), la formation, etc." },
+                    { id: 'b-allegements', libelle: 'Allègements de cotisations', base: 0, taux_sal: '', montant_sal: 0, taux_pat: '', montant_pat: 0, expl: "Aucune réduction générale car le salaire est supérieur à 1.6 SMIC." }
                 ],
-                totalSalarial: 1108.53, 
-                totalPatronal: 2038.38
+                totalSalarial: 647.96, totalPatronal: 1915.78
             };
-
             const synthesisData = [
-                { title: "Synthèse : Bases, Plafonds et Tranches", content: "Le calcul des cotisations repose sur la notion d'<strong>assiette</strong>. Le <strong>Plafond de la Sécurité Sociale (PMSS)</strong> est l'outil clé qui segmente le salaire en <strong>tranches</strong> (T1, T2). Cette segmentation permet d'appliquer des taux de cotisation différents selon le niveau de revenu, notamment pour la retraite complémentaire. Le cas de M. Lefevre illustre bien ce mécanisme : son salaire dépassant le PMSS, certaines cotisations s'appliquent sur la Tranche 2, ce qui n'est pas le cas pour Mme Dubois." },
-                { title: "Synthèse : Le Rôle Économique des Allègements de Charges", content: "La <strong>réduction générale des cotisations patronales</strong> est une politique publique majeure visant à réduire le coût du travail sur les salaires proches du SMIC pour stimuler l'emploi. Son caractère <strong>dégressif</strong> (le montant diminue à mesure que le salaire augmente) cible précisément les bas salaires. Le cas de Mme Dubois, avec un salaire inférieur à 1,6 SMIC, ouvre droit à cette réduction, diminuant significativement le coût pour son employeur. M. Lefevre, avec un salaire élevé, n'est pas concerné." },
-                { title: "Synthèse : Analyse des Ratios", content: "L'analyse des ratios pour le cas de M. Lefevre (haut salaire) est révélatrice. Les cotisations salariales représentent <strong>24,2%</strong> de son salaire brut (`1108.53 / 4581`). Les cotisations patronales nettes représentent <strong>44,5%</strong> du brut (`2038.38 / 4581`). Cela démontre que le coût total du travail est bien supérieur au salaire brut. Pour Mme Dubois (bas salaire), grâce à la réduction générale, la part des cotisations patronales nettes n'est que de <strong>4,6%</strong> du brut (`86.29 / 1859`), illustrant l'impact massif des politiques d'allègement." }
+                { title: "Synthèse : Bases, Plafonds et Tranches", content: "Le calcul des cotisations repose sur la notion d'<strong>assiette</strong>. Le <strong>Plafond de la Sécurité Sociale (PMSS)</strong> est l'outil clé qui segmente le salaire en <strong>tranches</strong> (T1, T2). Cette segmentation permet d'appliquer des taux de cotisation différents selon le niveau de revenu, notamment pour la retraite complémentaire, ce qui est un principe de progressivité. Le cas de M. Lefevre illustre bien ce mécanisme : son salaire dépassant le PMSS, certaines cotisations de retraite complémentaire s'appliquent sur la Tranche 2, ce qui n'est pas le cas pour Mme Dubois." },
+                { title: "Synthèse : Le Rôle Économique des Allègements de Charges", content: "La <strong>réduction générale des cotisations patronales</strong> est une politique publique majeure visant à réduire le coût du travail sur les salaires proches du SMIC pour stimuler l'emploi. Son caractère <strong>dégressif</strong> (le montant diminue à mesure que le salaire augmente) cible précisément les bas salaires. Le cas de Mme Dubois, avec un salaire inférieur à 1,6 SMIC, ouvre droit à cette réduction, diminuant significativement le coût pour son employeur. M. Lefevre, avec un salaire élevé, n'est pas concerné. La <strong>déduction forfaitaire sur les heures supplémentaires</strong> est un autre outil incitatif, mais réservé à un segment d'entreprises précis (20-249 salariés)." },
+                { title: "Synthèse : Analyse des Ratios", content: "L'analyse des ratios pour le cas de M. Lefevre (haut salaire) est révélatrice. Les cotisations salariales représentent <strong>14.1%</strong> de son salaire brut (`647.96 / 4581.04`). Les cotisations patronales représentent <strong>41.8%</strong> du brut (`1915.78 / 4581.04`). Cela démontre que le coût total du travail est bien supérieur au salaire brut. Pour Mme Dubois (bas salaire), les cotisations salariales représentent <strong>13.5%</strong> du brut (`250.26 / 1859.34`). Grâce à la réduction générale, la part des cotisations patronales nettes n'est que de <strong>3.2%</strong> du brut (`59.29 / 1859.34`), illustrant l'impact massif des politiques d'allègement." }
             ];
 
-            // --- FUNCTIONS ---
+            // --- FUNCTIONS (INCHANGÉES) ---
             function formatCurrency(value) {
                 return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value != null ? value : 0);
             }
 
             function createPayslipHTML(data) {
-                let tableHtml = `<div class="overflow-x-auto"><table class="w-full mt-2" style="min-width: 600px;">
-                                <thead><tr class="bg-gray-200 text-gray-600 text-xs"><th class="p-2 text-left">Libellé</th><th class="p-2 text-right">Base</th><th class="p-2 text-right">Taux Sal.</th><th class="p-2 text-right">Taux Pat.</th><th class="p-2 text-right">Montant Sal.</th><th class="p-2 text-right">Montant Pat.</th></tr></thead>
-                                <tbody>`;
+                const tauxHoraire = data.brutDeBase / 151.67;
+                const baseHS = data.primeTravail > 0 ? tauxHoraire + (data.primeTravail / 151.67) : tauxHoraire;
+                const montantHS = data.hs * baseHS * 1.25;
+
+                // IMPORTANT : Utilisation des apostrophes inversées ``
+                let brutCalcHTML = `
+                    <div class="p-4 bg-gray-50 rounded-lg mb-4 text-sm">
+                        <p class="font-bold mb-2">1. Calcul du Salaire Brut Total :</p>
+                        <p>Taux horaire de base = ${formatCurrency(data.brutDeBase)} / 151,67 = ${tauxHoraire.toFixed(4)}€</p>
+                        ${data.primeTravail > 0 
+                            ? `<p>Base de calcul HS = ${tauxHoraire.toFixed(4)}€ + (${formatCurrency(data.primeTravail)} / 151,67) = ${baseHS.toFixed(4)}€ <br><small class="text-gray-500">(La prime de performance est une contrepartie directe du travail, elle est donc incluse)</small></p>`
+                            : `<p>Base de calcul HS = ${tauxHoraire.toFixed(4)}€ <br><small class="text-gray-500">(La PPV n'est pas une contrepartie directe du travail, elle est donc exclue)</small></p>`
+                        }
+                        <p>Montant HS = ${data.hs}h x ${baseHS.toFixed(4)}€ x 1,25 = ${formatCurrency(montantHS)}</p>
+                        <p class="font-bold mt-2">Salaire Brut = ${formatCurrency(data.brutDeBase)} + ${formatCurrency(montantHS)} = ${formatCurrency(data.brutDeBase + montantHS)}</p>
+                    </div>`;
+
+                let tableHtml = `
+                    <div class="overflow-x-auto"><table class="w-full mt-2" style="min-width: 500px;">
+                        <thead><tr class="bg-gray-200 text-gray-600"><th class="p-2 text-left">Libellé</th><th class="p-2 text-right">Base</th><th class="p-2 text-right">Taux Sal.</th><th class="p-2 text-right">Taux Pat.</th><th class="p-2 text-right">Montant Sal.</th><th class="p-2 text-right">Montant Pat.</th></tr></thead>
+                        <tbody>`;
                 data.cotisations.forEach(c => {
-                    tableHtml += `<tr class="payslip-row border-b" data-expl="${c.expl}">
-                                    <td class="p-2">${c.libelle}</td>
-                                    <td class="p-2 text-right text-gray-500">${c.base > 0 ? c.base.toLocaleString('fr-FR') : ''}</td>
-                                    <td class="p-2 text-right text-gray-500">${c.taux_sal || ''}</td>
-                                    <td class="p-2 text-right text-gray-500">${c.taux_pat || ''}</td>
-                                    <td class="p-2 text-right font-semibold">${c.montant_sal > 0 ? formatCurrency(c.montant_sal) : '-'}</td>
-                                    <td class="p-2 text-right font-semibold">${c.montant_pat !== 0 ? formatCurrency(c.montant_pat) : '-'}</td>
-                                  </tr>`;
+                    tableHtml += `
+                        <tr class="payslip-row border-b" data-id="${c.id}">
+                            <td class="p-2">${c.libelle}</td>
+                            <td class="p-2 text-right">${c.base > 0 ? c.base.toLocaleString('fr-FR') : ''}</td>
+                            <td class="p-2 text-right">${c.taux_sal || ''}</td>
+                            <td class="p-2 text-right">${c.taux_pat || ''}</td>
+                            <td class="p-2 text-right text-red-600">${c.montant_sal > 0 ? formatCurrency(c.montant_sal) : '-'}</td>
+                            <td class="p-2 text-right text-red-600">${c.montant_pat !== 0 ? formatCurrency(c.montant_pat) : '-'}</td>
+                        </tr>`;
                 });
                 tableHtml += `</tbody></table></div>`;
                 
-                const netAvantImpot = data.brut - data.totalSalarial;
-                const partSalariale = (data.totalSalarial / data.brut) * 100;
-                const partPatronale = (data.totalPatronal / data.brut) * 100;
-                const coutTotal = data.brut + data.totalPatronal;
+                const partSalariale = (data.totalSalarial / data.brutCalcule) * 100;
+                let totalPatronalToUse = data.totalPatronalNet != null ? data.totalPatronalNet : data.totalPatronal;
+                const partPatronale = (totalPatronalToUse / data.brutCalcule) * 100;
 
-                let summaryHtml = `<div class="mt-4 space-y-2 text-sm p-4 bg-gray-50 rounded-lg">
-                                    <div class="flex justify-between font-bold text-base"><span >Salaire Brut:</span><span>${formatCurrency(data.brut)}</span></div>
-                                    <hr class="my-2">
-                                    <div class="flex justify-between">
-                                        <span>Total Cotisations Salariales:</span>
-                                        <span class="font-semibold text-red-600">- ${formatCurrency(data.totalSalarial)} (${partSalariale.toFixed(1)}%)</span>
-                                    </div>
-                                     <div class="flex justify-between font-bold border-t pt-2 mt-2">
-                                        <span>Net avant impôt sur le revenu:</span>
-                                        <span>${formatCurrency(netAvantImpot)}</span>
-                                    </div>
-                                    <hr class="my-2">
-                                    <div class="flex justify-between">
-                                        <span>Total Cotisations Patronales (nettes):</span>
-                                        <span class="font-semibold">${formatCurrency(data.totalPatronal)} (${partPatronale.toFixed(1)}%)</span>
-                                    </div>
-                                    <div class="flex justify-between font-bold text-base bg-gray-200 -mx-4 -mb-4 px-4 py-2 rounded-b-lg mt-4">
-                                        <span>Coût Total Employeur (Super Brut):</span>
-                                        <span>${formatCurrency(coutTotal)}</span>
-                                    </div>
-                                 </div>`;
-                return tableHtml + summaryHtml;
+                let summaryHtml = `
+                    <div class="mt-4 space-y-2 text-sm p-2 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between font-bold text-base"><span >Salaire Brut Calculé:</span><span>${formatCurrency(data.brutCalcule)}</span></div>
+                        <hr class="my-2">
+                        <div class="flex justify-between">
+                            <span>Total Cotisations Sociales Salariales:</span>
+                            <span class="font-semibold">${formatCurrency(data.totalSalarial)} (${partSalariale.toFixed(2)}%)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Total Cotisations Sociales Patronales (nettes):</span>
+                            <span class="font-semibold">${formatCurrency(totalPatronalToUse)} (${partPatronale.toFixed(2)}%)</span>
+                        </div>
+                    </div>`;
+                return brutCalcHTML + tableHtml + summaryHtml;
             }
             
-            // --- UI INJECTION ---
-            const payslipAContainer = document.getElementById('payslip-A');
-            const payslipBContainer = document.getElementById('payslip-B');
-            const synthesisAccordion = document.getElementById('synthesis-accordion');
-            const mainContainer = document.querySelector('main');
-            const explBox = document.getElementById('explanation-box');
-
-            if (payslipAContainer) payslipAContainer.innerHTML = createPayslipHTML(caseA_Data);
-            if (payslipBContainer) payslipBContainer.innerHTML = createPayslipHTML(caseB_Data);
-            
-            if(synthesisAccordion) {
+            const synthesisAccordionContainer = document.getElementById('synthesis-accordion');
+            if (synthesisAccordionContainer) {
                 synthesisData.forEach(item => {
-                    synthesisAccordion.innerHTML += `
+                    // IMPORTANT : Utilisation des apostrophes inversées ``
+                    synthesisAccordionContainer.innerHTML += `
                          <div class="card overflow-hidden">
                             <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
                                 <span>${item.title}</span>
                                 <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </button>
                             <div class="accordion-content">
-                                <div class="p-4 pt-2 text-gray-700">${item.content}</div>
+                                <div class="p-4 pt-0 text-gray-700">${item.content}</div>
                             </div>
                         </div>
                     `;
                 });
             }
 
-            // --- INTERACTIONS ---
-            let currentSelectedRow = null;
-            
-            function handleInteractions(event) {
-                const row = event.target.closest('.payslip-row');
-                const header = event.target.closest('.accordion-header');
+            // --- UI INJECTION & INTERACTIONS (INCHANGÉES) ---
+            document.getElementById('payslip-A').innerHTML = createPayslipHTML(caseA_Data);
+            document.getElementById('payslip-B').innerHTML = createPayslipHTML(caseB_Data);
 
-                if (row && explBox) {
-                    if (currentSelectedRow) {
-                        currentSelectedRow.classList.remove('selected');
-                    }
-                    row.classList.add('selected');
-                    currentSelectedRow = row;
-                    explBox.textContent = row.dataset.expl || "Explication non disponible.";
-                }
-                
-                if(header) {
-                    const content = header.nextElementSibling;
-                    const svgIcon = header.querySelector('svg');
-                    if (content) content.classList.toggle('open');
-                    if (svgIcon) svgIcon.classList.toggle('rotate-180');
-                }
-            }
+            const allRows = document.querySelectorAll('.payslip-row');
+            const explBox = document.getElementById('explanation-box');
+            const allData = {...caseA_Data.cotisations.reduce((o, i) => ({...o, [i.id]: i.expl}), {}), ...caseB_Data.cotisations.reduce((o, i) => ({...o, [i.id]: i.expl}), {})};
+
+            allRows.forEach(row => {
+                row.addEventListener('click', () => {
+                    allRows.forEach(r => r.classList.remove('selected', 'bg-indigo-100'));
+                    row.classList.add('selected', 'bg-indigo-100');
+                    explBox.textContent = allData[row.dataset.id] || "Cliquez sur une ligne pour une explication.";
+                });
+            });
             
-            if (mainContainer) {
-                mainContainer.addEventListener('click', handleInteractions);
-            }
+             document.querySelectorAll('.accordion-header').forEach(button => {
+                button.addEventListener('click', () => {
+                    button.nextElementSibling.classList.toggle('open');
+                    button.querySelector('svg').classList.toggle('rotate-180');
+                });
+            });
 
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
