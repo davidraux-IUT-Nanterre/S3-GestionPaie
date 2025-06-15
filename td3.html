@@ -39,7 +39,7 @@
             transition: max-height 0.5s ease-in-out;
         }
         .accordion-content.open {
-            max-height: 1000px; /* On met une hauteur suffisante pour tout contenu */
+            max-height: 1000px; /* Hauteur suffisante pour tout contenu */
         }
     </style>
 </head>
@@ -57,7 +57,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#panorama" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Panorama des Cotisations</a>
-                        <a href="#concepts" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Concepts Clés</a>
+                        <a href="#concepts" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Concepts Fondamentaux</a>
                         <a href="#synthesis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse</a>
                     </div>
                 </div>
@@ -84,19 +84,22 @@
         <section id="concepts" class="my-16 scroll-mt-20">
             <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Concepts Fondamentaux</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                <div class="card p-6">
-                    <h4 class="font-bold text-xl text-center mb-4">Le Système de Retraite à Trois Étages</h4>
-                    <div id="retraite-pyramid" class="space-y-2 text-center text-white font-semibold">
-                        </div>
-                </div>
-                <div class="card p-6">
-                     <h4 class="font-bold text-xl text-center mb-4">Le Débat : La "Bataille du Net"</h4>
-                     <p class="text-sm text-gray-600 mb-2">En 2018, la suppression de la cotisation maladie salariale a augmenté le net perçu par les salariés. Pour compenser, la CSG, un impôt à l'assiette plus large, a été augmentée.</p>
-                     <p class="mt-4 font-semibold">Enjeux du débat :</p>
+                <div class="card p-6 flex flex-col">
+                     <h4 class="font-bold text-xl text-center mb-4">Le Paritarisme : une gestion partagée</h4>
+                     <p class="text-sm text-gray-600 mb-2">Le paritarisme est un mode de gestion où les décisions sont prises conjointement par les représentants des salariés (syndicats) et des employeurs (organisations patronales), appelés "partenaires sociaux".</p>
+                     <p class="mt-4 font-semibold">Exemples concrets :</p>
                      <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
-                        <li><strong>Visibilité vs Solidarité :</strong> Faut-il une cotisation fléchée vers un risque (logique d'assurance) ou un financement par l'impôt (logique de solidarité nationale) ?</li>
-                        <li><strong>Complexité vs Transparence :</strong> Cette mesure a-t-elle réellement simplifié la compréhension du financement de la protection sociale pour le citoyen ?</li>
-                        <li><strong>Impact politique :</strong> Est-ce un simple ajustement technique ou un changement de philosophie du modèle social ?</li>
+                        <li><strong>L'assurance chômage (Unédic) :</strong> Les règles d'indemnisation et les taux de contribution sont négociés et gérés par les partenaires sociaux.</li>
+                        <li><strong>La retraite complémentaire (Agirc-Arrco) :</strong> Ce régime est entièrement piloté par les représentants des salariés et des employeurs.</li>
+                     </ul>
+                </div>
+                 <div class="card p-6 flex flex-col">
+                     <h4 class="font-bold text-xl text-center mb-4">Salaire Direct, Indirect et Différé</h4>
+                     <p class="text-sm text-gray-600 mb-2">Cette lecture économique, développée par l'économiste Bernard Friot, voit les cotisations non comme des charges mais comme une partie intégrante du salaire.</p>
+                     <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+                        <li><strong>Salaire direct :</strong> Le salaire net perçu par le salarié.</li>
+                        <li><strong>Salaire indirect (ou socialisé) :</strong> Les cotisations qui financent des prestations immédiates et universelles (ex: assurance maladie).</li>
+                         <li><strong>Salaire différé :</strong> Les cotisations qui ouvrent des droits futurs pour le salarié (ex: retraite, assurance chômage).</li>
                      </ul>
                 </div>
             </div>
@@ -111,8 +114,12 @@
 
     <footer class="bg-white border-t border-gray-200 mt-16">
         <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
-            <p><a href="index.html" class="hover:underline">Retour à l'accueil</a></p>
-            <p class="text-sm mt-2">&copy; 2024-2025 - Université Paris Nanterre - Tous droits réservés.</p>
+             <h4 class="font-semibold mb-2">Pour aller plus loin</h4>
+             <div class="flex justify-center space-x-6">
+                <a href="https://www.urssaf.org/aquoiserventlescotisations/" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Outil URSSAF : À quoi servent mes cotisations ?</a>
+                <a href="https://code.travail.gouv.fr/outils/simulateur-embauche" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Simulateur d'embauche</a>
+             </div>
+            <p class="text-sm mt-4">&copy; 2024-2025 - Université Paris Nanterre - Tous droits réservés.</p>
         </div>
     </footer>
 
@@ -154,6 +161,7 @@
                         { name: 'Contribution à la formation professionnelle', payer: 'Employeur', purpose: 'Finance les actions de formation continue des salariés (CPF, apprentissage...).' },
                         { name: 'Taxe d\'apprentissage', payer: 'Employeur', purpose: 'Participe au financement des formations initiales technologiques et professionnelles.' },
                         { name: 'PEEC (Effort de construction)', payer: 'Employeur (+50 salariés)', purpose: 'Ancien "1% Logement", finance des actions pour le logement des salariés via Action Logement.' },
+                        { name: 'Contribution CPF-CDD', payer: 'Employeur', purpose: 'Taxe de 1% sur la rémunération des salariés en CDD pour financer leurs droits à la formation et inciter les entreprises à privilégier les contrats longs.' },
                         { name: 'Forfait social', payer: 'Employeur', purpose: 'Taxe sur certaines rémunérations exonérées de cotisations mais soumises à la CSG (ex: intéressement).' }
                     ]
                 },
@@ -167,9 +175,8 @@
             ];
 
             const synthesisData = [
-                { title: "Concept 1 : Mutualisation du Risque Social", content: "Fondement de la Sécurité sociale, la <strong>mutualisation</strong> repose sur un principe de <strong>solidarité</strong>. Contrairement à une assurance privée où la prime est liée au risque individuel, les cotisations sociales sont déconnectées du risque personnel de chaque cotisant. L'ensemble des actifs finance un pot commun qui couvre les dépenses de ceux qui subissent un risque (maladie, chômage, etc.). Ce mécanisme assure une protection universelle, indépendamment de l'état de santé ou de la situation de l'individu." },
-                { title: "Concept 2 : Salaires direct, indirect et différé", content: "Les cotisations sociales transforment une partie du coût du travail en <strong>salaire indirect</strong> et <strong>différé</strong>. Le salaire indirect (ou socialisé) correspond aux prestations immédiates financées par les cotisations (ex: remboursements de soins). Le salaire différé correspond aux droits futurs que le salarié acquiert (ex: pensions de retraite, indemnités chômage). Cette perspective, défendue par des économistes comme Bernard Friot, s'oppose à la vision des cotisations comme un simple 'coût' et les présente comme un investissement dans la sécurité et le bien-être collectif." },
-                { title: "Concept 3 : Le Paritarisme", content: "Certains régimes de protection sociale, comme l'<strong>assurance chômage (Unédic)</strong> et la <strong>retraite complémentaire (Agirc-Arrco)</strong>, sont gérés de manière <strong>paritaire</strong>. Cela signifie que leur gouvernance est partagée à parts égales entre les représentants des salariés (organisations syndicales) et ceux des employeurs (organisations patronales). Ce modèle de gestion, distinct de la gestion par l'État, est un pilier du dialogue social en France." }
+                { title: "Synthèse 1 : Mutualisation du Risque Social", content: "Fondement de la Sécurité sociale, la <strong>mutualisation</strong> repose sur un principe de <strong>solidarité</strong>. Contrairement à une assurance privée où la prime est liée au risque individuel, les cotisations sociales sont déconnectées du risque personnel de chaque cotisant. L'ensemble des actifs finance un pot commun qui couvre les dépenses de ceux qui subissent un risque (maladie, chômage, etc.). Ce mécanisme assure une protection universelle, indépendamment de l'état de santé ou de la situation de l'individu." },
+                { title: "Synthèse 2 : Le Paritarisme", content: "Certains régimes de protection sociale, comme l'<strong>assurance chômage (Unédic)</strong> et la <strong>retraite complémentaire (Agirc-Arrco)</strong>, sont gérés de manière <strong>paritaire</strong>. Cela signifie que leur gouvernance est partagée à parts égales entre les représentants des salariés (organisations syndicales) et ceux des employeurs (organisations patronales). Ce modèle de gestion, distinct de la gestion par l'État, est un pilier du dialogue social en France." }
             ];
 
             // --- UI INJECTION ---
@@ -185,10 +192,10 @@
                                     <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </button>
                                 <div class="accordion-content">
-                                    <div class="text-sm text-gray-600 px-4 pb-3 space-y-2">
+                                    <div class="text-sm text-gray-600 px-4 pb-3 pt-2 space-y-2">
                                         <p><strong>Finalité :</strong> ${item.purpose}</p>
                                         <p><strong>Payé par :</strong> ${item.payer}</p>
-                                        <p><strong>Collecté par :</strong> URSSAF</p>
+                                        <p><strong>Collecté par :</strong> URSSAF (majoritairement)</p>
                                     </div>
                                 </div>
                             </div>
@@ -196,15 +203,6 @@
                     });
                     contributionsContainer.innerHTML += `<div class="card overflow-hidden"><h4 class="text-lg font-bold p-4 bg-gray-100 rounded-t-lg">${cat.category}</h4><div>${itemsHtml}</div></div>`;
                 });
-            }
-
-            const retraitePyramid = document.getElementById('retraite-pyramid');
-            if (retraitePyramid) {
-                retraitePyramid.innerHTML = `
-                    <div class="bg-gray-700 p-3 rounded-t-lg">3. Retraite Supplémentaire (Facultative / Capitalisation)</div>
-                    <div class="bg-slate-600 p-3">2. Retraite Complémentaire (Obligatoire / Répartition)</div>
-                    <div class="bg-slate-500 p-3 rounded-b-lg">1. Retraite de Base (Obligatoire / Répartition)</div>
-                `;
             }
 
             const synthesisAccordion = document.getElementById('synthesis-accordion');
