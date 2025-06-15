@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TD 4 : Du Salaire Brut au Net - Le Calcul des Cotisations</title>
+    <title>TD 5 : Du Net au Super Brut - Le Coût Total Employeur</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -74,9 +74,9 @@
         
         <div class="text-center mb-12">
             <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 4 : Du Salaire Brut au Net - Le Calcul des Cotisations</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 5 : Du Net au Super Brut - Le Coût Total Employeur</h2>
             </div>
-             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez le détail du calcul des cotisations sociales à travers les fiches de paie interactives des deux études de cas.</p>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez le détail du calcul des cotisations sociales et du coût global pour l'employeur à travers des fiches de paie interactives.</p>
         </div>
 
         <section id="payslips" class="my-16 scroll-mt-20">
@@ -131,7 +131,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- DATA & FUNCTIONS ---
+            // --- DATA ---
             const caseA_Data = {
                 brut: 1859,
                 cotisations: [
@@ -168,9 +168,9 @@
             };
 
             const synthesisData = [
-                { title: "Synthèse : Bases, Plafonds et Tranches", content: "Le calcul des cotisations repose sur la notion d'<strong>assiette</strong>. Le <strong>Plafond de la Sécurité Sociale (PMSS)</strong> est l'outil clé qui segmente le salaire en <strong>tranches</strong> (T1, T2). Cette segmentation permet d'appliquer des taux de cotisation différents selon le niveau de revenu, notamment pour la retraite complémentaire, ce qui est un principe de progressivité. Le cas de M. Lefevre illustre bien ce mécanisme : son salaire dépassant le PMSS, certaines cotisations s'appliquent sur la Tranche 2, ce qui n'est pas le cas pour Mme Dubois." },
+                { title: "Synthèse : Bases, Plafonds et Tranches", content: "Le calcul des cotisations repose sur la notion d'<strong>assiette</strong>. Le <strong>Plafond de la Sécurité Sociale (PMSS)</strong> est l'outil clé qui segmente le salaire en <strong>tranches</strong> (T1, T2). Cette segmentation permet d'appliquer des taux de cotisation différents selon le niveau de revenu, notamment pour la retraite complémentaire. Le cas de M. Lefevre illustre bien ce mécanisme : son salaire dépassant le PMSS, certaines cotisations s'appliquent sur la Tranche 2, ce qui n'est pas le cas pour Mme Dubois." },
                 { title: "Synthèse : Le Rôle Économique des Allègements de Charges", content: "La <strong>réduction générale des cotisations patronales</strong> est une politique publique majeure visant à réduire le coût du travail sur les salaires proches du SMIC pour stimuler l'emploi. Son caractère <strong>dégressif</strong> (le montant diminue à mesure que le salaire augmente) cible précisément les bas salaires. Le cas de Mme Dubois, avec un salaire inférieur à 1,6 SMIC, ouvre droit à cette réduction, diminuant significativement le coût pour son employeur. M. Lefevre, avec un salaire élevé, n'est pas concerné." },
-                { title: "Synthèse : Analyse des Ratios", content: "L'analyse des ratios pour le cas de M. Lefevre (haut salaire) est révélatrice. Les cotisations salariales représentent <strong>23,6%</strong> de son salaire brut (`1082.68 / 4581`). Les cotisations patronales nettes représentent <strong>44,0%</strong> du brut (`2017.38 / 4581`). Cela démontre que le coût total du travail est bien supérieur au salaire brut. Pour Mme Dubois (bas salaire), grâce à la réduction générale, la part des cotisations patronales nettes n'est que de <strong>7%</strong> du brut (`129.29 / 1859`), illustrant l'impact massif des politiques d'allègement." }
+                { title: "Synthèse : Analyse des Ratios", content: "L'analyse des ratios pour le cas de M. Lefevre (haut salaire) est révélatrice. Les cotisations salariales représentent <strong>23,6%</strong> de son salaire brut (`1082.68 / 4581`). Les cotisations patronales nettes représentent <strong>44,0%</strong> du brut (`2017.38 / 4581`). Cela démontre que le coût total du travail est bien supérieur au salaire brut. Pour Mme Dubois (bas salaire), grâce à la réduction générale, la part des cotisations patronales nettes n'est que de <strong>7,0%</strong> du brut (`129.29 / 1859`), illustrant l'impact massif des politiques d'allègement." }
             ];
 
             // --- FUNCTIONS ---
@@ -179,16 +179,18 @@
             }
 
             function createPayslipHTML(data) {
+                // On utilise les apostrophes inversées (backticks) `` pour la chaîne de caractères
                 let tableHtml = `<div class="overflow-x-auto"><table class="w-full mt-2" style="min-width: 600px;">
                                 <thead><tr class="bg-gray-200 text-gray-600 text-xs"><th class="p-2 text-left">Libellé</th><th class="p-2 text-right">Base</th><th class="p-2 text-right">Taux Sal.</th><th class="p-2 text-right">Taux Pat.</th><th class="p-2 text-right">Montant Sal.</th><th class="p-2 text-right">Montant Pat.</th></tr></thead>
                                 <tbody>`;
                 data.cotisations.forEach(c => {
-                    tableHtml += `<tr class="payslip-row border-b" data-expl="<span class="math-inline">\{c\.expl\}"\>
-<td class\="p\-2"\></span>{c.libelle}</td>
-                                    <td class="p-2 text-right text-gray-500"><span class="math-inline">\{c\.base \> 0 ? c\.base\.toLocaleString\('fr\-FR'\) \: ''\}</td\>
-<td class\="p\-2 text\-right text\-gray\-500"\></span>{c.taux_sal || ''}</td>
-                                    <td class="p-2 text-right text-gray-500"><span class="math-inline">\{c\.taux\_pat \|\| ''\}</td\>
-<td class\="p\-2 text\-right font\-semibold"\></span>{c.montant_sal > 0 ? formatCurrency(c.montant_sal) : '-'}</td>
+                    // On stocke l'explication directement dans l'attribut data-* de la ligne
+                    tableHtml += `<tr class="payslip-row border-b" data-expl="${c.expl}">
+                                    <td class="p-2">${c.libelle}</td>
+                                    <td class="p-2 text-right text-gray-500">${c.base > 0 ? c.base.toLocaleString('fr-FR') : ''}</td>
+                                    <td class="p-2 text-right text-gray-500">${c.taux_sal || ''}</td>
+                                    <td class="p-2 text-right text-gray-500">${c.taux_pat || ''}</td>
+                                    <td class="p-2 text-right font-semibold">${c.montant_sal > 0 ? formatCurrency(c.montant_sal) : '-'}</td>
                                     <td class="p-2 text-right font-semibold">${c.montant_pat !== 0 ? formatCurrency(c.montant_pat) : '-'}</td>
                                   </tr>`;
                 });
@@ -203,22 +205,22 @@
                                     <hr class="my-2">
                                     <div class="flex justify-between">
                                         <span>Total Cotisations Salariales:</span>
-                                        <span class="font-semibold text-red-600">- <span class="math-inline">\{formatCurrency\(data\.totalSalarial\)\} \(</span>{partSalariale.toFixed(1)}%)</span>
+                                        <span class="font-semibold text-red-600">- ${formatCurrency(data.totalSalarial)} (${partSalariale.toFixed(1)}%)</span>
                                     </div>
                                      <div class="flex justify-between font-bold border-t pt-2 mt-2">
                                         <span>Net avant impôt sur le revenu:</span>
-                                        <span><span class="math-inline">\{formatCurrency\(netAvantImpot\)\}</span\>
-</div\>
-<hr class\="my\-2"\>
-<div class\="flex justify\-between"\>
-<span\>Total Cotisations Patronales \(nettes\)\:</span\>
-<span class\="font\-semibold"\></span>{formatCurrency(data.totalPatronal)} (${partPatronale.toFixed(1)}%)</span>
+                                        <span>${formatCurrency(netAvantImpot)}</span>
+                                    </div>
+                                    <hr class="my-2">
+                                    <div class="flex justify-between">
+                                        <span>Total Cotisations Patronales (nettes):</span>
+                                        <span class="font-semibold">${formatCurrency(data.totalPatronal)} (${partPatronale.toFixed(1)}%)</span>
                                     </div>
                                  </div>`;
                 return tableHtml + summaryHtml;
             }
             
-            // --- UI INJECTION & INTERACTIONS ---
+            // --- UI INJECTION ---
             const payslipAContainer = document.getElementById('payslip-A');
             const payslipBContainer = document.getElementById('payslip-B');
             const synthesisAccordion = document.getElementById('synthesis-accordion');
@@ -230,14 +232,15 @@
             
             if(synthesisAccordion) {
                 synthesisData.forEach(item => {
+                    // On utilise les apostrophes inversées (backticks) `` pour la chaîne de caractères
                     synthesisAccordion.innerHTML += `
                          <div class="card overflow-hidden">
                             <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
-                                <span><span class="math-inline">\{item\.title\}</span\>
-<svg class\="w\-5 h\-5 transform transition\-transform" fill\="none" stroke\="currentColor" viewBox\="0 0 24 24"\><path stroke\-linecap\="round" stroke\-linejoin\="round" stroke\-width\="2" d\="M19 9l\-7 7\-7\-7"\></path\></svg\>
-</button\>
-<div class\="accordion\-content"\>
-<div class\="p\-4 pt\-2 text\-gray\-700"\></span>{item.content}</div>
+                                <span>${item.title}</span>
+                                <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 pt-2 text-gray-700">${item.content}</div>
                             </div>
                         </div>
                     `;
@@ -246,41 +249,38 @@
 
             // --- INTERACTIONS ---
             let currentSelectedRow = null;
-            if (payslipsSection && explBox) {
-                payslipsSection.addEventListener('click', (event) => {
-                    const row = event.target.closest('.payslip-row');
-                    const header = event.target.closest('.accordion-header');
+            
+            // Un seul gestionnaire d'événements pour toutes les interactions
+            function handleInteractions(event) {
+                const row = event.target.closest('.payslip-row');
+                const header = event.target.closest('.accordion-header');
 
-                    if (row) {
-                        if (currentSelectedRow) {
-                            currentSelectedRow.classList.remove('selected');
-                        }
-                        row.classList.add('selected');
-                        currentSelectedRow = row;
-                        explBox.textContent = row.dataset.expl || "Explication non disponible.";
+                // Gère le clic sur une ligne de fiche de paie
+                if (row && explBox) {
+                    if (currentSelectedRow) {
+                        currentSelectedRow.classList.remove('selected');
                     }
-                    
-                    if(header) {
-                        const content = header.nextElementSibling;
-                        const svgIcon = header.querySelector('svg');
-                        if (content) content.classList.toggle('open');
-                        if (svgIcon) svgIcon.classList.toggle('rotate-180');
-                    }
-                });
+                    row.classList.add('selected');
+                    currentSelectedRow = row;
+                    explBox.textContent = row.dataset.expl || "Explication non disponible.";
+                }
+                
+                // Gère le clic sur n'importe quel en-tête d'accordéon
+                if(header) {
+                    const content = header.nextElementSibling;
+                    const svgIcon = header.querySelector('svg');
+                    if (content) content.classList.toggle('open');
+                    if (svgIcon) svgIcon.classList.toggle('rotate-180');
+                }
+            }
+            
+            // On attache le gestionnaire au conteneur principal pour tout gérer
+            const mainContainer = document.querySelector('main');
+            if (mainContainer) {
+                mainContainer.addEventListener('click', handleInteractions);
             }
 
-            if (synthesisAccordion) {
-                synthesisAccordion.addEventListener('click', (event) => {
-                    const header = event.target.closest('.accordion-header');
-                    if (header) {
-                        const content = header.nextElementSibling;
-                        const svgIcon = header.querySelector('svg');
-                        if (content) content.classList.toggle('open');
-                        if (svgIcon) svgIcon.classList.toggle('rotate-180');
-                    }
-                });
-            }
-
+            // Gestion de la navigation fluide
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
