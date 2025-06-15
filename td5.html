@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD 5 : La Finalisation du Bulletin : CSG, CRDS et Net à Payer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            border-bottom-color: #4a5568;
+            color: #2d3748;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .calc-step, .accordion-header {
+            cursor: pointer;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+        
+        /* --- CSS Corrigé --- */
+        .accordion-content, .calc-explanation {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-content.open, .calc-explanation.open {
+            max-height: 1000px; 
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                 <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-4">
+                        <img class="h-12 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Logo_Universit%C3%A9_Paris-Nanterre.svg" alt="Logo Université Paris Nanterre" onerror="this.onerror=null;this.src='https://placehold.co/200x50/FFFFFF/000000?text=Logo+Nanterre';">
+                        <h1 class="text-lg font-bold text-gray-800 hidden sm:block">Pratique de la Paie</h1>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#calculator" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Calcul du Net</a>
+                        <a href="#concepts" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Concepts Clés</a>
+                        <a href="#synthesis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <div class="text-center mb-12">
+            <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 5 : La Finalisation du Bulletin : CSG, CRDS et Net à Payer</h2>
+            </div>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez les dernières étapes du calcul de la paie, du net avant impôt au net versé, à travers une étude de cas interactive.</p>
+        </div>
+
+        <section id="calculator" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-2 text-gray-800">Étude de Cas : Le Salaire Net de M. Chen</h3>
+            <p class="text-center text-gray-600 mb-8">Cliquez sur chaque étape pour voir le détail du calcul et les explications.</p>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="card p-6 md:p-8">
+                    <div id="calculator-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="concepts" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Concepts Fondamentaux</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl text-center mb-4">La "Double Peine" de la CSG non déductible</h4>
+                    <p class="text-sm text-gray-600 mb-2">La part non déductible de la CSG/CRDS (2,90%) est critiquée car elle est soumise à l'impôt sur le revenu, alors que le salarié ne l'a jamais perçue.</p>
+                    <p class="font-semibold mt-4">Exemple :</p>
+                    <p class="text-gray-700 mt-2 text-sm">Si votre "net fiscal" est de 2000€ et qu'il inclut 50€ de CSG non déductible, et que votre taux d'imposition est de 11%, vous payez <strong>5,50€ d'impôt</strong> (11% de 50€) sur une somme que vous avez déjà versée pour la solidarité nationale.</p>
+                </div>
+                <div class="card p-6">
+                     <h4 class="font-bold text-xl text-center mb-4">La Saisie sur Salaire : Rôle du Gestionnaire</h4>
+                     <p class="text-sm text-gray-600 mb-2">À la réception d'un acte de saisie, le gestionnaire de paie a des obligations strictes :</p>
+                     <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 text-sm">
+                        <li><strong>Informer</strong> le salarié de la procédure (bonne pratique RH).</li>
+                        <li><strong>Déclarer</strong> la situation au greffe du tribunal.</li>
+                        <li><strong>Calculer</strong> la part saisissable selon un barème légal, en garantissant un montant minimum insaisissable (équivalent au RSA).</li>
+                        <li><strong>Verser</strong> la somme prélevée directement au créancier.</li>
+                     </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="synthesis" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Concepts Clés</h3>
+            <div id="synthesis-accordion" class="space-y-4 max-w-4xl mx-auto">
+                 </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+             <h4 class="font-semibold mb-2">Pour aller plus loin</h4>
+             <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                <a href="https://www.economie.gouv.fr/particuliers/contribution-sociale-generalisee-csg" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">La CSG (economie.gouv.fr)</a>
+                <a href="https://payfit.com/fr/fiches-pratiques/avance-sur-salaire/" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Acompte et Avance (Payfit)</a>
+                <a href="https://www.justice.fr/simulateurs/saisie-salaire#simuler" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Simulateur de Saisie sur Salaire</a>
+             </div>
+            <p class="text-sm mt-4">&copy; 2024-2025 - Université Paris Nanterre - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DATA & FUNCTIONS (INCHANGÉES) ---
+            const caseData = {
+                salaireBrut: 3200,
+                cotisationsSalariales: 510,
+                partPatronaleMutuelle: 40,
+                demandeVersement: 1000,
+                titresRestaurantPartSalariale: 22 * 4,
+            };
+
+            const synthesisData = [
+                { title: "Synthèse : La CSG/CRDS, un Impôt à Finalité Sociale", content: "La CSG et la CRDS sont des <strong>impositions</strong> et non des cotisations sociales. Leur spécificité est double : leur <strong>assiette de calcul</strong> (98,25% du brut + part patronale prévoyance/mutuelle) est unique, et leur produit est directement affecté au financement de la protection sociale. La part non déductible de la CSG/CRDS (2,90%) est un point technique et politique important, car elle est réintégrée dans le revenu imposable, créant un effet de 'double imposition' pour le salarié." },
+                { title: "Synthèse : Du Net avant Impôt au Net Payé", content: "Il est crucial de distinguer le <strong>net avant impôt</strong> (résultat du brut moins toutes les cotisations salariales, y compris CSG/CRDS) du <strong>net à payer</strong> final. Plusieurs éléments, qui ne sont pas du salaire, viennent ajuster ce montant. On parle de 'flux de trésorerie'. Cela inclut les déductions pour les <strong>titres-restaurant</strong>, les <strong>acomptes</strong> versés, ou encore les <strong>saisies sur salaire</strong>. Le prélèvement de l'impôt à la source vient également en déduction pour déterminer le net réellement versé." },
+                { title: "Synthèse : Acompte vs Avance - Une distinction juridique clé", content: "Face à une demande de versement anticipé, le gestionnaire doit qualifier la demande. L'<strong>acompte</strong> rémunère un travail déjà effectué ; son versement est une <strong>obligation</strong> pour l'employeur dans la limite des droits acquis. L'<strong>avance</strong> est un prêt sur un travail futur ; son octroi est <strong>facultatif</strong> et relève de la seule décision de l'employeur. Pour la demande de M. Chen (1000€ le 6 du mois), elle dépasse le travail déjà effectué, il s'agit donc d'une demande d'avance que l'employeur peut refuser." }
+            ];
+
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value != null ? value : 0);
+            }
+            
+            function createCalculator(containerId, data) {
+                const container = document.getElementById(containerId);
+
+                const baseCSG = data.salaireBrut * 0.9825 + data.partPatronaleMutuelle;
+                const montantCSG_CRDS = baseCSG * 0.097;
+                const netAvantImpot = data.salaireBrut - data.cotisationsSalariales - montantCSG_CRDS;
+                const netAPayer = netAvantImpot - data.titresRestaurantPartSalariale;
+                
+                let html = '';
+                const steps = [
+                    { title: '1. Calcul de l\'assiette CSG/CRDS', result: formatCurrency(baseCSG), explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">(Salaire Brut × 98,25%) + Part Patronale Mutuelle</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">(${formatCurrency(data.salaireBrut)} × 0,9825) + ${formatCurrency(data.partPatronaleMutuelle)} = ${formatCurrency(baseCSG)}</p>` },
+                    { title: '2. Calcul du prélèvement CSG/CRDS', result: `- ${formatCurrency(montantCSG_CRDS)}`, explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Base CSG/CRDS × 9,70%</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(baseCSG)} × 0,097 = ${formatCurrency(montantCSG_CRDS)}</p>` },
+                    { title: '3. Calcul du Net à Payer Avant Impôt', result: formatCurrency(netAvantImpot), explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Brut - Cotisations Salariales - CSG/CRDS</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(data.salaireBrut)} - ${formatCurrency(data.cotisationsSalariales)} - ${formatCurrency(montantCSG_CRDS)} = ${formatCurrency(netAvantImpot)}</p>` },
+                    { title: '4. Analyse de la demande de 1000€', result: `Avance (refusable)`, explanation: `<p class="font-semibold">Qualification :</p><p class="text-sm">Le 6 du mois, M. Chen n'a pas encore effectué un travail justifiant une rémunération de 1000€. Sa demande est donc une <strong>avance</strong> sur salaire.</p><p class="font-semibold mt-2">Obligation de l'employeur :</p><p class="text-sm">L'employeur n'a <strong>aucune obligation</strong> d'accepter une demande d'avance. Il peut refuser ou accepter un montant inférieur.</p>` },
+                    { title: '5. Calcul du Net Versé (hors acompte)', result: formatCurrency(netAPayer), explanation: `<p class="font-semibold">Formule :</p><p class="text-sm font-mono">Net avant impôt - Retenue Titres-Restaurant</p><p class="font-semibold mt-2">Application :</p><p class="text-sm font-mono">${formatCurrency(netAvantImpot)} - ${formatCurrency(data.titresRestaurantPartSalariale)} (22j × 4€) = ${formatCurrency(netAPayer)}</p><p class="text-xs mt-2 text-gray-500">Ce montant serait ensuite réduit par l'acompte/avance éventuellement versé et par le prélèvement à la source.</p>` }
+                ];
+
+                steps.forEach((step, index) => {
+                    // --- HTML Corrigé ---
+                    html += `
+                        <div class="calc-step border-b pb-4 mb-4" data-target="expl-${containerId}-${index}">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-700">${step.title}</span>
+                                <span class="font-bold text-lg ${step.result.startsWith('-') ? 'text-red-600' : 'text-blue-600'}">${step.result}</span>
+                            </div>
+                            <div id="expl-${containerId}-${index}" class="calc-explanation">
+                                <div class="bg-gray-50 p-4 mt-2 rounded-lg">${step.explanation}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+
+            createCalculator('calculator-container', caseData);
+            
+            const synthesisAccordionContainer = document.getElementById('synthesis-accordion');
+            if (synthesisAccordionContainer) {
+                synthesisData.forEach(item => {
+                    // --- HTML Corrigé (apostrophes inversées, structure et plus de "hidden") ---
+                    synthesisAccordionContainer.innerHTML += `
+                         <div class="card overflow-hidden">
+                            <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
+                                <span>${item.title}</span>
+                                <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 pt-2 text-gray-700">${item.content}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // --- INTERACTIONS (INCHANGÉES) ---
+            document.querySelectorAll('.calc-step').forEach(step => {
+                step.addEventListener('click', () => {
+                    const targetId = step.dataset.target;
+                    document.getElementById(targetId).classList.toggle('open');
+                });
+            });
+            
+            document.querySelectorAll('.accordion-header').forEach(button => {
+                button.addEventListener('click', () => {
+                    button.nextElementSibling.classList.toggle('open');
+                    const svg = button.querySelector('svg');
+                    if (svg) {
+                        svg.classList.toggle('rotate-180');
+                    }
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
