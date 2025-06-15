@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD 3 : Panorama des Cotisations Sociales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            border-bottom-color: #4a5568;
+            color: #2d3748;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .accordion-header {
+            cursor: pointer;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* --- CSS Corrigé et Simplifié --- */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-content.open {
+            max-height: 1000px; /* On met une hauteur suffisante pour tout contenu */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                 <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-4">
+                        <img class="h-12 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Logo_Universit%C3%A9_Paris-Nanterre.svg" alt="Logo Université Paris Nanterre" onerror="this.onerror=null;this.src='https://placehold.co/200x50/FFFFFF/000000?text=Logo+Nanterre';">
+                        <h1 class="text-lg font-bold text-gray-800 hidden sm:block">Pratique de la Paie</h1>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#panorama" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Panorama des Cotisations</a>
+                        <a href="#concepts" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Concepts Clés</a>
+                        <a href="#synthesis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <div class="text-center mb-12">
+            <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 3 : Panorama des Cotisations Sociales</h2>
+            </div>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez l'univers des cotisations sociales, leur finalité et les principes qui fondent notre modèle de protection sociale.</p>
+        </div>
+
+        <section id="panorama" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Panorama Interactif des Cotisations et Contributions</h3>
+            <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Cliquez sur chaque cotisation pour découvrir son rôle, qui la finance (salarié et/ou employeur) et qui la collecte. Les contributions sont regroupées par grande finalité.</p>
+            <div id="contributions-container" class="space-y-6">
+                </div>
+        </section>
+
+        <section id="concepts" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Concepts Fondamentaux</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl text-center mb-4">Le Système de Retraite à Trois Étages</h4>
+                    <div id="retraite-pyramid" class="space-y-2 text-center text-white font-semibold">
+                        </div>
+                </div>
+                <div class="card p-6">
+                     <h4 class="font-bold text-xl text-center mb-4">Le Débat : La "Bataille du Net"</h4>
+                     <p class="text-sm text-gray-600 mb-2">En 2018, la suppression de la cotisation maladie salariale a augmenté le net perçu par les salariés. Pour compenser, la CSG, un impôt à l'assiette plus large, a été augmentée.</p>
+                     <p class="mt-4 font-semibold">Enjeux du débat :</p>
+                     <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+                        <li><strong>Visibilité vs Solidarité :</strong> Faut-il une cotisation fléchée vers un risque (logique d'assurance) ou un financement par l'impôt (logique de solidarité nationale) ?</li>
+                        <li><strong>Complexité vs Transparence :</strong> Cette mesure a-t-elle réellement simplifié la compréhension du financement de la protection sociale pour le citoyen ?</li>
+                        <li><strong>Impact politique :</strong> Est-ce un simple ajustement technique ou un changement de philosophie du modèle social ?</li>
+                     </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="synthesis" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Concepts Clés</h3>
+            <div id="synthesis-accordion" class="space-y-4 max-w-4xl mx-auto">
+                 </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p><a href="index.html" class="hover:underline">Retour à l'accueil</a></p>
+            <p class="text-sm mt-2">&copy; 2024-2025 - Université Paris Nanterre - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- DATA ---
+            const contributionsData = [
+                {
+                    category: 'SANTÉ, FAMILLE, ACCIDENTS DU TRAVAIL',
+                    items: [
+                        { name: 'Assurance maladie, maternité, invalidité, décès', payer: 'Employeur (et Salarié si > 2,5 SMIC)', purpose: 'Finance les prestations en nature (remboursements de soins) et en espèces (indemnités journalières) versées par la CNAM.' },
+                        { name: 'Complémentaire santé (Mutuelle)', payer: 'Salarié & Employeur', purpose: 'Couverture complémentaire des frais de santé, obligatoire dans toutes les entreprises.' },
+                        { name: 'Accidents du travail et maladies professionnelles (AT/MP)', payer: 'Employeur', purpose: 'Assure les risques liés à l\'activité professionnelle. Le taux varie selon le risque de l\'entreprise.' },
+                        { name: 'Allocations familiales', payer: 'Employeur', purpose: 'Participe au financement des prestations versées par la CNAF (aides à la famille, au logement...).' }
+                    ]
+                },
+                {
+                    category: 'RETRAITE ET PRÉVOYANCE',
+                    items: [
+                        { name: 'Assurance vieillesse (Retraite de base)', payer: 'Salarié & Employeur', purpose: 'Finance le régime général de retraite géré par la CNAV, fonctionnant par répartition.' },
+                        { name: 'Retraite complémentaire (Agirc-Arrco)', payer: 'Salarié & Employeur', purpose: 'Complète la retraite de base. Gérée par les partenaires sociaux, elle inclut des contributions d\'équilibre (CEG, CET).' },
+                        { name: 'Prévoyance (Cadres et non-cadres)', payer: 'Salarié & Employeur', purpose: 'Garantit un maintien de revenu en cas d\'incapacité, d\'invalidité ou de décès, au-delà des prestations de la Sécurité Sociale.' }
+                    ]
+                },
+                {
+                    category: 'CHÔMAGE',
+                    items: [
+                        { name: 'Assurance chômage', payer: 'Employeur', purpose: 'Finance l\'indemnisation des demandeurs d\'emploi, gérée par l\'Unédic.' },
+                        { name: 'AGS (Garantie des salaires)', payer: 'Employeur', purpose: 'Garantit le paiement des salaires si l\'entreprise est en redressement ou liquidation judiciaire.' }
+                    ]
+                },
+                {
+                    category: 'AUTRES CONTRIBUTIONS & TAXES EMPLOYEUR',
+                    items: [
+                        { name: 'FNAL (Aide au logement)', payer: 'Employeur', purpose: 'Participe au financement du Fonds National d\'Aide au Logement.' },
+                        { name: 'Versement mobilité', payer: 'Employeur (+11 salariés dans un périmètre de transport)', purpose: 'Finance les services de transports en commun pour faciliter les déplacements des salariés.' },
+                        { name: 'Contribution au dialogue social', payer: 'Employeur', purpose: 'Finance le fonctionnement des organisations syndicales et patronales représentatives.' },
+                        { name: 'Contribution à la formation professionnelle', payer: 'Employeur', purpose: 'Finance les actions de formation continue des salariés (CPF, apprentissage...).' },
+                        { name: 'Taxe d\'apprentissage', payer: 'Employeur', purpose: 'Participe au financement des formations initiales technologiques et professionnelles.' },
+                        { name: 'PEEC (Effort de construction)', payer: 'Employeur (+50 salariés)', purpose: 'Ancien "1% Logement", finance des actions pour le logement des salariés via Action Logement.' },
+                        { name: 'Forfait social', payer: 'Employeur', purpose: 'Taxe sur certaines rémunérations exonérées de cotisations mais soumises à la CSG (ex: intéressement).' }
+                    ]
+                },
+                {
+                    category: 'IMPÔTS ET CONTRIBUTIONS SPÉCIFIQUES',
+                    items: [
+                        { name: 'CSG (Contribution Sociale Généralisée)', payer: 'Salarié', purpose: 'Impôt destiné à financer la protection sociale. Elle est prélevée sur quasi tous les revenus.' },
+                        { name: 'CRDS (Contribution au Remboursement de la Dette Sociale)', payer: 'Salarié', purpose: 'Impôt créé pour résorber l\'endettement de la Sécurité Sociale.' }
+                    ]
+                }
+            ];
+
+            const synthesisData = [
+                { title: "Concept 1 : Mutualisation du Risque Social", content: "Fondement de la Sécurité sociale, la <strong>mutualisation</strong> repose sur un principe de <strong>solidarité</strong>. Contrairement à une assurance privée où la prime est liée au risque individuel, les cotisations sociales sont déconnectées du risque personnel de chaque cotisant. L'ensemble des actifs finance un pot commun qui couvre les dépenses de ceux qui subissent un risque (maladie, chômage, etc.). Ce mécanisme assure une protection universelle, indépendamment de l'état de santé ou de la situation de l'individu." },
+                { title: "Concept 2 : Salaires direct, indirect et différé", content: "Les cotisations sociales transforment une partie du coût du travail en <strong>salaire indirect</strong> et <strong>différé</strong>. Le salaire indirect (ou socialisé) correspond aux prestations immédiates financées par les cotisations (ex: remboursements de soins). Le salaire différé correspond aux droits futurs que le salarié acquiert (ex: pensions de retraite, indemnités chômage). Cette perspective, défendue par des économistes comme Bernard Friot, s'oppose à la vision des cotisations comme un simple 'coût' et les présente comme un investissement dans la sécurité et le bien-être collectif." },
+                { title: "Concept 3 : Le Paritarisme", content: "Certains régimes de protection sociale, comme l'<strong>assurance chômage (Unédic)</strong> et la <strong>retraite complémentaire (Agirc-Arrco)</strong>, sont gérés de manière <strong>paritaire</strong>. Cela signifie que leur gouvernance est partagée à parts égales entre les représentants des salariés (organisations syndicales) et ceux des employeurs (organisations patronales). Ce modèle de gestion, distinct de la gestion par l'État, est un pilier du dialogue social en France." }
+            ];
+
+            // --- UI INJECTION ---
+            const contributionsContainer = document.getElementById('contributions-container');
+            if (contributionsContainer) {
+                contributionsData.forEach(cat => {
+                    let itemsHtml = '';
+                    cat.items.forEach(item => {
+                        itemsHtml += `
+                            <div class="accordion-item border-t">
+                                <button class="accordion-header w-full text-left font-semibold flex justify-between items-center text-gray-800 p-3 hover:bg-gray-50">
+                                    <span>${item.name}</span>
+                                    <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="text-sm text-gray-600 px-4 pb-3 space-y-2">
+                                        <p><strong>Finalité :</strong> ${item.purpose}</p>
+                                        <p><strong>Payé par :</strong> ${item.payer}</p>
+                                        <p><strong>Collecté par :</strong> URSSAF</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    contributionsContainer.innerHTML += `<div class="card overflow-hidden"><h4 class="text-lg font-bold p-4 bg-gray-100 rounded-t-lg">${cat.category}</h4><div>${itemsHtml}</div></div>`;
+                });
+            }
+
+            const retraitePyramid = document.getElementById('retraite-pyramid');
+            if (retraitePyramid) {
+                retraitePyramid.innerHTML = `
+                    <div class="bg-gray-700 p-3 rounded-t-lg">3. Retraite Supplémentaire (Facultative / Capitalisation)</div>
+                    <div class="bg-slate-600 p-3">2. Retraite Complémentaire (Obligatoire / Répartition)</div>
+                    <div class="bg-slate-500 p-3 rounded-b-lg">1. Retraite de Base (Obligatoire / Répartition)</div>
+                `;
+            }
+
+            const synthesisAccordion = document.getElementById('synthesis-accordion');
+            if (synthesisAccordion) {
+                synthesisData.forEach(item => {
+                    synthesisAccordion.innerHTML += `
+                         <div class="card overflow-hidden">
+                            <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
+                                <span>${item.title}</span>
+                                <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 pt-2 text-gray-700">
+                                    ${item.content}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // --- INTERACTIONS (ROBUSTES ET CIBLÉES) ---
+            function handleAccordionClick(event) {
+                const header = event.target.closest('.accordion-header');
+                if (header) {
+                    const content = header.nextElementSibling;
+                    const svgIcon = header.querySelector('svg');
+                    
+                    if (content && content.classList.contains('accordion-content')) {
+                        content.classList.toggle('open');
+                    }
+                    if (svgIcon) {
+                       svgIcon.classList.toggle('rotate-180');
+                    }
+                }
+            }
+
+            if (contributionsContainer) {
+                contributionsContainer.addEventListener('click', handleAccordionClick);
+            }
+            if (synthesisAccordion) {
+                synthesisAccordion.addEventListener('click', handleAccordionClick);
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
