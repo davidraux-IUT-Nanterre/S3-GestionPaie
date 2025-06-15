@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD 4 : Du Salaire Brut au Net - Le Calcul des Cotisations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            border-bottom-color: #4a5568;
+            color: #2d3748;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .calc-step, .accordion-header {
+            cursor: pointer;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* --- CSS Corrigé et Simplifié --- */
+        .accordion-content, .calc-explanation {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-content.open, .calc-explanation.open {
+            max-height: 1000px; /* Hauteur suffisante pour tout contenu */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                 <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-4">
+                        <img class="h-12 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Logo_Universit%C3%A9_Paris-Nanterre.svg" alt="Logo Université Paris Nanterre" onerror="this.onerror=null;this.src='https://placehold.co/200x50/FFFFFF/000000?text=Logo+Nanterre';">
+                        <h1 class="text-lg font-bold text-gray-800 hidden sm:block">Pratique de la Paie</h1>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#calculators" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Études de Cas</a>
+                        <a href="#concepts" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Concepts Clés</a>
+                        <a href="#synthesis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <div class="text-center mb-12">
+            <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 4 : Du Salaire Brut au Net - Le Calcul des Cotisations</h2>
+            </div>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Appliquez vos connaissances pour calculer l'ensemble des cotisations sociales à travers deux études de cas interactives.</p>
+        </div>
+
+        <section id="calculators" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Calculateurs Interactifs des Études de Cas</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl text-center mb-4 text-indigo-600">Cas A : Mme Dubois</h4>
+                    <div id="calculator-A" class="space-y-2"></div>
+                </div>
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl text-center mb-4 text-teal-600">Cas B : M. Lefevre</h4>
+                    <div id="calculator-B" class="space-y-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="concepts" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Concepts Clés à Maîtriser</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="card p-6">
+                     <h4 class="font-bold text-xl text-center mb-4">Plafonds et Tranches</h4>
+                     <p class="text-sm text-gray-600 mb-2">Les cotisations sont calculées sur des "assiettes". Certaines sont plafonnées au <strong>Plafond Mensuel de la Sécurité Sociale (PMSS)</strong>, qui est de <strong>3 864 €</strong> pour 2024.</p>
+                     <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+                        <li><strong>Tranche 1 (T1) :</strong> Salaire jusqu'à 3 864 €.</li>
+                        <li><strong>Tranche 2 (T2) :</strong> Partie du salaire entre 3 864 € et 30 912 € (8 x PMSS).</li>
+                     </ul>
+                </div>
+                <div class="card p-6">
+                     <h4 class="font-bold text-xl text-center mb-4">Réduction Générale & Allègements</h4>
+                     <p class="text-sm text-gray-600 mb-2">C'est une politique publique visant à réduire le coût du travail sur les bas et moyens salaires (inférieurs à 1,6 SMIC) pour favoriser l'emploi. Elle diminue les cotisations patronales.</p>
+                     <p class="mt-4 text-gray-700">D'autres aides, comme la déduction forfaitaire sur les heures supplémentaires, existent pour inciter les entreprises à des pratiques spécifiques.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="synthesis" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Concepts Clés</h3>
+            <div id="synthesis-accordion" class="space-y-4 max-w-4xl mx-auto">
+                 </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+             <h4 class="font-semibold mb-2">Pour aller plus loin</h4>
+             <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                <a href="https://www.urssaf.org/aquoiserventlescotisations/" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Outil URSSAF : À quoi servent mes cotisations ?</a>
+                <a href="https://code.travail.gouv.fr/outils/simulateur-embauche" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Simulateur d'embauche</a>
+                 <a href="https://open.lefebvre-dalloz.fr/baremes-taux/droit-social/salaire-cotisations-sociales-taux-cotisations-salaires-1er-janvier-2024_social-salaire-taux-cot" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Barèmes Lefebvre-Dalloz</a>
+             </div>
+            <p class="text-sm mt-4">&copy; 2024-2025 - Université Paris Nanterre - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DATA & FUNCTIONS ---
+            const PMSS = 3864;
+            const SMIC_BRUT_HORAIRE = 11.65;
+            const SMIC_MENSUEL = SMIC_BRUT_HORAIRE * 151.67;
+
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value || 0);
+            }
+            
+            function createCalculator(containerId, caseData) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                // --- Calculations ---
+                const tauxHoraireBase = caseData.salaireBase / 151.67;
+                const baseHSTaux = caseData.primeTravail > 0 ? (caseData.salaireBase + caseData.primeTravail) / 151.67 : tauxHoraireBase;
+                const montantHS = caseData.heuresSup * baseHSTaux * 1.25;
+                const salaireBrut = caseData.salaireBase + caseData.primeTravail + montantHS;
+                
+                let reductionGenerale = 0;
+                if (salaireBrut < 1.6 * SMIC_MENSUEL) {
+                    const T = caseData.effectif < 50 ? 0.3193 : 0.3233;
+                    const coefficient = (T / 0.6) * ((1.6 * SMIC_MENSUEL) / salaireBrut - 1);
+                    reductionGenerale = salaireBrut * Math.max(0, coefficient);
+                }
+
+                let deductionHS = 0;
+                if(caseData.effectif >= 20 && caseData.effectif <= 249){
+                    deductionHS = caseData.heuresSup * 0.50;
+                }
+                
+                const totalCotisationsSalariales = (salaireBrut * 0.1131) + (caseData.mutuelle * 0.5); // Simplified for display
+                const totalCotisationsPatronales = (salaireBrut * 0.25) + (caseData.mutuelle * 0.5); // Highly simplified for display
+                const totalPatronalNet = totalCotisationsPatronales - reductionGenerale - deductionHS;
+
+                // --- HTML Injection ---
+                let html = '';
+                const steps = [
+                    { 
+                        title: '1. Calcul du Salaire Brut',
+                        result: formatCurrency(salaireBrut),
+                        explanation: `
+                            <p class="font-semibold">Base de calcul HS :</p>
+                            <p class="text-sm font-mono">${caseData.primeTravail > 0 ? `(${formatCurrency(caseData.salaireBase)} + ${formatCurrency(caseData.primeTravail)}) / 151,67 = ${baseHSTaux.toFixed(4)} €` : `${formatCurrency(caseData.salaireBase)} / 151,67 = ${baseHSTaux.toFixed(4)} €`}</p>
+                            <p class="text-xs mt-1 text-gray-500">${caseData.primeTravail > 0 ? "La prime de performance est incluse." : "Une PPV ne serait pas incluse."}</p>
+                             <p class="font-semibold mt-2">Calcul des HS :</p>
+                            <p class="text-sm font-mono">${caseData.heuresSup}h × ${baseHSTaux.toFixed(4)} € × 1,25 = ${formatCurrency(montantHS)}</p>
+                             <p class="font-semibold mt-2">Salaire Brut Total :</p>
+                            <p class="text-sm font-mono">${formatCurrency(caseData.salaireBase)} (base) + ${formatCurrency(caseData.primeTravail)} (prime) + ${formatCurrency(montantHS)} (HS) = ${formatCurrency(salaireBrut)}</p>
+                        `
+                    },
+                    { 
+                        title: '2. Calcul de la Réduction Générale',
+                        result: `- ${formatCurrency(reductionGenerale)}`,
+                        explanation: `
+                            <p class="font-semibold">${reductionGenerale > 0 ? "Le salarié est éligible." : "Le salarié n'est pas éligible."}</p>
+                            <p class="text-sm">${reductionGenerale > 0 ? `Le salaire brut (${formatCurrency(salaireBrut)}) est inférieur à 1,6 SMIC.` : `Le salaire brut (${formatCurrency(salaireBrut)}) est supérieur à 1,6 SMIC.`}</p>
+                            ${reductionGenerale > 0 ? `<p class="font-semibold mt-2">Formule (simplifiée) :</p><p class="text-xs font-mono">C = (T/0.6) * (1.6 * SMIC / Brut - 1)</p><p class="text-xs mt-1">Le calcul exact est complexe, mais le montant pour ce cas est de <strong>${formatCurrency(reductionGenerale)}</strong>.</p>` : ''}
+                        `
+                    },
+                    {
+                        title: '3. Déduction forfaitaire HS',
+                        result: `- ${formatCurrency(deductionHS)}`,
+                        explanation: `<p>${deductionHS > 0 ? `L'entreprise (${caseData.effectif} salariés) est éligible.` : `L'entreprise (${caseData.effectif} salariés) n'est pas éligible (doit être entre 20 et 249 salariés).`}</p>${deductionHS > 0 ? `<p class="text-sm font-mono mt-2">${caseData.heuresSup}h x 0,50 € = ${formatCurrency(deductionHS)}</p>`: ''}`
+                    },
+                     {
+                        title: 'Synthèse des Cotisations',
+                        result: '',
+                        explanation: `<div class="text-sm space-y-1">
+                            <div class="flex justify-between"><span>Total Cotisations Salariales:</span> <span class="font-semibold">${formatCurrency(totalCotisationsSalariales)}</span></div>
+                            <div class="flex justify-between"><span>Total Cotisations Patronales (brut):</span> <span class="font-semibold">${formatCurrency(totalCotisationsPatronales)}</span></div>
+                            <div class="flex justify-between text-green-600"><span>Total Allègements:</span> <span class="font-semibold">- ${formatCurrency(reductionGenerale + deductionHS)}</span></div>
+                            <div class="flex justify-between font-bold border-t pt-1"><span>Total Cotisations Patronales (net):</span> <span>${formatCurrency(totalPatronalNet)}</span></div>
+                        </div>`
+                    }
+                ];
+
+                steps.forEach((step, index) => {
+                    html += `
+                        <div class="calc-step border-b pb-4 mb-4">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-700">${step.title}</span>
+                                <span class="font-bold text-lg ${step.result.startsWith('-') ? 'text-green-600' : 'text-blue-600'}">${step.result}</span>
+                            </div>
+                            <div class="calc-explanation">
+                                <div class="bg-gray-50 p-4 mt-2 rounded-lg">${step.explanation}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+
+            const caseA = { salaireBase: 1800, primeTravail: 0, heuresSup: 4, mutuelle: 82, effectif: 40 };
+            const caseB = { salaireBase: 4200, primeTravail: 200, heuresSup: 5, mutuelle: 82, effectif: 300 };
+
+            createCalculator('calculator-A', caseA);
+            createCalculator('calculator-B', caseB);
+            
+            // Synthesis Accordion
+            const synthesisData = [
+                { title: "Synthèse : Bases, Plafonds et Tranches", content: "Le calcul des cotisations repose sur la notion d'<strong>assiette</strong>. Le <strong>Plafond de la Sécurité Sociale (PMSS)</strong> est l'outil clé qui segmente le salaire en <strong>tranches</strong> (T1, T2). Cette segmentation permet d'appliquer des taux de cotisation différents selon le niveau de revenu, notamment pour la retraite complémentaire, ce qui est un principe de progressivité. La plupart des cotisations s'appliquent sur la T1, tandis que la T2 concerne principalement les cadres et les salaires plus élevés." },
+                { title: "Synthèse : Le Rôle Économique des Allègements de Charges", content: "La <strong>réduction générale des cotisations patronales</strong> est une politique publique majeure visant à réduire le coût du travail sur les salaires proches du SMIC pour stimuler l'emploi. Son caractère <strong>dégressif</strong> (le montant diminue à mesure que le salaire augmente) cible précisément les bas salaires. Comme le souligne la Cour des comptes, son efficacité sur l'emploi est reconnue, mais son coût pour les finances publiques pose la question de sa <strong>soutenabilité</strong> à long terme. C'est un arbitrage constant entre compétitivité, emploi et financement de la protection sociale." },
+                { title: "Synthèse : L'Impact de la Taille de l'Entreprise", content: "Le droit de la paie n'est pas uniforme pour toutes les entreprises. La taille, définie par des <strong>seuils d'effectif</strong> (11, 20, 50, 250 salariés...), conditionne l'application de nombreuses règles. Dans notre cas, le taux de la contribution <strong>FNAL</strong> et le paramètre **T** de la réduction générale varient si l'entreprise a plus ou moins de 50 salariés. De même, la déduction forfaitaire sur les heures supplémentaires est réservée à un segment d'entreprises (20-249 salariés). La gestion de la paie implique donc une connaissance précise des caractéristiques de l'entreprise." }
+            ];
+
+            const synthesisAccordion = document.getElementById('synthesis-accordion');
+            if(synthesisAccordion) {
+                synthesisData.forEach(item => {
+                    synthesisAccordion.innerHTML += `
+                         <div class="card overflow-hidden">
+                            <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
+                                <span>${item.title}</span>
+                                <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 pt-2 text-gray-700">
+                                    ${item.content}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // --- INTERACTIONS (ROBUSTES ET CIBLÉES) ---
+            function handleInteractionClick(event) {
+                const clickableElement = event.target.closest('.accordion-header, .calc-step');
+                if (!clickableElement) return;
+
+                let content;
+                // Cas des calculateurs : le contenu est un enfant
+                if (clickableElement.classList.contains('calc-step')) {
+                    content = clickableElement.querySelector('.calc-explanation');
+                } 
+                // Cas de l'accordéon : le contenu est un frère (next sibling)
+                else if (clickableElement.classList.contains('accordion-header')) {
+                    content = clickableElement.nextElementSibling;
+                }
+
+                const svgIcon = clickableElement.querySelector('svg');
+                
+                if (content) {
+                    content.classList.toggle('open');
+                }
+                if (svgIcon) {
+                   svgIcon.classList.toggle('rotate-180');
+                }
+            }
+
+            document.getElementById('calculators').addEventListener('click', handleInteractionClick);
+            if (synthesisAccordion) {
+                synthesisAccordion.addEventListener('click', handleInteractionClick);
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
