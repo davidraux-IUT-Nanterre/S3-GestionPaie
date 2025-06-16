@@ -126,18 +126,17 @@
                      </ul>
                 </div>
                 <div class="card p-6">
-                     <h4 class="font-bold text-xl text-center mb-4">Analyse de la CCN SYNTEC (Cas D)</h4>
-                     <p class="text-sm text-gray-600 mb-2"><strong>Extrait :</strong> "Mariage ou PACS du salarié : **4 jours ouvrés**"</p>
-                     <p class="font-semibold mt-4">Analyse :</p>
-                     <p class="text-gray-700">M. Said a droit à 4 jours d'absence rémunérée pour son mariage. C'est un exemple de **maintien de salaire par obligation conventionnelle**. La convention SYNTEC est plus favorable que le Code du travail, qui ne prévoit qu'un seul jour pour cet événement. En vertu du principe de faveur, c'est la règle la plus avantageuse pour le salarié qui s'applique.</p>
+                     <h4 class="font-bold text-xl text-center mb-4">La Neutralité du Bulletin de Paie</h4>
+                     <p class="text-sm text-gray-600 mb-2"><strong>Principe :</strong> En vertu du principe de non-discrimination, il est interdit de faire figurer des motifs d'absence qui pourraient porter préjudice au salarié, comme "grève".</p>
+                     <p class="font-semibold mt-4">Libellé à utiliser pour l'activité syndicale :</p>
+                     <p class="text-gray-700">Pour l'absence de Mme Martin, le libellé doit être neutre. Si les heures sont rémunérées (heures de délégation), le libellé **"Heures de délégation"** est accepté car il s'agit d'un droit. Si, comme ici, l'absence n'est pas rémunérée, le libellé correct et légal est **"Absence non rémunérée"**. Il ne faut jamais mentionner l'activité syndicale.</p>
                 </div>
             </div>
         </section>
 
         <section id="synthesis" class="my-16 scroll-mt-20">
             <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Concepts Clés</h3>
-            <div id="synthesis-accordion" class="space-y-4 max-w-4xl mx-auto">
-                 </div>
+            <div id="synthesis-accordion" class="space-y-4 max-w-4xl mx-auto"></div>
         </section>
     </main>
 
@@ -156,15 +155,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             // --- DATA & FUNCTIONS (INCHANGÉES) ---
             const PMSS = 3864;
-
             const caseA_Data = { salaireBrut: 2400, heuresAbsence: 14, heuresReellesMois: 154 };
             const caseB_Data = { salaireBrut: 3000, joursOuvresMois: 22, joursConges: 5, remunerationRef: 36500, joursAcquis: 30 };
-            const caseC_Data = { salaireBrut: 2100, heuresReellesMois: 154, joursTravaillesMois: 22, joursAbsence: 7, joursPresence: 20, joursCalendairesMois: 31 };
-
+            const caseC_Data = { salaireBrut: 2100, heuresReellesMois: 154, joursAbsence: 7, joursPresence: 20, joursCalendairesMois: 31 };
             const synthesisData = [
-                { title: "Synthèse : La Justesse du Calcul d'Absence", content: "La jurisprudence, via la Cour de cassation, a établi que la seule méthode de calcul irréfutable pour une retenue sur salaire est celle de l'<strong>horaire réel</strong>. Elle garantit une <strong>stricte proportionnalité</strong> entre la somme déduite et la durée exacte de la suspension du contrat de travail. Les autres méthodes (jours ouvrés moyens, calendaires moyens...) sont tolérées pour leur simplicité mais peuvent être contestées car elles peuvent léser le salarié ou l'employeur selon la configuration du mois." },
-                { title: "Synthèse : Le Principe de Faveur dans l'Indemnisation des Congés", content: "Le calcul de l'indemnité de congés payés est une illustration directe du <strong>principe de faveur</strong> en droit du travail. La loi impose à l'employeur de comparer deux modes de calcul (maintien de salaire vs. règle du dixième) et d'appliquer systématiquement le plus avantageux pour le salarié. La méthode du <strong>dixième</strong> est souvent plus favorable lorsque la rémunération de l'année de référence contient des éléments variables significatifs (primes, heures supplémentaires)." },
-                { title: "Synthèse : La Proratisation, une Nécessité Technique et Légale", content: "La gestion des entrées/sorties ou des absences sans maintien de salaire impose une <strong>proratisation</strong> de deux éléments clés. D'abord, le <strong>salaire brut</strong>, calculé au prorata du temps de présence réel. Ensuite, le <strong>Plafond de la Sécurité Sociale (PMSS)</strong>, qui est ajusté en fonction du nombre de jours calendaires de présence. Cette proratisation du plafond est essentielle pour assurer un calcul juste des cotisations plafonnées (retraite, etc.) et éviter des prélèvements indus sur un salaire partiel." }
+                 { title: "Synthèse : La Justesse du Calcul d'Absence", content: "La jurisprudence, via la Cour de cassation, a établi que la seule méthode de calcul irréfutable pour une retenue sur salaire est celle de l'<strong>horaire réel</strong>. Elle garantit une <strong>stricte proportionnalité</strong> entre la somme déduite et la durée exacte de la suspension du contrat de travail. Les autres méthodes (jours ouvrés moyens, calendaires moyens...) sont tolérées pour leur simplicité mais peuvent être contestées car elles peuvent léser le salarié ou l'employeur selon la configuration du mois." },
+                 { title: "Synthèse : Le Principe de Faveur dans l'Indemnisation des Congés", content: "Le calcul de l'indemnité de congés payés est une illustration directe du <strong>principe de faveur</strong> en droit du travail. La loi impose à l'employeur de comparer deux modes de calcul (maintien de salaire vs. règle du dixième) et d'appliquer systématiquement le plus avantageux pour le salarié. La méthode du <strong>dixième</strong> est souvent plus favorable lorsque la rémunération de l'année de référence contient des éléments variables significatifs (primes, heures supplémentaires)." },
+                 { title: "Synthèse : La Proratisation, une Nécessité Technique et Légale", content: "La gestion des entrées/sorties ou des absences sans maintien de salaire impose une <strong>proratisation</strong> de deux éléments clés. D'abord, le <strong>salaire brut</strong>, calculé au prorata du temps de présence réel. Ensuite, le <strong>Plafond de la Sécurité Sociale (PMSS)</strong>, qui est ajusté en fonction du nombre de jours calendaires de présence. Cette proratisation du plafond est essentielle pour assurer un calcul juste des cotisations plafonnées (retraite, etc.) et éviter des prélèvements indus sur un salaire partiel." },
+                 { title: "Synthèse : La Neutralité du Bulletin de Paie", content: "En vertu du principe de <strong>non-discrimination</strong>, le bulletin de paie ne doit comporter aucune mention pouvant porter préjudice au salarié. Ainsi, il est formellement interdit de mentionner des motifs d'absence tels que 'grève' ou 'activité syndicale'. Le gestionnaire de paie doit utiliser des libellés neutres comme <strong>'Absence non rémunérée'</strong> pour garantir la confidentialité et le respect des droits fondamentaux du salarié." }
             ];
 
             function formatCurrency(value) {
@@ -172,10 +170,13 @@
             }
             
             function createCalculator(containerId, calcFunction) {
-                document.getElementById(containerId).innerHTML = calcFunction();
+                const container = document.getElementById(containerId);
+                if (container) {
+                    container.innerHTML = calcFunction();
+                }
             }
 
-            // --- Calculators ---
+            // --- Calculators (HTML Corrigé) ---
             function calcA() {
                 const tauxHoraireReel = caseA_Data.salaireBrut / caseA_Data.heuresReellesMois;
                 const retenue = tauxHoraireReel * caseA_Data.heuresAbsence;
@@ -204,13 +205,13 @@
                 const tauxHoraireReel = caseC_Data.salaireBrut / caseC_Data.heuresReellesMois;
                 const retenue = (caseC_Data.joursAbsence * 7) * tauxHoraireReel;
                 const salaireDu = caseC_Data.salaireBrut - retenue;
-                const plafondPratise = PMSS * (caseC_Data.joursPresence / caseC_Data.joursCalendairesMois);
+                const plafondProratise = PMSS * (caseC_Data.joursPresence / caseC_Data.joursCalendairesMois);
                 return `
                     <div class="calc-step" data-target="expl-C1"><div class="flex justify-between items-center p-2 border-b"><span>Retenue pour absence (entrée) :</span><span class="font-bold text-red-600">${formatCurrency(retenue)}</span></div></div>
                     <div id="expl-C1" class="calc-explanation"><div class="bg-red-50 p-2 rounded-lg text-sm">(${caseC_Data.joursAbsence}j x 7h) x (${formatCurrency(caseC_Data.salaireBrut)} / ${caseC_Data.heuresReellesMois}h) = ${formatCurrency(retenue)}</div></div>
                     <div class="p-2 border-b"><div class="flex justify-between items-center"><span>Salaire Brut dû :</span><span class="font-bold text-blue-600">${formatCurrency(salaireDu)}</span></div></div>
-                    <div class="calc-step" data-target="expl-C2"><div class="flex justify-between items-center p-2"><span>Plafond SS proratisé :</span><span class="font-bold text-purple-600">${formatCurrency(plafondPratise)}</span></div></div>
-                    <div id="expl-C2" class="calc-explanation"><div class="bg-purple-50 p-2 rounded-lg text-sm">${formatCurrency(PMSS)} x (${caseC_Data.joursPresence}j / ${caseC_Data.joursCalendairesMois}j) = ${formatCurrency(plafondPratise)}</div></div>
+                    <div class="calc-step" data-target="expl-C2"><div class="flex justify-between items-center p-2"><span>Plafond SS proratisé :</span><span class="font-bold text-purple-600">${formatCurrency(plafondProratise)}</span></div></div>
+                    <div id="expl-C2" class="calc-explanation"><div class="bg-purple-50 p-2 rounded-lg text-sm">${formatCurrency(PMSS)} x (${caseC_Data.joursPresence}j / ${caseC_Data.joursCalendairesMois}j) = ${formatCurrency(plafondProratise)}</div></div>
                 `;
             }
 
