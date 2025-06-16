@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD 6 : La Gestion des Absences, Congés, Entrées et Sorties</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            border-bottom-color: #4a5568;
+            color: #2d3748;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .calc-step, .accordion-header {
+            cursor: pointer;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* --- CSS Corrigé --- */
+        .accordion-content, .calc-explanation {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-content.open, .calc-explanation.open {
+            max-height: 1000px; 
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                 <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-4">
+                        <img class="h-12 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Logo_Universit%C3%A9_Paris-Nanterre.svg" alt="Logo Université Paris Nanterre" onerror="this.onerror=null;this.src='https://placehold.co/200x50/FFFFFF/000000?text=Logo+Nanterre';">
+                        <h1 class="text-lg font-bold text-gray-800 hidden sm:block">Pratique de la Paie</h1>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#calculators" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Calculs Interactifs</a>
+                        <a href="#concepts" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Concepts Clés</a>
+                        <a href="#synthesis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Synthèse</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <div class="text-center mb-12">
+            <div class="inline-block border-2 border-gray-800 p-4 sm:p-6 mb-4">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900">TD 6 : La Gestion des Absences, Congés, Entrées et Sorties</h2>
+            </div>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Explorez le traitement en paie des principaux événements modifiant le temps de travail d'un salarié.</p>
+        </div>
+
+        <section id="calculators" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Correction Interactive des Études de Cas</h3>
+            <div class="space-y-8 max-w-4xl mx-auto">
+                <div class="card overflow-hidden">
+                    <button class="accordion-header w-full text-left p-4 font-bold text-xl text-indigo-600 flex justify-between items-center">
+                        <span>Cas A : Absence non rémunérée</span>
+                        <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-4 pt-0">
+                            <div id="calculator-A" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card overflow-hidden">
+                     <button class="accordion-header w-full text-left p-4 font-bold text-xl text-teal-600 flex justify-between items-center">
+                        <span>Cas B : Congés Payés</span>
+                        <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-4 pt-0">
+                            <div id="calculator-B" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card overflow-hidden">
+                     <button class="accordion-header w-full text-left p-4 font-bold text-xl text-orange-600 flex justify-between items-center">
+                        <span>Cas C : Entrée en cours de mois</span>
+                        <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-4 pt-0">
+                            <div id="calculator-C" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="concepts" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Concepts Fondamentaux</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="card p-6">
+                    <h4 class="font-bold text-xl text-center mb-4">Catégorisation des Absences</h4>
+                    <p class="text-sm text-gray-600 mb-2">Le traitement en paie d'une absence dépend de sa nature :</p>
+                     <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 text-sm">
+                         <li><strong>Maintien de salaire :</strong> Absences rémunérées par l'employeur (Congés Payés, Congés pour événements familiaux).</li>
+                         <li><strong>Indemnisation par la Sécurité Sociale :</strong> Absences pour maladie, maternité, accident du travail. L'employeur peut verser un complément.</li>
+                         <li><strong>Non rémunérées :</strong> Absences pour convenance personnelle, congé sans solde, grève. Elles donnent lieu à une retenue sur salaire.</li>
+                     </ul>
+                </div>
+                <div class="card p-6">
+                     <h4 class="font-bold text-xl text-center mb-4">Analyse de la CCN SYNTEC (Cas D)</h4>
+                     <p class="text-sm text-gray-600 mb-2"><strong>Extrait :</strong> "Mariage ou PACS du salarié : **4 jours ouvrés**"</p>
+                     <p class="font-semibold mt-4">Analyse :</p>
+                     <p class="text-gray-700">M. Said a droit à 4 jours d'absence rémunérée pour son mariage. C'est un exemple de **maintien de salaire par obligation conventionnelle**. La convention SYNTEC est plus favorable que le Code du travail, qui ne prévoit qu'un seul jour pour cet événement. En vertu du principe de faveur, c'est la règle la plus avantageuse pour le salarié qui s'applique.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="synthesis" class="my-16 scroll-mt-20">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Synthèse & Concepts Clés</h3>
+            <div id="synthesis-accordion" class="space-y-4 max-w-4xl mx-auto">
+                 </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+             <h4 class="font-semibold mb-2">Pour aller plus loin</h4>
+             <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                <a href="https://payfit.com/fr/fiches-pratiques/calcul-absence-paie/" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Calcul d'Absence (Payfit)</a>
+                <a href="https://www.editions-tissot.fr/oe/content.aspx?idSGML=8a0b5f11-b0dc-4a02-90eb-d433c9b2be71&codeSpace=GLP&chapitre=C4&pageNumber=2&section=P02C4F020&op=1&codeCategory=PME" target="_blank" class="text-indigo-600 hover:text-indigo-800 hover:underline">Entrée/Sortie du Salarié (Tissot)</a>
+             </div>
+            <p class="text-sm mt-4">&copy; 2024-2025 - Université Paris Nanterre - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DATA & FUNCTIONS (INCHANGÉES) ---
+            const PMSS = 3864;
+
+            const caseA_Data = { salaireBrut: 2400, heuresAbsence: 14, heuresReellesMois: 154 };
+            const caseB_Data = { salaireBrut: 3000, joursOuvresMois: 22, joursConges: 5, remunerationRef: 36500, joursAcquis: 30 };
+            const caseC_Data = { salaireBrut: 2100, heuresReellesMois: 154, joursTravaillesMois: 22, joursAbsence: 7, joursPresence: 20, joursCalendairesMois: 31 };
+
+            const synthesisData = [
+                { title: "Synthèse : La Justesse du Calcul d'Absence", content: "La jurisprudence, via la Cour de cassation, a établi que la seule méthode de calcul irréfutable pour une retenue sur salaire est celle de l'<strong>horaire réel</strong>. Elle garantit une <strong>stricte proportionnalité</strong> entre la somme déduite et la durée exacte de la suspension du contrat de travail. Les autres méthodes (jours ouvrés moyens, calendaires moyens...) sont tolérées pour leur simplicité mais peuvent être contestées car elles peuvent léser le salarié ou l'employeur selon la configuration du mois." },
+                { title: "Synthèse : Le Principe de Faveur dans l'Indemnisation des Congés", content: "Le calcul de l'indemnité de congés payés est une illustration directe du <strong>principe de faveur</strong> en droit du travail. La loi impose à l'employeur de comparer deux modes de calcul (maintien de salaire vs. règle du dixième) et d'appliquer systématiquement le plus avantageux pour le salarié. La méthode du <strong>dixième</strong> est souvent plus favorable lorsque la rémunération de l'année de référence contient des éléments variables significatifs (primes, heures supplémentaires)." },
+                { title: "Synthèse : La Proratisation, une Nécessité Technique et Légale", content: "La gestion des entrées/sorties ou des absences sans maintien de salaire impose une <strong>proratisation</strong> de deux éléments clés. D'abord, le <strong>salaire brut</strong>, calculé au prorata du temps de présence réel. Ensuite, le <strong>Plafond de la Sécurité Sociale (PMSS)</strong>, qui est ajusté en fonction du nombre de jours calendaires de présence. Cette proratisation du plafond est essentielle pour assurer un calcul juste des cotisations plafonnées (retraite, etc.) et éviter des prélèvements indus sur un salaire partiel." }
+            ];
+
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value != null ? value : 0);
+            }
+            
+            function createCalculator(containerId, calcFunction) {
+                document.getElementById(containerId).innerHTML = calcFunction();
+            }
+
+            // --- Calculators ---
+            function calcA() {
+                const tauxHoraireReel = caseA_Data.salaireBrut / caseA_Data.heuresReellesMois;
+                const retenue = tauxHoraireReel * caseA_Data.heuresAbsence;
+                return `
+                    <div class="calc-step" data-target="expl-A1"><div class="flex justify-between items-center p-2 border-b"><span>Taux Horaire Réel du mois :</span><span class="font-bold text-blue-600">${tauxHoraireReel.toFixed(4)} €</span></div></div>
+                    <div id="expl-A1" class="calc-explanation"><div class="bg-blue-50 p-2 rounded-lg text-sm">${formatCurrency(caseA_Data.salaireBrut)} / ${caseA_Data.heuresReellesMois}h = ${tauxHoraireReel.toFixed(4)}€</div></div>
+                    <div class="calc-step" data-target="expl-A2"><div class="flex justify-between items-center p-2 border-b"><span>Montant de la retenue (2 jours) :</span><span class="font-bold text-red-600">${formatCurrency(retenue)}</span></div></div>
+                    <div id="expl-A2" class="calc-explanation"><div class="bg-red-50 p-2 rounded-lg text-sm">${tauxHoraireReel.toFixed(4)}€ × ${caseA_Data.heuresAbsence}h = ${formatCurrency(retenue)}</div></div>
+                `;
+            }
+
+            function calcB() {
+                const maintien = (caseB_Data.salaireBrut / caseB_Data.joursOuvresMois) * caseB_Data.joursConges;
+                const dixieme = (caseB_Data.remunerationRef * 0.1) * (caseB_Data.joursConges / caseB_Data.joursAcquis);
+                const retenu = Math.max(maintien, dixieme);
+                return `
+                    <div class="calc-step" data-target="expl-B1"><div class="flex justify-between items-center p-2 border-b"><span>Indemnité (Maintien de salaire) :</span><span class="font-bold text-blue-600">${formatCurrency(maintien)}</span></div></div>
+                    <div id="expl-B1" class="calc-explanation"><div class="bg-blue-50 p-2 rounded-lg text-sm">(${formatCurrency(caseB_Data.salaireBrut)} / ${caseB_Data.joursOuvresMois}j) x ${caseB_Data.joursConges}j = ${formatCurrency(maintien)}</div></div>
+                    <div class="calc-step" data-target="expl-B2"><div class="flex justify-between items-center p-2 border-b"><span>Indemnité (Règle du 1/10ème) :</span><span class="font-bold text-blue-600">${formatCurrency(dixieme)}</span></div></div>
+                    <div id="expl-B2" class="calc-explanation"><div class="bg-blue-50 p-2 rounded-lg text-sm">(${formatCurrency(caseB_Data.remunerationRef)} x 10%) x (${caseB_Data.joursConges}j / ${caseB_Data.joursAcquis}j) = ${formatCurrency(dixieme)}</div></div>
+                    <div class="p-2 mt-4 bg-green-100 rounded-lg text-center"><p class="font-bold">Montant à retenir (le plus favorable) : <span class="text-green-700">${formatCurrency(retenu)}</span></p></div>
+                `;
+            }
+
+            function calcC() {
+                const tauxHoraireReel = caseC_Data.salaireBrut / caseC_Data.heuresReellesMois;
+                const retenue = (caseC_Data.joursAbsence * 7) * tauxHoraireReel;
+                const salaireDu = caseC_Data.salaireBrut - retenue;
+                const plafondPratise = PMSS * (caseC_Data.joursPresence / caseC_Data.joursCalendairesMois);
+                return `
+                    <div class="calc-step" data-target="expl-C1"><div class="flex justify-between items-center p-2 border-b"><span>Retenue pour absence (entrée) :</span><span class="font-bold text-red-600">${formatCurrency(retenue)}</span></div></div>
+                    <div id="expl-C1" class="calc-explanation"><div class="bg-red-50 p-2 rounded-lg text-sm">(${caseC_Data.joursAbsence}j x 7h) x (${formatCurrency(caseC_Data.salaireBrut)} / ${caseC_Data.heuresReellesMois}h) = ${formatCurrency(retenue)}</div></div>
+                    <div class="p-2 border-b"><div class="flex justify-between items-center"><span>Salaire Brut dû :</span><span class="font-bold text-blue-600">${formatCurrency(salaireDu)}</span></div></div>
+                    <div class="calc-step" data-target="expl-C2"><div class="flex justify-between items-center p-2"><span>Plafond SS proratisé :</span><span class="font-bold text-purple-600">${formatCurrency(plafondPratise)}</span></div></div>
+                    <div id="expl-C2" class="calc-explanation"><div class="bg-purple-50 p-2 rounded-lg text-sm">${formatCurrency(PMSS)} x (${caseC_Data.joursPresence}j / ${caseC_Data.joursCalendairesMois}j) = ${formatCurrency(plafondPratise)}</div></div>
+                `;
+            }
+
+            createCalculator('calculator-A', calcA);
+            createCalculator('calculator-B', calcB);
+            createCalculator('calculator-C', calcC);
+            
+            const synthesisAccordionContainer = document.getElementById('synthesis-accordion');
+            if (synthesisAccordionContainer) {
+                synthesisData.forEach(item => {
+                    // --- HTML Corrigé ---
+                    synthesisAccordionContainer.innerHTML += `
+                         <div class="card overflow-hidden">
+                            <button class="accordion-header w-full text-left p-4 font-semibold flex justify-between items-center">
+                                <span>${item.title}</span>
+                                <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="p-4 pt-2 text-gray-700">${item.content}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // --- INTERACTIONS (INCHANGÉES) ---
+            document.querySelectorAll('.accordion-header, .calc-step').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.dataset.target;
+                    if(targetId){
+                        document.getElementById(targetId).classList.toggle('open');
+                    } else {
+                         const content = button.nextElementSibling;
+                         if (content) content.classList.toggle('open');
+                         const svg = button.querySelector('svg');
+                         if (svg) svg.classList.toggle('rotate-180');
+                    }
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
